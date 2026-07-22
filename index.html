@@ -1,33 +1,209 @@
-const NODE_API = "http://42.96.5.132:9033/";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Phoenix Network | APXC Protocol</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --sky-primary: #00a8ff;
+            --sky-dark: #0077b6;
+            --sky-bg: #eef9ff;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+        }
+        body {
+            background-color: var(--sky-bg);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar-sky {
+            background: linear-gradient(135deg, #00a8ff, #0077b6);
+            box-shadow: 0 4px 15px rgba(0, 168, 255, 0.3);
+        }
+        .hero-section {
+            padding: 50px 0 30px;
+            background: radial-gradient(circle at top, #e0f2fe, #eef9ff);
+        }
+        .card-custom {
+            background: var(--card-bg);
+            border: 1px solid #bae6fd;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 168, 255, 0.08);
+            transition: transform 0.3s ease;
+        }
+        .card-custom:hover {
+            transform: translateY(-5px);
+        }
+        .stat-val {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--sky-dark);
+        }
+        .pulse-icon {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        .hash-box {
+            font-family: monospace;
+            background: #f1f5f9;
+            padding: 10px 14px;
+            border-radius: 8px;
+            word-break: break-all;
+            color: #0369a1;
+        }
+    </style>
+</head>
+<body>
 
-async function fetchNodeData() {
-    try {
-        const response = await fetch(NODE_API, { mode: 'cors' });
-        if (!response.ok) throw new Error("Node Response Error");
-        
-        const data = await response.json();
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-sky sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="#"><i class="fa-solid fa-fire-flame-curved me-2"></i>APEX PHOENIX</a>
+            <span class="badge bg-light text-primary fw-semibold" id="nodeStatusBadge">
+                <i class="pulse-icon me-1"></i> Seed Node Active
+            </span>
+        </div>
+    </nav>
 
-        document.getElementById('currentBlock').innerText = "#" + data.current_block.toLocaleString();
-        document.getElementById('founderBalance').innerText = data.founder_balance_apxc;
-        document.getElementById('latestHash').innerText = data.latest_hash;
-        document.getElementById('founderAddr').innerText = data.founder_address;
+    <!-- HERO SECTION -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="fw-bold text-primary display-5 mb-2">APEX PHOENIX NETWORK</h1>
+            <p class="lead text-secondary mx-auto" style="max-width: 650px;">
+                Next-generation decentralized protocol engineered with precision timing, transparent emission, and native trading intelligence.
+            </p>
+        </div>
+    </section>
 
-        if (data.ohlc) {
-            document.getElementById('apxcPrice').innerText = "$" + data.ohlc.close.toFixed(4) + " USDT";
-            document.getElementById('ohlcDetail').innerText = 
-                `O: ${data.ohlc.open} | H: ${data.ohlc.high} | L: ${data.ohlc.low} | C: ${data.ohlc.close}`;
+    <!-- LIVE MONITORING DASHBOARD -->
+    <div class="container my-3">
+        <div class="row g-4">
+            
+            <!-- CURRENT BLOCK -->
+            <div class="col-md-4">
+                <div class="card card-custom p-4 text-center h-100">
+                    <div class="text-secondary mb-2"><i class="fa-solid fa-cube text-primary me-2"></i>Current Block</div>
+                    <div class="stat-val" id="currentBlock">#0</div>
+                    <small class="text-muted mt-2">1 Block / 60 Seconds</small>
+                </div>
+            </div>
+
+            <!-- APXC PRICE / CANDLE OHLC -->
+            <div class="col-md-4">
+                <div class="card card-custom p-4 text-center h-100">
+                    <div class="text-secondary mb-2"><i class="fa-solid fa-chart-line text-success me-2"></i>APXC Live Price</div>
+                    <div class="stat-val text-success" id="apxcPrice">$0.0500 USDT</div>
+                    <small class="text-muted mt-2" id="ohlcDetail">O: -- | H: -- | L: -- | C: --</small>
+                </div>
+            </div>
+
+            <!-- FOUNDER BALANCE -->
+            <div class="col-md-4">
+                <div class="card card-custom p-4 text-center h-100">
+                    <div class="text-secondary mb-2"><i class="fa-solid fa-wallet text-warning me-2"></i>Founder Reserve (5%)</div>
+                    <div class="stat-val text-warning" id="founderBalance">0 APXC</div>
+                    <small class="text-muted mt-2">Targeted Tokenomics Allocation</small>
+                </div>
+            </div>
+
+            <!-- LATEST HASH & FOUNDER ADDRESS -->
+            <div class="col-12">
+                <div class="card card-custom p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fw-bold text-secondary"><i class="fa-solid fa-hashtag me-2"></i>Latest Block Hash</span>
+                        <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill" id="liveTag">Live Network</span>
+                    </div>
+                    <div class="hash-box fs-6 mb-3" id="latestHash">Connecting to VPS Seed Node...</div>
+                    
+                    <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                        <small class="text-muted"><i class="fa-solid fa-key me-1"></i> Founder Address:</small>
+                        <small class="font-monospace text-primary fw-semibold text-truncate ms-2" style="max-width: 400px;" id="founderAddr">APX355DC38C8ABA6691A1C4020510982B01B87F43A6</small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- TOKENOMICS OVERVIEW -->
+    <div class="container my-4">
+        <div class="card card-custom p-4">
+            <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-pie-chart me-2"></i>Tokenomics Standard (84M APXC)</h5>
+            <div class="row text-center g-3">
+                <div class="col-md-4">
+                    <div class="p-3 border rounded-3 bg-light">
+                        <h3 class="fw-bold text-primary mb-1">85%</h3>
+                        <div class="text-muted small">Miner Pool (Light Nodes)</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 border rounded-3 bg-light">
+                        <h3 class="fw-bold text-info mb-1">10%</h3>
+                        <div class="text-muted small">Development Fund</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 border rounded-3 bg-light">
+                        <h3 class="fw-bold text-warning mb-1">5%</h3>
+                        <div class="text-muted small">Founder Reserve</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-4 text-muted border-top">
+        <small>© 2026 Apex Phoenix Network. All Protocol Rules Reserved.</small>
+    </footer>
+
+    <!-- LIVE DATA FETCHING SCRIPT -->
+    <script>
+        const NODE_API = "http://42.96.5.132:9033/";
+
+        async function fetchNodeData() {
+            try {
+                const response = await fetch(NODE_API, { mode: 'cors' });
+                if (!response.ok) throw new Error("Node Response Error");
+                
+                const data = await response.json();
+
+                document.getElementById('currentBlock').innerText = "#" + data.current_block.toLocaleString();
+                document.getElementById('founderBalance').innerText = data.founder_balance_apxc;
+                document.getElementById('latestHash').innerText = data.latest_hash;
+                document.getElementById('founderAddr').innerText = data.founder_address;
+
+                if (data.ohlc) {
+                    document.getElementById('apxcPrice').innerText = "$" + data.ohlc.close.toFixed(4) + " USDT";
+                    document.getElementById('ohlcDetail').innerText = 
+                        `O: ${data.ohlc.open} | H: ${data.ohlc.high} | L: ${data.ohlc.low} | C: ${data.ohlc.close}`;
+                }
+
+                document.getElementById('nodeStatusBadge').className = "badge bg-light text-primary fw-semibold";
+                document.getElementById('nodeStatusBadge').innerHTML = '<i class="pulse-icon me-1"></i> Seed Node Active';
+
+            } catch (error) {
+                console.warn("Node Fetch Notice:", error);
+                document.getElementById('nodeStatusBadge').className = "badge bg-warning text-dark fw-semibold";
+                document.getElementById('nodeStatusBadge').innerHTML = '<i class="fa-solid fa-shield-halved me-1"></i> HTTP Mixed Content Policy';
+            }
         }
 
-        document.getElementById('nodeStatusBadge').className = "badge bg-light text-primary fw-semibold";
-        document.getElementById('nodeStatusBadge').innerHTML = '<i class="pulse-icon me-1"></i> Seed Node Active';
-
-    } catch (error) {
-        console.warn("Node Fetch Notice:", error);
-        // Fallback hien thi khi trinh duyet chan HTTP mixed content
-        document.getElementById('nodeStatusBadge').className = "badge bg-warning text-dark fw-semibold";
-        document.getElementById('nodeStatusBadge').innerHTML = '<i class="fa-solid fa-shield-halved me-1"></i> HTTP Mixed Content Policy';
-    }
-}
-
-fetchNodeData();
-setInterval(fetchNodeData, 4000);
+        fetchNodeData();
+        setInterval(fetchNodeData, 4000);
+    </script>
+</body>
+</html>
