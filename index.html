@@ -318,13 +318,14 @@
         <small>© 2026 Apex Phoenix Network. All Protocol Rules Reserved.</small>
     </footer>
 
-    <!-- LIVE DATA FETCHING SCRIPT -->
+        <!-- LIVE DATA FETCHING SCRIPT (HTTPS PROXY ACTIVATED) -->
     <script>
-        const NODE_API = "http://42.96.5.132:9033/";
+        const RAW_NODE_API = "http://42.96.5.132:9033/";
+        const NODE_API = "https://corsproxy.io/?" + encodeURIComponent(RAW_NODE_API);
 
         async function fetchNodeData() {
             try {
-                const response = await fetch(NODE_API, { mode: 'cors' });
+                const response = await fetch(NODE_API);
                 if (!response.ok) throw new Error("Node Response Error");
                 
                 const data = await response.json();
@@ -346,7 +347,7 @@
             } catch (error) {
                 console.warn("Node Fetch Notice:", error);
                 document.getElementById('nodeStatusBadge').className = "badge bg-warning text-dark fw-semibold";
-                document.getElementById('nodeStatusBadge').innerHTML = '<i class="fa-solid fa-shield-halved me-1"></i> HTTP Mixed Content Policy';
+                document.getElementById('nodeStatusBadge').innerHTML = '<i class="fa-solid fa-triangle-exclamation me-1"></i> Connecting Node...';
             }
         }
 
