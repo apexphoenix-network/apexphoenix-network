@@ -65,60 +65,42 @@
             color: #0369a1;
         }
         
-        /* HIEU UNG LOGO CHUAN V24.14 */
-        .apex-logo-nav {
-            filter: drop-shadow(0px 0px 6px rgba(255, 165, 0, 0.8));
-            transition: transform 0.3s ease;
-        }
+        /* LOGO CHUAN TINH CHINH */
         .apex-logo-hero {
-            width: 140px;
-            height: 140px;
-            filter: drop-shadow(0px 8px 25px rgba(255, 140, 0, 0.4));
-            animation: floatLogo 3.5s ease-in-out infinite;
-        }
-        @keyframes floatLogo {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
+            width: 160px;
+            height: 160px;
+            filter: drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.15));
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR WITH ORIGINAL APEX LOGO -->
+    <!-- NAVBAR WITH APEX LOGO -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sky sticky-top py-2">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4 d-flex align-items-center" href="#">
-                <!-- APEX SVG LOGO NAVBAR -->
-                <svg class="apex-logo-nav me-2" width="38" height="38" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="100" cy="100" r="90" fill="#121824" stroke="#B8860B" stroke-width="2"/>
-                    <circle cx="100" cy="100" r="82" fill="none" stroke="#DAA520" stroke-width="1.5" stroke-dasharray="6 4"/>
-                    <!-- Wings -->
-                    <polygon points="50,140 25,100 85,70 70,115" fill="url(#goldWing1)"/>
-                    <polygon points="150,140 175,100 115,70 130,115" fill="url(#goldWing1)"/>
-                    <polygon points="65,135 45,95 90,75 80,115" fill="url(#goldWing2)"/>
-                    <polygon points="135,135 155,95 110,75 120,115" fill="url(#goldWing2)"/>
-                    <!-- Center Arrow / Flame -->
-                    <polygon points="100,35 75,90 100,80 125,90" fill="url(#arrowGrad)"/>
-                    <polygon points="100,80 85,135 100,120 115,135" fill="#FF4500"/>
-                    <circle cx="100" cy="100" r="4" fill="#FFF"/>
+                <!-- APEX LOGO MINI NAVBAR -->
+                <svg width="36" height="36" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="95" fill="#121824" stroke="#D4AF37" stroke-width="3"/>
+                    <circle cx="100" cy="100" r="85" fill="none" stroke="#D4AF37" stroke-width="2" stroke-dasharray="8 6"/>
+                    <!-- Left Wings -->
+                    <polygon points="50,135 15,100 80,72 80,110" fill="url(#wingGrad1)"/>
+                    <polygon points="65,145 35,115 85,82 85,120" fill="url(#wingGrad2)"/>
+                    <!-- Right Wings -->
+                    <polygon points="150,135 185,100 120,72 120,110" fill="url(#wingGrad1)"/>
+                    <polygon points="135,145 165,115 115,82 115,120" fill="url(#wingGrad2)"/>
+                    <!-- Arrow Center -->
+                    <polygon points="100,35 65,95 100,85 135,95" fill="url(#arrowTop)"/>
+                    <polygon points="100,85 75,140 100,125 125,140" fill="url(#arrowBottom)"/>
+                    <circle cx="100" cy="100" r="4.5" fill="#FFF"/>
                     <defs>
-                        <linearGradient id="goldWing1" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0%" stop-color="#FFD700"/>
-                            <stop offset="100%" stop-color="#FF4500"/>
-                        </linearGradient>
-                        <linearGradient id="goldWing2" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0%" stop-color="#FF8C00"/>
-                            <stop offset="100%" stop-color="#B8860B"/>
-                        </linearGradient>
-                        <linearGradient id="arrowGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#FFFFE0"/>
-                            <stop offset="50%" stop-color="#FFD700"/>
-                            <stop offset="100%" stop-color="#FF8C00"/>
-                        </linearGradient>
+                        <linearGradient id="wingGrad1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFD700"/><stop offset="100%" stop-color="#FF5500"/></linearGradient>
+                        <linearGradient id="wingGrad2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FF8C00"/><stop offset="100%" stop-color="#D43F00"/></linearGradient>
+                        <linearGradient id="arrowTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFFFDD"/><stop offset="100%" stop-color="#FFB700"/></linearGradient>
+                        <linearGradient id="arrowBottom" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF4500"/><stop offset="100%" stop-color="#8B0000"/></linearGradient>
                     </defs>
                 </svg>
-                <span>APEX PHOENIX</span>
+                <span class="ms-2">APEX PHOENIX</span>
             </a>
             <span class="badge bg-light text-primary fw-semibold" id="nodeStatusBadge">
                 <i class="pulse-icon me-1"></i> Seed Node Active
@@ -129,41 +111,48 @@
     <!-- HERO SECTION -->
     <section class="hero-section text-center">
         <div class="container">
-            <!-- APEX LOGO BIG HERO -->
+            <!-- APEX LOGO EXACT CODEPEN MATCH -->
             <div class="mb-3">
                 <svg class="apex-logo-hero" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Dark Inner Circle -->
-                    <circle cx="100" cy="100" r="92" fill="#0D131D" stroke="#B8860B" stroke-width="2.5"/>
-                    <circle cx="100" cy="100" r="84" fill="none" stroke="#DAA520" stroke-width="2" stroke-dasharray="7 4"/>
-                    <!-- Outer Wings -->
-                    <polygon points="45,145 20,100 85,68 70,118" fill="url(#heroGoldWing1)"/>
-                    <polygon points="155,145 180,100 115,68 130,118" fill="url(#heroGoldWing1)"/>
-                    <!-- Inner Wings -->
-                    <polygon points="62,138 42,95 90,73 80,118" fill="url(#heroGoldWing2)"/>
-                    <polygon points="138,138 158,95 110,73 120,118" fill="url(#heroGoldWing2)"/>
-                    <!-- Arrow Spear -->
-                    <polygon points="100,30 72,88 100,78 128,88" fill="url(#heroArrow)"/>
-                    <polygon points="100,78 84,138 100,122 116,138" fill="url(#heroTail)"/>
-                    <circle cx="100" cy="98" r="4.5" fill="#FFFFFF"/>
+                    <!-- Circle Frame Dark Background -->
+                    <circle cx="100" cy="100" r="95" fill="#121824" stroke="#C5A059" stroke-width="3"/>
+                    <circle cx="100" cy="100" r="85" fill="none" stroke="#C5A059" stroke-width="2" stroke-dasharray="7 5"/>
+                    
+                    <!-- Wing Outer Left -->
+                    <polygon points="52,136 16,102 78,70 78,108" fill="url(#heroWing1)"/>
+                    <!-- Wing Inner Left -->
+                    <polygon points="68,148 36,116 86,82 86,120" fill="url(#heroWing2)"/>
+                    
+                    <!-- Wing Outer Right -->
+                    <polygon points="148,136 184,102 122,70 122,108" fill="url(#heroWing1)"/>
+                    <!-- Wing Inner Right -->
+                    <polygon points="132,148 164,116 114,82 114,120" fill="url(#heroWing2)"/>
+                    
+                    <!-- Center Spear Head -->
+                    <polygon points="100,32 64,96 100,84 136,96" fill="url(#heroSpearTop)"/>
+                    <!-- Center Spear Tail -->
+                    <polygon points="100,84 76,142 100,126 124,142" fill="url(#heroSpearBottom)"/>
+                    <!-- White Center Dot -->
+                    <circle cx="100" cy="100" r="4.5" fill="#FFFFFF"/>
 
                     <defs>
-                        <linearGradient id="heroGoldWing1" x1="0" y1="0" x2="1" y2="1">
+                        <linearGradient id="heroWing1" x1="0" y1="0" x2="1" y2="1">
                             <stop offset="0%" stop-color="#FFE066"/>
-                            <stop offset="60%" stop-color="#FF8800"/>
-                            <stop offset="100%" stop-color="#D43F00"/>
+                            <stop offset="50%" stop-color="#FF8800"/>
+                            <stop offset="100%" stop-color="#E63900"/>
                         </linearGradient>
-                        <linearGradient id="heroGoldWing2" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0%" stop-color="#FF9F1C"/>
-                            <stop offset="100%" stop-color="#9E2A2B"/>
-                        </linearGradient>
-                        <linearGradient id="heroArrow" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#FFFFCC"/>
-                            <stop offset="40%" stop-color="#FFD700"/>
-                            <stop offset="100%" stop-color="#FF7700"/>
-                        </linearGradient>
-                        <linearGradient id="heroTail" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#FF5500"/>
+                        <linearGradient id="heroWing2" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#FF9900"/>
                             <stop offset="100%" stop-color="#990000"/>
+                        </linearGradient>
+                        <linearGradient id="heroSpearTop" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#FFFFE0"/>
+                            <stop offset="60%" stop-color="#FFC107"/>
+                            <stop offset="100%" stop-color="#FF6F00"/>
+                        </linearGradient>
+                        <linearGradient id="heroSpearBottom" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#FF3300"/>
+                            <stop offset="100%" stop-color="#800000"/>
                         </linearGradient>
                     </defs>
                 </svg>
