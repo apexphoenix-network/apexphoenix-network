@@ -635,12 +635,12 @@
             <div class="modal-content rounded-4 border-0 shadow-lg" style="background: #ffffff;">
                 <div class="modal-header border-0 pb-0">
                     <h5 class="modal-fw-bold text-dark mb-0 d-flex align-items-center">
-                        <i class="fa-solid fa-wallet text-primary me-2"></i>Select Web3 Wallet (Live On-Chain)
+                        <i class="fa-solid fa-wallet text-primary me-2"></i>Select Web3 Wallet (BEP-20 Auto-Switch)
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
-                    <p class="text-muted small mb-3">Choose your preferred Web3 wallet application to authorize node access:</p>
+                    <p class="text-muted small mb-3">Choose your Web3 wallet application. System automatically aligns to BNB Smart Chain:</p>
                     
                     <div class="d-flex flex-column gap-2 mb-3">
                         <!-- 1. METAMASK EXTENSION / BROWSER -->
@@ -681,7 +681,7 @@
                     </div>
 
                     <div class="alert alert-warning py-2 small mb-0 text-center fw-bold" style="font-size: 0.78rem;">
-                        🔒 Mined APXC balance will be automatically locked & bound to your connected wallet address on-chain.
+                        ⚡ Network auto-switches to BNB Smart Chain (BEP-20) to guarantee transaction validity.
                     </div>
                 </div>
             </div>
@@ -933,12 +933,89 @@
         }
 
         function copyTokenContractAddress() {
+            const contractAddr = "0x89234F2B99E23108B7F43A60355DC38C8ABA6691";
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(contractAddr).then(() => {
+                    showCopySuccess();
+                }).catch(() => {
+                    fallbackCopyText(contractAddr);
+                });
+            } else {
+                fallbackCopyText(contractAddr);
+            }
+        }
+
+        function fallbackCopyText(text) {
             const input = document.getElementById('contractAddrInput');
             input.select();
-            document.execCommand('copy');
+            input.setSelectionRange(0, 99999);
+            try {
+                document.execCommand('copy');
+                showCopySuccess();
+            } catch (err) {
+                alert("Copy failed, please copy manually!");
+            }
+        }
+
+        function showCopySuccess() {
+            const btn = document.querySelector("button[onclick='copyTokenContractAddress()']");
+            if (btn) {
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check me-1"></i> Copied!';
+                btn.classList.remove('btn-warning');
+                btn.classList.add('btn-success');
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('btn-success');
+                    btn.classList.add('btn-warning');
+                }, 2000);
+            }
+        }
+
+        // TỰ ĐỘNG KIỂM TRA VÀ CHUYỂN SANG MẠNG BNB SMART CHAIN (BEP-20 / CHAIN ID 56)
+        async function checkAndSwitchBSCNetwork() {
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    // Yêu cầu đổi sang Chain ID 0x38 (BNB Smart Chain Mainnet)
+                    await window.ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: '0x38' }],
+                    });
+                    return true;
+                } catch (switchError) {
+                    // Lỗi 4902: Mạng chưa được khai báo trên ví -> Tự động thêm mới mạng BSC
+                    if (switchError.code === 4902) {
+                        try {
+                            await window.ethereum.request({
+                                method: 'wallet_addEthereumChain',
+                                params: [
+                                    {
+                                        chainId: '0x38',
+                                        chainName: 'BNB Smart Chain Mainnet',
+                                        nativeCurrency: {
+                                            name: 'BNB',
+                                            symbol: 'BNB',
+                                            decimals: 18
+                                        },
+                                        rpcUrls: ['https://bsc-dataseed.binance.org/'],
+                                        blockExplorerUrls: ['https://bscscan.com/']
+                                    },
+                                ],
+                            });
+                            return true;
+                        } catch (addError) {
+                            return false;
+                        }
+                    }
+                    return false;
+                }
+            }
+            return false;
         }
 
         async function addApxcTokenToWallet() {
+            await checkAndSwitchBSCNetwork();
             const tokenAddress = '0x89234F2B99E23108B7F43A60355DC38C8ABA6691';
             const tokenSymbol = 'APXC';
             const tokenDecimals = 18;
@@ -969,6 +1046,7 @@
                 try {
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     if (accounts && accounts.length > 0) {
+                        await checkAndSwitchBSCNetwork();
                         setConnectedWallet(accounts[0]);
                         closeWalletModal();
                     }
@@ -983,6 +1061,7 @@
                 try {
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     if (accounts && accounts.length > 0) {
+                        await checkAndSwitchBSCNetwork();
                         setConnectedWallet(accounts[0]);
                         closeWalletModal();
                     }
@@ -1027,6 +1106,7 @@
                 try {
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     if (accounts && accounts.length > 0) {
+                        await checkAndSwitchBSCNetwork();
                         setConnectedWallet(accounts[0]);
                     }
                 } catch (error) {
@@ -1123,14 +1203,16 @@
             }
         }
 
-        function claimMinedTokens() {
+        async function claimMinedTokens() {
             if (unclaimedAPXC <= 0) return;
             if (!userWalletAddress) {
                 toggleWalletConnect();
                 return;
             }
 
-            alert(`Requesting On-Chain Minting & Transfer of ${unclaimedAPXC.toFixed(4)} APXC to ${userWalletAddress}...\nContract: 0x8923...6691`);
+            await checkAndSwitchBSCNetwork();
+
+            alert(`Requesting On-Chain Minting & Transfer of ${unclaimedAPXC.toFixed(4)} APXC to ${userWalletAddress}...\nContract: 0x8923...6691\nNetwork: BNB Smart Chain (BEP-20)`);
             
             unclaimedAPXC = 0.0000;
             if (userWalletAddress) {
