@@ -644,14 +644,14 @@
     </div>
 
     <!-- WEB3 WALLET SELECTION MODAL (MULTI-WALLET UNIVERSAL DEEP LINKS) -->
-    <div class="modal fade" id="walletConnectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="walletConnectModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-4 border-0 shadow-lg" style="background: #ffffff;">
                 <div class="modal-header border-0 pb-0">
                     <h5 class="modal-fw-bold text-dark mb-0 d-flex align-items-center">
                         <i class="fa-solid fa-wallet text-primary me-2"></i>Select Web3 Wallet (BEP-20 Auto-Switch)
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" onclick="closeWalletModal()"></button>
                 </div>
                 <div class="modal-body p-4">
                     <p class="text-muted small mb-3">Choose your Web3 wallet application. System automatically aligns to BNB Smart Chain:</p>
@@ -1051,7 +1051,7 @@
                     });
                 } catch (error) {}
             } else {
-                openWalletModalOnly();
+                openWalletModalExplicit();
             }
         }
 
@@ -1091,20 +1091,14 @@
                 const modalObj = bootstrap.Modal.getInstance(modalEl);
                 if (modalObj) modalObj.hide();
             }
-            // Xóa triệt để các backdrop đen phủ màn hình nếu có
             document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
             document.body.classList.remove('modal-open');
             document.body.style.paddingRight = '';
         }
 
-        function openWalletModalOnly() {
-            // KHÓA BẢO VỆ: Nếu đã có ví thì CẤM tuyệt đối không được mở Modal
-            const savedWallet = localStorage.getItem('apxc_active_wallet');
-            if (savedWallet || userWalletAddress) {
-                closeWalletModal();
-                return;
-            }
-
+        // BẮT BUỘC CHỈ MỞ MODAL KHI CÓ THAO TÁC BẤM CHỦ ĐỘNG
+        function openWalletModalExplicit() {
+            closeWalletModal();
             const modalEl = document.getElementById('walletConnectModal');
             if (modalEl) {
                 const modalObj = new bootstrap.Modal(modalEl);
@@ -1112,10 +1106,11 @@
             }
         }
 
-        // TỰ ĐỘNG KHÔI PHỤC VÍ NGẦM TỪ BỘ NHỚ LỚN (LOCALSTORAGE)
+        // TỰ ĐỘNG LẤY VÍ TỪ LOCALSTORAGE MÀ TUYỆT ĐỐI KHÔNG BẬT MODAL
         function checkPersistedWallet() {
+            closeWalletModal(); // Ép ẩn tất cả Modal ngầm
             const savedWallet = localStorage.getItem('apxc_active_wallet');
-            if (savedWallet) {
+            if (savedWallet && savedWallet.startsWith('0x')) {
                 userWalletAddress = savedWallet;
                 
                 const txt = document.getElementById('walletTxt');
@@ -1127,11 +1122,11 @@
                     btn.className = "btn btn-success btn-sm text-white fw-bold rounded-pill shadow-sm";
                 }
                 
-                // Đảm bảo Modal bị ẩn đi nếu bị bật nhầm
-                closeWalletModal();
-
                 loadMiningStateForWallet();
                 updateReferralLink();
+            } else {
+                // Chưa từng kết nối ví -> Giữ nguyên nút Connect Wallet, KHÔNG TỰ BẬT MODAL
+                stopMiningProcess();
             }
         }
 
@@ -1152,6 +1147,7 @@
             updateReferralLink();
         }
 
+        // BẤM VÀO NÚT TRÊN BAR MỚI MỞ MODAL HOẶC HỎI DISCONNECT
         async function toggleWalletConnect() {
             if (userWalletAddress) {
                 if (confirm("Disconnect wallet " + userWalletAddress + "?")) {
@@ -1165,7 +1161,7 @@
                 return;
             }
 
-            openWalletModalOnly();
+            openWalletModalExplicit();
         }
 
         function loadMiningStateForWallet() {
@@ -1207,7 +1203,7 @@
 
         function startMiningProcess(isNewEpoch = true) {
             if (!userWalletAddress) {
-                openWalletModalOnly();
+                openWalletModalExplicit();
                 return;
             }
 
@@ -1286,7 +1282,7 @@
 
         function toggleMining() {
             if (!userWalletAddress) {
-                openWalletModalOnly();
+                openWalletModalExplicit();
                 return;
             }
 
@@ -1309,7 +1305,7 @@
 
         function stakeTokens() {
             if (!userWalletAddress) {
-                openWalletModalOnly();
+                openWalletModalExplicit();
                 return;
             }
             const select = document.getElementById('lockDurationSelect');
@@ -1668,7 +1664,7 @@
             }
         }
 
-        // TỰ ĐỘNG ĐỒNG BỘ DỮ LIỆU KHI MỞ LẠI TAB DAPP
+        // TỰ ĐỘNG ĐỒNG BỘ DỮ LIỆU KHI MỞ LẠI TAB DAPP - ĐẢM BẢO XOÁ MODAL ĐEN
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible') {
                 checkPersistedWallet();
@@ -1677,7 +1673,7 @@
 
         window.onload = () => {
             initTradingChart();
-            checkPersistedWallet(); // KHÔI PHỤC NGẦM VÍ & TRẠNG THÁI ĐÀO
+            checkPersistedWallet(); // TỰ ĐỘNG LẤY LẠI VÍ NGẦM VÀ TẮT MODAL BỊ BẬT TRỐN
             fetchNodeData();
             setInterval(fetchNodeData, 4000);
             checkReferralQuery();
