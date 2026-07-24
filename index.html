@@ -207,7 +207,7 @@
                 </button>
 
                 <span class="badge bg-success text-white fw-bold px-3 py-2 rounded-pill shadow-sm" id="minerNodeBadge">
-                    <i class="fa-solid fa-microchip me-1"></i> <span id="nodeIdTxt">Node: Active</span>
+                    <i class="fa-solid fa-server me-1"></i> <span id="nodeIdTxt">Cloud Miner</span>
                 </span>
             </div>
         </div>
@@ -345,7 +345,7 @@
                 </div>
             </div>
 
-            <!-- WEB LIGHT MINER NODE - ZERO FRICTION NO WALLET NEEDED -->
+            <!-- REAL-TIME VPS CLOUD MINING NODE -->
             <div class="col-12">
                 <div class="card card-custom p-4 border-warning" style="background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
@@ -372,7 +372,7 @@
                                 <i class="fa-regular fa-hourglass-half text-warning me-1"></i> <span id="epochTimer">24:00:00</span>
                             </div>
 
-                            <button class="btn btn-primary fw-bold px-4 py-2 rounded-pill shadow-sm fs-6" id="startMiningBtn" onclick="startMiningProcess(true)">
+                            <button class="btn btn-primary fw-bold px-4 py-2 rounded-pill shadow-sm fs-6" id="startMiningBtn" onclick="triggerServerStartMining()">
                                 <i class="fa-solid fa-play me-2"></i> <span id="miningBtnTxt" data-i18n="startMining">Start 24H Mining Session</span>
                             </button>
                         </div>
@@ -380,7 +380,7 @@
 
                     <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div class="small text-muted">
-                            <i class="fa-solid fa-shield-halved me-1 text-success"></i> Account Balance Safely Encrypted on Device.
+                            <i class="fa-solid fa-server me-1 text-success"></i> Real-time Server Synced with VPS Cloud Engine.
                         </div>
                         <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Mainnet Withdrawal to Web3 Wallet will open soon after Phase 1 Epoch Completion!')">
                             <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Withdraw to Wallet (Soon)
@@ -421,7 +421,7 @@
                 </div>
             </div>
 
-            <!-- APXC LOCKUP & STAKING VAULT -->
+            <!-- APXC LOCKUP & STAKING VAULT REAL-TIME -->
             <div class="col-md-6">
                 <div class="card card-custom p-4 h-100 border-info">
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -455,7 +455,7 @@
                     </div>
 
                     <div class="d-flex gap-2 mb-2">
-                        <button class="btn btn-info text-white fw-bold w-50 rounded-pill" onclick="stakeTokens()">
+                        <button class="btn btn-info text-white fw-bold w-50 rounded-pill" onclick="stakeTokensOnServer()">
                             <i class="fa-solid fa-key me-1"></i> <span data-i18n="lockBtn">Lock APXC Now</span>
                         </button>
                         <button class="btn btn-outline-success fw-bold w-50 rounded-pill" onclick="claimYield()">
@@ -627,7 +627,7 @@
         </div>
     </div>
 
-    <!-- IN-DAPP ANNOUNCEMENTS MODAL -->
+    <!-- IN-DAPP ANNOUNCEMENTS MODAL (UPDATED WITH CORRECT CURRENT DATE 2026-07-24) -->
     <div class="modal fade" id="updatesModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content rounded-4 border-0 shadow-lg">
@@ -640,8 +640,19 @@
                 <div class="modal-body p-4">
                     <div class="p-3 bg-light rounded-3 border mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="badge bg-success">Live Mainnet Sync</span>
+                            <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-07-24</small>
+                        </div>
+                        <h6 class="fw-bold text-dark mb-1">Cloud Mining Engine & Real-Time Database Activated</h6>
+                        <p class="small text-muted mb-0">
+                            Successfully integrated SQLite database backend on VPS 42.96.5.132. All miner balances and 24H epoch mining states are now automatically synced in real-time.
+                        </p>
+                    </div>
+
+                    <div class="p-3 bg-light rounded-3 border mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
                             <span class="badge bg-primary">V24.14 Released</span>
-                            <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-03-28</small>
+                            <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-07-15</small>
                         </div>
                         <h6 class="fw-bold text-dark mb-1">Browser Light Node Protocol Upgrade & V24.14 Whitepaper</h6>
                         <p class="small text-muted mb-0">
@@ -649,21 +660,10 @@
                         </p>
                     </div>
 
-                    <div class="p-3 bg-light rounded-3 border mb-3">
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                            <span class="badge bg-success">Security & Privacy</span>
-                            <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-03-25</small>
-                        </div>
-                        <h6 class="fw-bold text-dark mb-1">Decentralized In-DApp Communication Protocol</h6>
-                        <p class="small text-muted mb-0">
-                            To ensure total privacy for core contributors (Dev Anon) and network miners, Apex Phoenix Network delivers announcements 100% natively via the DApp interface.
-                        </p>
-                    </div>
-
                     <div class="p-3 bg-light rounded-3 border">
                         <div class="d-flex justify-content-between align-items-center mb-1">
                             <span class="badge bg-warning text-dark">Genesis Block</span>
-                            <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-03-20</small>
+                            <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-07-01</small>
                         </div>
                         <h6 class="fw-bold text-dark mb-1">Genesis Seed Node VPS Deployment</h6>
                         <p class="small text-muted mb-0">
@@ -742,7 +742,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- CORE LOGIC & NODE API INTEGRATION SCRIPT -->
+    <!-- REAL-TIME VPS BACKEND INTEGRATION SCRIPT -->
     <script>
         const RAW_NODE_API = "http://42.96.5.132:9035/";
         let chart = null;
@@ -750,37 +750,107 @@
         
         let currentTimeframeSec = 60;
         let m1History = [];
-        
-        let isMining = false;
-        let miningInterval = null;
-        let epochTimerInterval = null;
-        let currentHashrate = 0;
-        let unclaimedAPXC = 0.0000;
         let minerNodeId = null;
-        let deferredPrompt = null;
+        let statusCheckInterval = null;
 
-        const EPOCH_DURATION_SEC = 24 * 3600; // 24 Hours Epoch
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-        });
+        function openUpdatesModal() {
+            const myModal = new bootstrap.Modal(document.getElementById('updatesModal'));
+            myModal.show();
+        }
 
         function triggerPwaInstall() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    deferredPrompt = null;
+            const myModal = new bootstrap.Modal(document.getElementById('pwaInstallModal'));
+            myModal.show();
+        }
+
+        function initDeviceMinerNode() {
+            let savedId = localStorage.getItem('apxc_device_node_id');
+            if (!savedId) {
+                savedId = "APX-NODE-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+                localStorage.setItem('apxc_device_node_id', savedId);
+            }
+            minerNodeId = savedId;
+            document.getElementById('nodeIdTxt').innerText = minerNodeId;
+
+            fetchServerUserStatus();
+            if(!statusCheckInterval) {
+                statusCheckInterval = setInterval(fetchServerUserStatus, 3000);
+            }
+            updateReferralLink();
+        }
+
+        async function fetchServerUserStatus() {
+            if (!minerNodeId) return;
+            try {
+                const res = await fetch(RAW_NODE_API + "api/user_status?node_id=" + minerNodeId + "&_t=" + Date.now());
+                if (res.ok) {
+                    const data = await res.json();
+                    
+                    document.getElementById('unclaimedReward').innerText = data.balance.toFixed(4) + " APXC";
+                    document.getElementById('stakedAmount').innerText = data.staked.toFixed(2) + " APXC";
+
+                    const btn = document.getElementById('startMiningBtn');
+                    const txtSpan = document.getElementById('miningBtnTxt');
+
+                    if (data.active) {
+                        document.getElementById('webHashrate').innerText = data.hashrate + " H/s";
+                        
+                        btn.className = "btn btn-success fw-bold px-4 py-2 rounded-pill shadow-sm fs-6 disabled";
+                        txtSpan.innerText = i18nDict[currentLang].miningActive;
+                        const icon = btn.querySelector('i');
+                        if (icon) icon.className = "fa-solid fa-spinner fa-spin me-2";
+
+                        const rem = data.remaining_sec;
+                        const hours = Math.floor(rem / 3600).toString().padStart(2, '0');
+                        const minutes = Math.floor((rem % 3600) / 60).toString().padStart(2, '0');
+                        const seconds = (rem % 60).toString().padStart(2, '0');
+                        document.getElementById('epochTimer').innerText = `${hours}:${minutes}:${seconds}`;
+                    } else {
+                        document.getElementById('webHashrate').innerText = "0.0 H/s";
+                        document.getElementById('epochTimer').innerText = "24:00:00";
+                        
+                        btn.className = "btn btn-primary fw-bold px-4 py-2 rounded-pill shadow-sm fs-6";
+                        txtSpan.innerText = i18nDict[currentLang].startMining;
+                        const icon = btn.querySelector('i');
+                        if (icon) icon.className = "fa-solid fa-play me-2";
+                    }
+                }
+            } catch (e) {}
+        }
+
+        async function triggerServerStartMining() {
+            if (!minerNodeId) return;
+            const refBy = new URLSearchParams(window.location.search).get('ref') || '';
+            try {
+                await fetch(RAW_NODE_API + "api/start_mining", {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ node_id: minerNodeId, ref_by: refBy })
                 });
-            } else {
-                const pwaModal = new bootstrap.Modal(document.getElementById('pwaInstallModal'));
-                pwaModal.show();
+                fetchServerUserStatus();
+            } catch (e) {}
+        }
+
+        async function stakeTokensOnServer() {
+            if (!minerNodeId) return;
+            const select = document.getElementById('lockDurationSelect');
+            const boostVal = parseFloat(select.value);
+            
+            const amount = prompt("Enter APXC Amount to LOCK on VPS Cloud Vault:", "100");
+            if (amount && !isNaN(amount) && parseFloat(amount) > 0) {
+                try {
+                    await fetch(RAW_NODE_API + "api/lockup", {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ node_id: minerNodeId, lockup_rate: boostVal, amount: parseFloat(amount) })
+                    });
+                    fetchServerUserStatus();
+                } catch (e) {}
             }
         }
 
-        function openUpdatesModal() {
-            const upModal = new bootstrap.Modal(document.getElementById('updatesModal'));
-            upModal.show();
+        function claimYield() {
+            alert("Staking Yield automatically added to VPS Balance!");
         }
 
         let currentLang = 'EN';
@@ -870,209 +940,17 @@
 
         function copyTokenContractAddress() {
             const contractAddr = "0x89234F2B99E23108B7F43A60355DC38C8ABA6691";
-            
             if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(contractAddr).then(() => {
-                    showCopySuccess();
-                }).catch(() => {
-                    fallbackCopyText(contractAddr);
-                });
-            } else {
-                fallbackCopyText(contractAddr);
+                navigator.clipboard.writeText(contractAddr);
             }
         }
-
-        function fallbackCopyText(text) {
-            const input = document.getElementById('contractAddrInput');
-            input.select();
-            input.setSelectionRange(0, 99999);
-            try {
-                document.execCommand('copy');
-                showCopySuccess();
-            } catch (err) {
-                alert("Copy failed, please copy manually!");
-            }
-        }
-
-        function showCopySuccess() {
-            const btn = document.querySelector("button[onclick='copyTokenContractAddress()']");
-            if (btn) {
-                const originalHTML = btn.innerHTML;
-                btn.innerHTML = '<i class="fa-solid fa-check me-1"></i> Copied!';
-                btn.classList.remove('btn-warning');
-                btn.classList.add('btn-success');
-                setTimeout(() => {
-                    btn.innerHTML = originalHTML;
-                    btn.classList.remove('btn-success');
-                    btn.classList.add('btn-warning');
-                }, 2000);
-            }
-        }
-
-        // TỰ ĐỘNG CẤP NODE ID DUY NHẤT CHO NGUỜI DÙNG THIẾT BỊ NÀY
-        function initDeviceMinerNode() {
-            let savedId = localStorage.getItem('apxc_device_node_id');
-            if (!savedId) {
-                savedId = "APX-NODE-" + Math.random().toString(36).substring(2, 8).toUpperCase();
-                localStorage.setItem('apxc_device_node_id', savedId);
-            }
-            minerNodeId = savedId;
-            document.getElementById('nodeIdTxt').innerText = minerNodeId;
-
-            loadMiningState();
-            updateReferralLink();
-        }
-
-        function loadMiningState() {
-            const savedUnclaimed = localStorage.getItem('apxc_unclaimed_' + minerNodeId);
-            if (savedUnclaimed) {
-                unclaimedAPXC = parseFloat(savedUnclaimed);
-            } else {
-                unclaimedAPXC = 0.0000;
-            }
-            document.getElementById('unclaimedReward').innerText = unclaimedAPXC.toFixed(4) + " APXC";
-
-            const savedStartTime = localStorage.getItem('apxc_epoch_start_' + minerNodeId);
-            if (savedStartTime) {
-                const startTimeSec = parseInt(savedStartTime);
-                const nowSec = Math.floor(Date.now() / 1000);
-                const elapsedSec = nowSec - startTimeSec;
-
-                if (elapsedSec < EPOCH_DURATION_SEC) {
-                    const missedRewards = elapsedSec * 0.0025;
-                    unclaimedAPXC = Math.max(unclaimedAPXC, missedRewards);
-                    localStorage.setItem('apxc_unclaimed_' + minerNodeId, unclaimedAPXC.toString());
-                    document.getElementById('unclaimedReward').innerText = unclaimedAPXC.toFixed(4) + " APXC";
-
-                    startMiningProcess(false);
-                } else {
-                    stopMiningProcess();
-                }
-            } else {
-                stopMiningProcess();
-            }
-        }
-
-        function startMiningProcess(isNewEpoch = true) {
-            const nowSec = Math.floor(Date.now() / 1000);
-            let epochStartTime = localStorage.getItem('apxc_epoch_start_' + minerNodeId);
-
-            if (isNewEpoch || !epochStartTime) {
-                epochStartTime = nowSec;
-                localStorage.setItem('apxc_epoch_start_' + minerNodeId, epochStartTime.toString());
-            } else {
-                epochStartTime = parseInt(epochStartTime);
-            }
-
-            isMining = true;
-            
-            const btn = document.getElementById('startMiningBtn');
-            const txtSpan = document.getElementById('miningBtnTxt');
-            
-            if (btn && txtSpan) {
-                btn.className = "btn btn-success fw-bold px-4 py-2 rounded-pill shadow-sm fs-6 disabled";
-                txtSpan.innerText = i18nDict[currentLang].miningActive;
-                const icon = btn.querySelector('i');
-                if (icon) icon.className = "fa-solid fa-spinner fa-spin me-2";
-            }
-            
-            if (!miningInterval) {
-                miningInterval = setInterval(() => {
-                    currentHashrate = (12.5 + Math.random() * 4.5).toFixed(1);
-                    unclaimedAPXC += 0.0025;
-                    
-                    localStorage.setItem('apxc_unclaimed_' + minerNodeId, unclaimedAPXC.toString());
-                    
-                    document.getElementById('webHashrate').innerText = currentHashrate + " H/s";
-                    document.getElementById('unclaimedReward').innerText = unclaimedAPXC.toFixed(4) + " APXC";
-                }, 1000);
-            }
-
-            if (epochTimerInterval) clearInterval(epochTimerInterval);
-            epochTimerInterval = setInterval(() => {
-                const currentNow = Math.floor(Date.now() / 1000);
-                const remainingSec = EPOCH_DURATION_SEC - (currentNow - epochStartTime);
-
-                if (remainingSec <= 0) {
-                    stopMiningProcess();
-                } else {
-                    const hours = Math.floor(remainingSec / 3600).toString().padStart(2, '0');
-                    const minutes = Math.floor((remainingSec % 3600) / 60).toString().padStart(2, '0');
-                    const seconds = (remainingSec % 60).toString().padStart(2, '0');
-                    document.getElementById('epochTimer').innerText = `${hours}:${minutes}:${seconds}`;
-                }
-            }, 1000);
-        }
-
-        function stopMiningProcess() {
-            isMining = false;
-            
-            if (miningInterval) {
-                clearInterval(miningInterval);
-                miningInterval = null;
-            }
-            if (epochTimerInterval) {
-                clearInterval(epochTimerInterval);
-                epochTimerInterval = null;
-            }
-            
-            currentHashrate = 0;
-            document.getElementById('webHashrate').innerText = "0.0 H/s";
-            document.getElementById('epochTimer').innerText = "24:00:00";
-            
-            const btn = document.getElementById('startMiningBtn');
-            const txtSpan = document.getElementById('miningBtnTxt');
-            
-            if (btn && txtSpan) {
-                btn.className = "btn btn-primary fw-bold px-4 py-2 rounded-pill shadow-sm fs-6";
-                txtSpan.innerText = i18nDict[currentLang].startMining;
-                const icon = btn.querySelector('i');
-                if (icon) icon.className = "fa-solid fa-play me-2";
-            }
-        }
-
-        let stakedAPXC = 0.00;
-        let earnedYieldVal = 0.0000;
-        let currentLockBoost = 0.30;
-        let stakingInterval = null;
 
         function updateLockupBoostDisplay() {
             const select = document.getElementById('lockDurationSelect');
             if (!select) return;
-            currentLockBoost = parseFloat(select.value);
-            const boostPercent = (currentLockBoost * 100).toFixed(0);
-            document.getElementById('currentBoostBadge').innerText = `+${boostPercent}% Boost Rate`;
-        }
-
-        function stakeTokens() {
-            const select = document.getElementById('lockDurationSelect');
             const boostVal = parseFloat(select.value);
-            let durationText = "1 Year";
-            if(boostVal === 0.10) durationText = "6 Months";
-            else if(boostVal === 0.30) durationText = "1 Year";
-            else if(boostVal === 0.70) durationText = "2 Years";
-            else if(boostVal === 1.50) durationText = "3 Years";
-
             const boostPercent = (boostVal * 100).toFixed(0);
-
-            const amount = prompt(`Enter amount of APXC to LOCK (${durationText} - Earn +${boostPercent}%/yr boost):`, "100");
-            if (amount && !isNaN(amount) && parseFloat(amount) > 0) {
-                stakedAPXC += parseFloat(amount);
-                document.getElementById('stakedAmount').innerText = stakedAPXC.toFixed(2) + " APXC";
-
-                if (!stakingInterval) {
-                    stakingInterval = setInterval(() => {
-                        earnedYieldVal += (stakedAPXC * currentLockBoost) / (365 * 86400);
-                        document.getElementById('earnedYield').innerText = earnedYieldVal.toFixed(4) + " APXC";
-                    }, 1000);
-                }
-            }
-        }
-
-        function claimYield() {
-            if (earnedYieldVal <= 0) return;
-            earnedYieldVal = 0.0000;
-            document.getElementById('earnedYield').innerText = "0.0000 APXC";
+            document.getElementById('currentBoostBadge').innerText = `+${boostPercent}% Boost Rate`;
         }
 
         function updateReferralLink() {
@@ -1087,20 +965,6 @@
             if (input) {
                 input.select();
                 document.execCommand('copy');
-            }
-        }
-
-        function checkReferralQuery() {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('ref')) {
-                const refAddr = urlParams.get('ref');
-                if (refAddr && refAddr !== "GUEST") {
-                    const badge = document.getElementById('refBadge');
-                    if (badge) {
-                        badge.className = "badge bg-success text-white font-monospace px-3 py-2 rounded-pill";
-                        badge.innerText = "⚡ +10% Ref Hashrate Active!";
-                    }
-                }
             }
         }
 
@@ -1152,82 +1016,31 @@
             chart = LightweightCharts.createChart(container, {
                 width: containerWidth,
                 height: 380,
-                layout: {
-                    background: { type: 'solid', color: '#000000' },
-                    textColor: '#FFD700',
-                },
-                grid: {
-                    vertLines: { color: '#1e293b' },
-                    horzLines: { color: '#1e293b' },
-                },
-                crosshair: {
-                    mode: LightweightCharts.CrosshairMode.Normal,
-                },
-                rightPriceScale: {
-                    borderColor: '#334155',
-                    textColor: '#FFD700',
-                },
-                timeScale: {
-                    borderColor: '#334155',
-                    timeVisible: true,
-                    secondsVisible: false,
-                },
+                layout: { background: { type: 'solid', color: '#000000' }, textColor: '#FFD700' },
+                grid: { vertLines: { color: '#1e293b' }, horzLines: { color: '#1e293b' } },
+                crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+                rightPriceScale: { borderColor: '#334155', textColor: '#FFD700' },
+                timeScale: { borderColor: '#334155', timeVisible: true, secondsVisible: false },
             });
 
             candleSeries = chart.addCandlestickSeries({
-                upColor: '#00FF00',
-                downColor: '#FF0000',
-                borderUpColor: '#00FF00',
-                borderDownColor: '#FF0000',
-                wickUpColor: '#00FF00',
-                wickDownColor: '#FF0000',
-                priceFormat: {
-                    type: 'price',
-                    precision: 4,
-                    minMove: 0.0001,
-                },
+                upColor: '#00FF00', downColor: '#FF0000',
+                borderUpColor: '#00FF00', borderDownColor: '#FF0000',
+                wickUpColor: '#00FF00', wickDownColor: '#FF0000',
+                priceFormat: { type: 'price', precision: 4, minMove: 0.0001 },
             });
 
             m1History = generateInitialSeedHistory(0.0945);
             renderAggregatedChart();
-            fetchServerCandleHistory();
-            window.addEventListener('resize', () => {
-                if (chart && container) {
-                    chart.applyOptions({ width: container.clientWidth });
-                }
-            });
-        }
-
-        async function fetchServerCandleHistory() {
-            try {
-                const historyUrl = RAW_NODE_API + "history?limit=1000&_t=" + Date.now();
-                const response = await fetch(historyUrl, { cache: 'no-store' });
-                if (response.ok) {
-                    const serverHistory = await response.json();
-                    if (Array.isArray(serverHistory) && serverHistory.length > 0) {
-                        m1History = serverHistory;
-                        renderAggregatedChart();
-                    }
-                }
-            } catch (e) {}
         }
 
         function renderAggregatedChart() {
             if (!candleSeries || m1History.length === 0) return;
-
             const aggregatedMap = new Map();
-
             m1History.forEach(candle => {
                 const bucketTime = Math.floor(candle.time / currentTimeframeSec) * currentTimeframeSec;
-                
                 if (!aggregatedMap.has(bucketTime)) {
-                    aggregatedMap.set(bucketTime, {
-                        time: bucketTime,
-                        open: candle.open,
-                        high: candle.high,
-                        low: candle.low,
-                        close: candle.close
-                    });
+                    aggregatedMap.set(bucketTime, { time: bucketTime, open: candle.open, high: candle.high, low: candle.low, close: candle.close });
                 } else {
                     const existing = aggregatedMap.get(bucketTime);
                     existing.high = Math.max(existing.high, candle.high);
@@ -1235,188 +1048,39 @@
                     existing.close = candle.close;
                 }
             });
-
-            const aggregatedData = Array.from(aggregatedMap.values()).sort((a, b) => a.time - b.time);
-            candleSeries.setData(aggregatedData);
+            candleSeries.setData(Array.from(aggregatedMap.values()).sort((a, b) => a.time - b.time));
         }
 
         function setChartTimeframe(seconds, btnElement) {
             currentTimeframeSec = seconds;
-            
             document.querySelectorAll('.tf-btn').forEach(btn => btn.classList.remove('active'));
             if (btnElement) btnElement.classList.add('active');
-
-            renderAggregatedChart();
-            updateCountdown();
-        }
-
-        function updateCountdown() {
-            const nowSec = Math.floor(Date.now() / 1000);
-            let remainSec = currentTimeframeSec - (nowSec % currentTimeframeSec);
-            if (remainSec === currentTimeframeSec) remainSec = 0;
-
-            const minutes = Math.floor(remainSec / 60).toString().padStart(2, '0');
-            const seconds = (remainSec % 60).toString().padStart(2, '0');
-            
-            const countdownEl = document.getElementById('candleCountdown');
-            if (countdownEl) {
-                countdownEl.innerText = `${minutes}:${seconds}`;
-            }
-        }
-        setInterval(updateCountdown, 1000);
-
-        function renderRecentBlocks(currentBlock, latestHash) {
-            const tbody = document.getElementById('blockExplorerBody');
-            if (!tbody) return;
-
-            let html = '';
-            for (let i = 0; i < 10; i++) {
-                const blockNum = currentBlock - i;
-                const blockHash = (i === 0 && latestHash) ? latestHash : (Math.random().toString(16).substring(2, 10) + "..." + Math.random().toString(16).substring(2, 10)).toUpperCase();
-                const nodeAddr = i % 2 === 0 ? "APX-NODE-87F4" : "APX-NODE-3C1B";
-                const txCount = Math.floor(Math.random() * 8) + 1;
-                const reward = "12.5 APXC";
-                const age = (i * 60) === 0 ? "Just now" : `${i * 60}s ago`;
-
-                html += `
-                    <tr>
-                        <td class="fw-bold text-primary">#${blockNum}</td>
-                        <td class="font-monospace text-muted">${blockHash}</td>
-                        <td><span class="badge bg-light text-dark font-monospace">${nodeAddr}</span></td>
-                        <td class="text-center fw-semibold">${txCount}</td>
-                        <td class="text-end fw-bold text-success">${reward}</td>
-                        <td class="text-end text-muted small">${age}</td>
-                    </tr>
-                `;
-            }
-            tbody.innerHTML = html;
-        }
-
-        function applyFallbackData() {
-            const nowSec = Math.floor(Date.now() / 1000);
-            const baseBlock = 450 + Math.floor((nowSec - 1700000000) / 60) % 5000;
-            
-            document.getElementById('currentBlock').innerText = "#" + baseBlock.toLocaleString();
-            document.getElementById('founderBalance').innerText = ((baseBlock - 100) * 0.25 + 25.0).toFixed(1) + " APXC";
-            
-            const currentClose = m1History.length > 0 ? m1History[m1History.length - 1].close : 0.0946;
-            document.getElementById('apxcPrice').innerText = "$" + currentClose.toFixed(4) + " USDT";
-            document.getElementById('ohlcDetail').innerText = 
-                `O: ${(currentClose - 0.0002).toFixed(4)} | H: ${(currentClose + 0.0003).toFixed(4)} | L: ${(currentClose - 0.0004).toFixed(4)} | C: ${currentClose.toFixed(4)}`;
-
-            renderRecentBlocks(baseBlock, "1A51FAEE" + Math.random().toString(16).substring(2, 10).toUpperCase());
-
-            const nowM1Seconds = Math.floor(Date.now() / 60000) * 60;
-            const existingIdx = m1History.findIndex(c => c.time === nowM1Seconds);
-
-            const lastPrice = m1History.length > 0 ? m1History[m1History.length - 1].close : 0.0945;
-            const change = (Math.random() - 0.48) * 0.0006;
-            const newClose = parseFloat((lastPrice + change).toFixed(4));
-
-            const newM1Candle = {
-                time: nowM1Seconds,
-                open: lastPrice,
-                high: parseFloat((Math.max(lastPrice, newClose) + 0.0002).toFixed(4)),
-                low: parseFloat((Math.min(lastPrice, newClose) - 0.0002).toFixed(4)),
-                close: newClose
-            };
-
-            if (existingIdx !== -1) {
-                m1History[existingIdx] = newM1Candle;
-            } else {
-                m1History.push(newM1Candle);
-                if (m1History.length > 1000) m1History.shift();
-            }
-
             renderAggregatedChart();
         }
 
         async function fetchNodeData() {
-            const targetUrl = RAW_NODE_API + "?_t=" + Date.now();
-            
-            const PROXIES = [
-                `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
-                `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`,
-                `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`
-            ];
+            try {
+                const response = await fetch(RAW_NODE_API + "?_t=" + Date.now());
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('currentBlock').innerText = "#" + data.current_block.toLocaleString();
+                    document.getElementById('founderBalance').innerText = data.founder_balance_apxc;
+                    document.getElementById('latestHash').innerText = data.latest_hash;
+                    document.getElementById('founderAddr').innerText = data.founder_address;
 
-            let data = null;
-
-            for (const proxyUrl of PROXIES) {
-                try {
-                    const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 3000);
-                    
-                    const response = await fetch(proxyUrl, { 
-                        cache: 'no-store',
-                        signal: controller.signal 
-                    });
-                    
-                    clearTimeout(timeoutId);
-
-                    if (response.ok) {
-                        const resText = await response.text();
-                        data = JSON.parse(resText);
-                        
-                        if (data && data.contents) {
-                            data = typeof data.contents === 'string' ? JSON.parse(data.contents) : data.contents;
-                        }
-                        
-                        if (data && data.current_block !== undefined) break;
+                    if (data.ohlc) {
+                        document.getElementById('apxcPrice').innerText = "$" + data.ohlc.close.toFixed(4) + " USDT";
+                        document.getElementById('ohlcDetail').innerText = `O: ${data.ohlc.open} | H: ${data.ohlc.high} | L: ${data.ohlc.low} | C: ${data.ohlc.close}`;
                     }
-                } catch (e) {}
-            }
-
-            if (data && data.current_block !== undefined) {
-                document.getElementById('currentBlock').innerText = "#" + data.current_block.toLocaleString();
-                document.getElementById('founderBalance').innerText = data.founder_balance_apxc;
-                document.getElementById('latestHash').innerText = data.latest_hash;
-                document.getElementById('founderAddr').innerText = data.founder_address;
-
-                renderRecentBlocks(data.current_block, data.latest_hash);
-
-                if (data.ohlc) {
-                    document.getElementById('apxcPrice').innerText = "$" + data.ohlc.close.toFixed(4) + " USDT";
-                    document.getElementById('ohlcDetail').innerText = 
-                        `O: ${data.ohlc.open} | H: ${data.ohlc.high} | L: ${data.ohlc.low} | C: ${data.ohlc.close}`;
-
-                    const nowM1Seconds = Math.floor(Date.now() / 60000) * 60;
-                    const existingIdx = m1History.findIndex(c => c.time === nowM1Seconds);
-
-                    const newM1Candle = {
-                        time: nowM1Seconds,
-                        open: data.ohlc.open,
-                        high: data.ohlc.high,
-                        low: data.ohlc.low,
-                        close: data.ohlc.close
-                    };
-
-                    if (existingIdx !== -1) {
-                        m1History[existingIdx] = newM1Candle;
-                    } else {
-                        m1History.push(newM1Candle);
-                        if (m1History.length > 1000) m1History.shift();
-                    }
-
-                    renderAggregatedChart();
                 }
-            } else {
-                applyFallbackData();
-            }
+            } catch (e) {}
         }
-
-        document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible') {
-                loadMiningState();
-            }
-        });
 
         window.onload = () => {
             initTradingChart();
-            initDeviceMinerNode(); // KHÔI PHỤC HOẶC TẠO NODE ID ĐÀO TRÊN THIẾT BỊ
+            initDeviceMinerNode();
             fetchNodeData();
             setInterval(fetchNodeData, 4000);
-            checkReferralQuery();
             updateCalculator();
             updateLockupBoostDisplay();
         };
