@@ -1090,3 +1090,29 @@
     </script>
 </body>
 </html>
+// Hàm gọi API lấy dữ liệu Halving từ VPS Windows
+async function loadApxcHalvingData() {
+    try {
+        // Thay IP bằng IP VPS của anh (42.96.5.132)
+        const response = await fetch('http://42.96.5.132:3000/api/halving-status');
+        const data = await response.json();
+
+        console.log("Dữ liệu Halving từ VPS:", data);
+
+        // Hiển thị lên giao diện DApp (thay ID tương ứng với thẻ HTML của anh)
+        if(document.getElementById('mining-rate')) {
+            document.getElementById('mining-rate').innerText = data.currentRatePer24h + ' APXC / 24h';
+        }
+        if(document.getElementById('current-era')) {
+            document.getElementById('current-era').innerText = 'Era ' + data.currentEra;
+        }
+        if(document.getElementById('next-halving-date')) {
+            document.getElementById('next-halving-date').innerText = data.nextHalvingDate;
+        }
+    } catch (error) {
+        console.error("Lỗi kết nối tới VPS Engine API:", error);
+    }
+}
+
+// Gọi ngay khi người dùng mở DApp
+loadApxcHalvingData();
