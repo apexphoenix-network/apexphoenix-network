@@ -36,9 +36,18 @@
             border-bottom: 4px solid #0077b6;
         }
         .apex-logo-wp {
-            width: 130px;
-            height: 130px;
-            filter: drop-shadow(0px 8px 25px rgba(255, 140, 0, 0.35));
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            box-shadow: 0 8px 25px rgba(255, 200, 0, 0.35);
+            object-fit: cover;
+        }
+        .apex-logo-nav {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--gold-primary);
         }
         .apex-title-gold {
             font-size: 2.8rem;
@@ -114,28 +123,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sky sticky-top py-2">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4 d-flex align-items-center" href="./index.html">
-                <svg width="34" height="34" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2">
-                    <circle cx="100" cy="100" r="86" fill="none" stroke="#6E5A27" stroke-width="2" stroke-dasharray="5 5"/>
-                    <circle cx="100" cy="100" r="76" fill="#111622" stroke="#A08035" stroke-width="2"/>
-                    <polygon points="28,75 50,53 72,100 50,122" fill="url(#navOuterWingL)"/>
-                    <polygon points="172,75 150,53 128,100 150,122" fill="url(#navOuterWingR)"/>
-                    <polygon points="42,87 64,65 86,112 64,134" fill="url(#navInnerWingL)"/>
-                    <polygon points="158,87 136,65 114,112 136,134" fill="url(#navInnerWingR)"/>
-                    <polygon points="91,92 109,92 115,136 85,136" fill="url(#navStem)"/>
-                    <polygon points="100,32 125,72 100,92 75,72" fill="url(#navHead)"/>
-                    <polygon points="100,35 104,108 96,108" fill="#FFFFFF" opacity="0.35"/>
-                    <circle cx="100" cy="122" r="11" fill="#FF8C00" opacity="0.45"/>
-                    <circle cx="100" cy="106" r="3.5" fill="#FFFFFF"/>
-                    
-                    <defs>
-                        <linearGradient id="navHead" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFFFE0"/><stop offset="100%" stop-color="#FFA800"/></linearGradient>
-                        <linearGradient id="navStem" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF7700"/><stop offset="100%" stop-color="#D43800"/></linearGradient>
-                        <linearGradient id="navInnerWingL" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFE566"/><stop offset="100%" stop-color="#FF6A00"/></linearGradient>
-                        <linearGradient id="navInnerWingR" x1="1" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFE566"/><stop offset="100%" stop-color="#FF6A00"/></linearGradient>
-                        <linearGradient id="navOuterWingL" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#D46A00"/><stop offset="100%" stop-color="#4A1C00"/></linearGradient>
-                        <linearGradient id="navOuterWingR" x1="1" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D46A00"/><stop offset="100%" stop-color="#4A1C00"/></linearGradient>
-                    </defs>
-                </svg>
+                <img src="input_file_0.png" alt="APEX Phoenix Logo" class="apex-logo-nav me-2">
                 <span>APEX PHOENIX NETWORK</span>
             </a>
             <a href="./index.html" class="btn btn-outline-light btn-sm fw-bold rounded-pill px-3">
@@ -144,32 +132,11 @@
         </div>
     </nav>
 
-    <!-- HEADER WITH HERO VECTOR LOGO -->
+    <!-- HEADER WITH HERO LOGO -->
     <header class="wp-header text-center">
         <div class="container">
             <div class="mb-3">
-                <svg class="apex-logo-wp" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="100" cy="100" r="86" fill="none" stroke="#6E5A27" stroke-width="2" stroke-dasharray="5 5"/>
-                    <circle cx="100" cy="100" r="76" fill="#111622" stroke="#A08035" stroke-width="2"/>
-                    <polygon points="28,75 50,53 72,100 50,122" fill="url(#wpOuterWingL)"/>
-                    <polygon points="172,75 150,53 128,100 150,122" fill="url(#wpOuterWingR)"/>
-                    <polygon points="42,87 64,65 86,112 64,134" fill="url(#wpInnerWingL)"/>
-                    <polygon points="158,87 136,65 114,112 136,134" fill="url(#wpInnerWingR)"/>
-                    <polygon points="91,92 109,92 115,136 85,136" fill="url(#wpStem)"/>
-                    <polygon points="100,32 125,72 100,92 75,72" fill="url(#wpHead)"/>
-                    <polygon points="100,35 104,108 96,108" fill="#FFFFFF" opacity="0.35"/>
-                    <circle cx="100" cy="122" r="11" fill="#FF8C00" opacity="0.45"/>
-                    <circle cx="100" cy="106" r="3.5" fill="#FFFFFF"/>
-                    
-                    <defs>
-                        <linearGradient id="wpHead" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFFFE0"/><stop offset="100%" stop-color="#FFA800"/></linearGradient>
-                        <linearGradient id="wpStem" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF7700"/><stop offset="100%" stop-color="#D43800"/></linearGradient>
-                        <linearGradient id="wpInnerWingL" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFE566"/><stop offset="100%" stop-color="#FF6A00"/></linearGradient>
-                        <linearGradient id="wpInnerWingR" x1="1" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFE566"/><stop offset="100%" stop-color="#FF6A00"/></linearGradient>
-                        <linearGradient id="wpOuterWingL" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#D46A00"/><stop offset="100%" stop-color="#4A1C00"/></linearGradient>
-                        <linearGradient id="wpOuterWingR" x1="1" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D46A00"/><stop offset="100%" stop-color="#4A1C00"/></linearGradient>
-                    </defs>
-                </svg>
+                <img src="input_file_0.png" alt="APEX Phoenix Logo" class="apex-logo-wp">
             </div>
             <span class="status-badge mb-3 d-inline-block">OFFICIAL WHITEPAPER V24.14 — UPDATED JULY 2026</span>
             <div class="apex-title-gold">APEX PHOENIX NETWORK</div>
