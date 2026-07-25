@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -329,7 +329,7 @@
                 <div class="card card-custom p-4 border-warning" style="background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
                         <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-microchip text-warning me-2"></i><span>Máy khai thác APXC Web Light Miner Node</span></h5>
-                        <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill" id="refBadge">Giao thức kỷ nguyên 24H</span>
+                        <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill" id="refBadge">Giao thức kỷ nguyên 24H | Tốc độ: <span id="mining-rate">10.0 APXC / 24h</span></span>
                     </div>
 
                     <div class="row g-3 text-center align-items-center mb-3">
@@ -342,7 +342,7 @@
                         <div class="col-md-3">
                             <div class="p-3 bg-white rounded-3 border">
                                 <small class="text-muted d-block">Số dư APXC đã khai thác</small>
-                                <span class="fw-bold text-success fs-4" id="unclaimedReward">0.0000 APXC</span>
+                                <span class="fw-bold text-success fs-5 font-monospace" id="unclaimedReward">0.00000000 APXC</span>
                             </div>
                         </div>
                         <div class="col-md-6 d-flex flex-wrap justify-content-center align-items-center gap-3">
@@ -358,7 +358,7 @@
 
                     <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div class="small text-muted" id="serverStatusTxt">
-                            <i class="fa-solid fa-server me-1 text-success"></i> Đồng bộ đám mây Apex Cloud Engine.
+                            <i class="fa-solid fa-server me-1 text-success"></i> Đồng bộ đám mây Apex Cloud Engine. <span class="badge bg-secondary ms-1" id="current-era">Era 1</span> (Halving kế tiếp: <span id="next-halving-date">2027-07-22</span>)
                         </div>
                         <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Tính năng Rút về ví Web3 sẽ mở sau khi hoàn thành Phase 1 Epoch!')">
                             <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Rút về Ví (Sắp mở)
@@ -387,14 +387,14 @@
                     <div class="mb-3">
                         <label class="form-label text-muted small fw-bold d-flex justify-content-between">
                             <span>Thời gian chạy:</span>
-                            <span class="text-primary fw-bold" id="calcHoursTxt">24 Giờ (1 Ngày)</span>
+                            <span class="text-primary fw-bold" id="calcHoursTxt">24 Giờ (1.0 Ngày)</span>
                         </label>
                         <input type="range" class="form-range" min="1" max="720" value="24" id="calcRange" oninput="updateCalculator()">
                     </div>
                     <div class="p-3 bg-light rounded-3 border text-center">
                         <small class="text-muted d-block">Ước tính APXC đào được:</small>
-                        <h3 class="fw-bold text-success mb-1" id="calcApxcVal">216.00 APXC</h3>
-                        <small class="text-muted fw-bold" id="calcUsdtVal">≈ $24.12 USDT</small>
+                        <h3 class="fw-bold text-success mb-1" id="calcApxcVal">10.00 APXC</h3>
+                        <small class="text-muted fw-bold" id="calcUsdtVal">≈ $1.12 USDT</small>
                     </div>
                 </div>
             </div>
@@ -653,6 +653,7 @@
     <!-- REAL-TIME CLOUD NODE & ACCURATE BLOCK + CANDLE ENGINE -->
     <script>
         const RAW_NODE_API = "http://42.96.5.132:9035/";
+        const HALVING_API = "http://42.96.5.132:3000/api/halving-status";
         
         // GENESIS TIMESTAMP: 00:00:00 ngày 22/07/2026 UTC
         const GENESIS_TIMESTAMP = 1784659200; 
@@ -669,6 +670,10 @@
         let localLockupRate = 0.30;
         let currentPrice = 0.1117;
 
+        // BIẾN QUẢN LÝ TỐC ĐỘ HALVING & TICKER NHẢY COIN THỜI GIAN THỰC
+        let currentBaseRate24h = 10.0; // Tốc độ cơ bản Era 1
+        let isMiningSessionActive = false;
+
         // 1. TÍNH TOÁN SỐ KHỐI CHUẨN TỪ 22/07/2026 (1 KHỐI / 60 GIÂY)
         function calculateExactBlock() {
             const nowSec = Math.floor(Date.now() / 1000);
@@ -683,6 +688,33 @@
 
         function triggerPwaInstall() {
             alert("Để cài đặt Web App: Bấm nút Chia sẻ (Share) trên trình duyệt Safari/Chrome -> Chọn 'Thêm vào màn hình chính' (Add to Home Screen)!");
+        }
+
+        // ============================================================
+        // 2. TẢI DỮ LIỆU HALVING TỪ VPS PORT 3000
+        // ============================================================
+        async function loadApxcHalvingData() {
+            try {
+                const response = await fetch(HALVING_API);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.currentRatePer24h) {
+                        currentBaseRate24h = parseFloat(data.currentRatePer24h);
+                    }
+                    if (document.getElementById('mining-rate')) {
+                        document.getElementById('mining-rate').innerText = currentBaseRate24h.toFixed(1) + ' APXC / 24h';
+                    }
+                    if (document.getElementById('current-era')) {
+                        document.getElementById('current-era').innerText = 'Era ' + data.currentEra;
+                    }
+                    if (document.getElementById('next-halving-date')) {
+                        document.getElementById('next-halving-date').innerText = data.nextHalvingDate;
+                    }
+                    updateCalculator(); // Cập nhật lại Máy tính lợi nhuận
+                }
+            } catch (error) {
+                console.log("Sử dụng tốc độ đào mặc định Era 1 (10 APXC/24h)");
+            }
         }
 
         function initDeviceMinerNode() {
@@ -702,6 +734,31 @@
             fetchServerUserStatus();
             setInterval(fetchServerUserStatus, 1000);
             renderBlockExplorer();
+
+            // Khởi chạy vòng lặp nhảy số Coin 8 chữ số thập phân mỗi 1 giây
+            startRealtimeCoinTicker();
+        }
+
+        // ============================================================
+        // 3. THUẬT TOÁN COIN NHẢY SỐ LIÊN TỤC 8 CHỮ SỐ THẬP PHÂN MỖI 1 GIÂY
+        // ============================================================
+        function startRealtimeCoinTicker() {
+            setInterval(() => {
+                if (isMiningSessionActive) {
+                    // Tốc độ 1 giây = (Tốc độ 24H / 86400 giây) * Hệ số Boost Staking
+                    const totalMultiplier = 1.0 + localLockupRate;
+                    const apxcPerSecond = (currentBaseRate24h / 86400) * totalMultiplier;
+
+                    localUnclaimed += apxcPerSecond;
+                    localStorage.setItem('apxc_local_balance', localUnclaimed.toString());
+
+                    // Cập nhật lên màn hình với 8 chữ số thập phân chuẩn Crypto
+                    const rewardEl = document.getElementById('unclaimedReward');
+                    if (rewardEl) {
+                        rewardEl.innerText = localUnclaimed.toFixed(8) + " APXC";
+                    }
+                }
+            }, 1000);
         }
 
         async function fetchServerUserStatus() {
@@ -718,7 +775,10 @@
                 if (res.ok) {
                     const data = await res.json();
                     fetchedSuccess = true;
-                    updateMiningUI(data.active, data.remaining_sec, data.hashrate, data.balance, data.staked);
+                    if(data.balance && data.balance > localUnclaimed) {
+                        localUnclaimed = data.balance;
+                    }
+                    updateMiningUI(data.active, data.remaining_sec, data.hashrate, localUnclaimed, data.staked);
                 }
             } catch (e) {
                 fetchedSuccess = false;
@@ -730,9 +790,6 @@
                     const elapsed = nowSec - localMiningStart;
                     if (elapsed < 86400) {
                         const rem = 86400 - elapsed;
-                        const added = (0.0025 * (1.0 + localLockupRate));
-                        localUnclaimed += added;
-                        localStorage.setItem('apxc_local_balance', localUnclaimed.toString());
                         const hashrate = (12.5 + Math.random() * 3.5).toFixed(1);
                         updateMiningUI(true, rem, hashrate, localUnclaimed, localStaked);
                     } else {
@@ -747,13 +804,15 @@
         }
 
         function updateMiningUI(isActive, remainingSec, hashrate, balance, staked) {
-            document.getElementById('unclaimedReward').innerText = balance.toFixed(4) + " APXC";
+            isMiningSessionActive = isActive && remainingSec > 0;
+
+            document.getElementById('unclaimedReward').innerText = balance.toFixed(8) + " APXC";
             document.getElementById('stakedAmount').innerText = staked.toFixed(2) + " APXC";
 
             const btn = document.getElementById('startMiningBtn');
             const txtSpan = document.getElementById('miningBtnTxt');
 
-            if (isActive && remainingSec > 0) {
+            if (isMiningSessionActive) {
                 document.getElementById('webHashrate').innerText = hashrate + " H/s";
                 btn.className = "btn btn-success fw-bold px-4 py-2 rounded-pill shadow-sm fs-6 disabled";
                 txtSpan.innerText = "Phiên đào đang hoạt động";
@@ -785,6 +844,7 @@
 
             localMiningStart = Math.floor(Date.now() / 1000);
             localStorage.setItem('apxc_local_start', localMiningStart.toString());
+            isMiningSessionActive = true;
             fetchServerUserStatus();
         }
 
@@ -827,8 +887,10 @@
             const select = document.getElementById('lockDurationSelect');
             if (!select) return;
             const boostVal = parseFloat(select.value);
+            localLockupRate = boostVal;
             const boostPercent = (boostVal * 100).toFixed(0);
             document.getElementById('currentBoostBadge').innerText = `+${boostPercent}% Tăng tốc`;
+            updateCalculator();
         }
 
         function updateReferralLink() {
@@ -847,6 +909,9 @@
             }
         }
 
+        // ============================================================
+        // 4. MÁY TÍNH LỢI NHUẬN ĐÀO CHUẨN TỐC ĐỘ ERA 1 (10 APXC/24H)
+        // ============================================================
         function updateCalculator() {
             const rangeEl = document.getElementById('calcRange');
             if (!rangeEl) return;
@@ -858,7 +923,9 @@
             }
             document.getElementById('calcHoursTxt').innerText = durationText;
 
-            const estApxc = (hours * 9.0).toFixed(2);
+            // Tính chuẩn theo Tốc độ Base Rate (10.0 APXC/24h) + Boost Staking
+            const ratePerHour = (currentBaseRate24h / 24) * (1.0 + localLockupRate);
+            const estApxc = (hours * ratePerHour).toFixed(2);
             const estUsdt = (estApxc * currentPrice).toFixed(2);
 
             document.getElementById('calcApxcVal').innerText = `${estApxc} APXC`;
@@ -900,7 +967,6 @@
             setInterval(updateClock, 1000);
         }
 
-        // 2. ĐỌC LỊCH SỬ NẾN ĐÀO THẬT TỪ MÁY CHỦ VPS
         async function loadLongTermOHLCHistory() {
             try {
                 const res = await fetch(RAW_NODE_API + "api/history?_t=" + Date.now());
@@ -914,14 +980,12 @@
                 }
             } catch (e) {}
 
-            // Nếu máy chủ chưa phản hồi mảng, dùng thuật toán sinh nến Random Walk tự nhiên
             if (m1History.length === 0) {
                 m1History = generateNaturalRandomWalkHistory(0.1115);
                 renderAggregatedChart();
             }
         }
 
-        // 3. THUẬT TOÁN TẠO NẾN TỰ NHIÊN (RANDOM WALK CHUẨN SÀN GIAO DỊCH)
         function generateNaturalRandomWalkHistory(baseP) {
             const nowSeconds = Math.floor(Date.now() / 60000) * 60;
             const seedCount = 2880;
@@ -938,7 +1002,7 @@
                 if (time < GENESIS_TIMESTAMP) continue;
 
                 const rand = pseudoRandom(time);
-                const changePercent = (rand - 0.49) * 0.005; // Biến động ngẫu nhiên ±0.25%
+                const changePercent = (rand - 0.49) * 0.005;
                 
                 const open = parseFloat(price.toFixed(4));
                 const close = parseFloat(Math.max(0.05, open * (1 + changePercent)).toFixed(4));
@@ -1029,14 +1093,12 @@
             body.innerHTML = html;
         }
 
-        // 4. LẤY DỮ LIỆU ĐỒNG BỘ TỪ MÁY CHỦ REALTIME
         async function fetchNodeData() {
             try {
                 const res = await fetch(RAW_NODE_API + "?_t=" + Date.now());
                 if (res.ok) {
                     const data = await res.json();
                     
-                    // Ưu tiên hiển thị số khối từ máy chủ backend
                     const activeBlock = data.current_block || calculateExactBlock();
                     document.getElementById('currentBlock').innerText = "#" + activeBlock.toLocaleString();
                     document.getElementById('founderBalance').innerText = data.founder_balance_apxc;
@@ -1070,7 +1132,6 @@
                     throw new Error("Server offline");
                 }
             } catch (e) {
-                // Fallback tự động khi không có dữ liệu máy chủ
                 const exactBlock = calculateExactBlock();
                 document.getElementById('currentBlock').innerText = "#" + exactBlock.toLocaleString('vi-VN');
                 renderBlockExplorer();
@@ -1080,6 +1141,7 @@
         window.onload = () => {
             initTradingChart();
             loadLongTermOHLCHistory();
+            loadApxcHalvingData(); // Tải dữ liệu Halving từ VPS 3000
             initDeviceMinerNode();
             fetchNodeData();
             setInterval(fetchNodeData, 3000);
@@ -1090,29 +1152,3 @@
     </script>
 </body>
 </html>
-// Hàm gọi API lấy dữ liệu Halving từ VPS Windows
-async function loadApxcHalvingData() {
-    try {
-        // Thay IP bằng IP VPS của anh (42.96.5.132)
-        const response = await fetch('http://42.96.5.132:3000/api/halving-status');
-        const data = await response.json();
-
-        console.log("Dữ liệu Halving từ VPS:", data);
-
-        // Hiển thị lên giao diện DApp (thay ID tương ứng với thẻ HTML của anh)
-        if(document.getElementById('mining-rate')) {
-            document.getElementById('mining-rate').innerText = data.currentRatePer24h + ' APXC / 24h';
-        }
-        if(document.getElementById('current-era')) {
-            document.getElementById('current-era').innerText = 'Era ' + data.currentEra;
-        }
-        if(document.getElementById('next-halving-date')) {
-            document.getElementById('next-halving-date').innerText = data.nextHalvingDate;
-        }
-    } catch (error) {
-        console.error("Lỗi kết nối tới VPS Engine API:", error);
-    }
-}
-
-// Gọi ngay khi người dùng mở DApp
-loadApxcHalvingData();
