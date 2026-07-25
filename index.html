@@ -691,7 +691,7 @@
         }
 
         // ============================================================
-        // 2. TẢI DỮ LIỆU HALVING TỪ VPS PORT 3000
+        // 2. TẢI DỮ LIỆU HALVING TỪ VPS PORT 3000 (VÁ MIXED CONTENT SAFE)
         // ============================================================
         async function loadApxcHalvingData() {
             try {
@@ -710,7 +710,7 @@
                     if (document.getElementById('next-halving-date')) {
                         document.getElementById('next-halving-date').innerText = data.nextHalvingDate;
                     }
-                    updateCalculator(); // Cập nhật lại Máy tính lợi nhuận
+                    updateCalculator(); 
                 }
             } catch (error) {
                 console.log("Sử dụng tốc độ đào mặc định Era 1 (10 APXC/24h)");
@@ -775,8 +775,9 @@
                 if (res.ok) {
                     const data = await res.json();
                     fetchedSuccess = true;
-                    if(data.balance && data.balance > localUnclaimed) {
-                        localUnclaimed = data.balance;
+                    // Vá lỗi giật lag: Chỉ lấy balance từ server nếu lớn hơn số dư local
+                    if(data.balance && parseFloat(data.balance) > localUnclaimed) {
+                        localUnclaimed = parseFloat(data.balance);
                     }
                     updateMiningUI(data.active, data.remaining_sec, data.hashrate, localUnclaimed, data.staked);
                 }
@@ -807,7 +808,7 @@
             isMiningSessionActive = isActive && remainingSec > 0;
 
             document.getElementById('unclaimedReward').innerText = balance.toFixed(8) + " APXC";
-            document.getElementById('stakedAmount').innerText = staked.toFixed(2) + " APXC";
+            document.getElementById('stakedAmount').innerText = parseFloat(staked).toFixed(2) + " APXC";
 
             const btn = document.getElementById('startMiningBtn');
             const txtSpan = document.getElementById('miningBtnTxt');
@@ -1068,12 +1069,18 @@
             renderAggregatedChart();
         }
 
+        // ============================================================
+        // 5. SỬA VÁ LỖI CỨNG: BLOCK EXPLORER TÍNH THEO BASE RATE DỘNG
+        // ============================================================
         function renderBlockExplorer() {
             const body = document.getElementById('blockExplorerBody');
             if (!body) return;
             const currentBlkTxt = document.getElementById('currentBlock').innerText.replace(/[^0-9]/g, '');
             let currentBlk = parseInt(currentBlkTxt) || calculateExactBlock();
             
+            // Phần thưởng chuẩn cho 1 khối (60 giây)
+            const blockReward = (currentBaseRate24h / 1440).toFixed(6);
+
             let html = "";
             for (let i = 0; i < 5; i++) {
                 const blk = Math.max(1, currentBlk - i);
@@ -1086,7 +1093,7 @@
                     <td class="font-monospace text-muted">${hash}</td>
                     <td class="font-monospace text-dark">${miner}</td>
                     <td class="text-center">${tx}</td>
-                    <td class="text-end fw-bold text-success">+25.0 APXC</td>
+                    <td class="text-end fw-bold text-success">+${blockReward} APXC</td>
                     <td class="text-end text-muted">${age}</td>
                 </tr>`;
             }
