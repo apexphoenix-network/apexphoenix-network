@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEX PHOENIX NETWORK - APXC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0b111e;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Header Navbar */
+        .navbar {
+            width: 100%;
+            background: #0284c7;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .brand-title {
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #ef4444;
+            border-radius: 50%;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lang-select {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .node-badge {
+            background: #15803d;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        /* Main Container */
+        .container {
+            width: 100%;
+            max-width: 480px;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Main Coin Logo Area */
+        .hero-logo-wrapper {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .main-coin-logo {
+            width: 240px;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.35));
+            transition: transform 0.3s ease;
+        }
+
+        .main-coin-logo:hover {
+            transform: scale(1.03);
+        }
+
+        /* Headings */
+        .main-heading {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #f59e0b;
+            letter-spacing: 2px;
+        }
+
+        .sub-heading {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #cbd5e1;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        .flame-badge {
+            border: 2px solid #f59e0b;
+            border-radius: 25px;
+            padding: 8px 24px;
+            color: #f59e0b;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-bottom: 30px;
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        /* Smart Contract Card */
+        .contract-card {
+            width: 100%;
+            background: #131d31;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .contract-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+        }
+
+        .contract-tag {
+            background: #f59e0b;
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .supply-tag {
+            color: #f59e0b;
+            font-weight: 800;
+        }
+
+        .contract-input-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .contract-input-group input {
+            flex: 1;
+            background: #090d16;
+            border: 1px solid #334155;
+            color: #f59e0b;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .btn-copy {
+            background: #f59e0b;
+            border: none;
+            color: #000;
+            font-weight: bold;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* Block Status Card */
+        .block-status-card {
+            width: 100%;
+            background: #ffffff;
+            color: #0f172a;
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .block-title {
+            color: #0284c7;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .block-number {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #0284c7;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-left">
+            <img src="apex-logo.png" alt="APEX Logo" class="nav-logo">
+            <span class="brand-title">APEX PHOENIX</span>
+            <span class="status-dot"></span>
+        </div>
+        <div class="nav-right">
+            <div class="lang-select">Chọn Ngôn ngữ ▼</div>
+            <div class="node-badge">⚡ APX-NODE-LSH10T</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="container">
+        
+        <!-- Main APEX Coin Logo Display -->
+        <div class="hero-logo-wrapper">
+            <img src="apex-logo.png" alt="APEX Coin Network" class="main-coin-logo">
+        </div>
+
+        <h1 class="main-heading">ĐỈNH CAO</h1>
+        <p class="sub-heading">MẠNG APXC</p>
+
+        <div class="flame-badge">
+            FLAME PHOENIX V24.14
+        </div>
+
+        <!-- Smart Contract Card -->
+        <div class="contract-card">
+            <div class="contract-header">
+                <span class="contract-tag">📜 Hợp đồng thông minh (BEP-20)</span>
+                <span class="supply-tag">84.000.000 APXC</span>
+            </div>
+            <div class="contract-input-group">
+                <input type="text" id="contractAddr" value="0x89234F2B99E23108B7F43A60..." readonly>
+                <button onclick="copyContract()" class="btn-copy">📋 Sao chép</button>
+            </div>
+        </div>
+
+        <!-- Block Status Section -->
+        <div class="block-status-card">
+            <div class="block-title">📦 Khối hiện tại</div>
+            <div class="block-number">#182.415</div>
+        </div>
+
+    </main>
+
+    <script>
+        function copyContract() {
+            var copyText = document.getElementById("contractAddr");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value);
+            alert("Đã sao chép địa chỉ hợp đồng: " + copyText.value);
+        }
+    </script>
+</body>
+</html>
