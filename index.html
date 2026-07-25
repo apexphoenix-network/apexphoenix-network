@@ -239,8 +239,8 @@
                 <img src="apex-coin-logo.png" alt="APEX PHOENIX APXC Network Coin" class="apex-logo-hero">
             </div>
             
-            <div class="apex-title-gold">APEX</div>
-            <div class="apxc-sub-gold">APXC NETWORK</div>
+            <div class="apex-title-gold">ĐỈNH CAO</div>
+            <div class="apxc-sub-gold">MẠNG APXC</div>
             <div>
                 <div class="flame-badge">FLAME PHOENIX V24.14</div>
             </div>
@@ -249,14 +249,14 @@
             <div class="contract-banner-card">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="badge bg-warning text-dark fw-bold font-monospace px-3 py-1 rounded-pill">
-                        <i class="fa-solid fa-file-contract me-1"></i> Smart Contract (BEP-20)
+                        <i class="fa-solid fa-file-contract me-1"></i> Hợp đồng thông minh (BEP-20)
                     </span>
                     <span class="text-warning small fw-bold">84,000,000 APXC</span>
                 </div>
                 <div class="input-group input-group-sm">
                     <input type="text" class="form-control font-monospace text-warning border-warning bg-dark fw-bold text-center" id="contractAddrInput" readonly value="0x89234F2B99E23108B7F43A60355DC38C8ABA6691">
                     <button class="btn btn-warning text-dark fw-bold px-3" onclick="copyTokenContractAddress()">
-                        <i class="fa-solid fa-copy me-1"></i> Copy
+                        <i class="fa-solid fa-copy me-1"></i> Sao chép
                     </button>
                 </div>
             </div>
@@ -270,16 +270,16 @@
             <!-- CURRENT BLOCK -->
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
-                    <div class="text-secondary mb-2"><i class="fa-solid fa-cube text-primary me-2"></i><span>Current Block</span></div>
-                    <div class="stat-val" id="currentBlock">#1</div>
-                    <small class="text-muted mt-2">1 Block / 60 Seconds</small>
+                    <div class="text-secondary mb-2"><i class="fa-solid fa-cube text-primary me-2"></i><span>Khối hiện tại</span></div>
+                    <div class="stat-val" id="currentBlock">#0</div>
+                    <small class="text-muted mt-2">1 Khối / 60 Giây</small>
                 </div>
             </div>
 
             <!-- APXC PRICE / CANDLE OHLC -->
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
-                    <div class="text-secondary mb-2"><i class="fa-solid fa-chart-line text-success me-2"></i><span>APXC Live Price</span></div>
+                    <div class="text-secondary mb-2"><i class="fa-solid fa-chart-line text-success me-2"></i><span>Giá trực tiếp APXC</span></div>
                     <div class="stat-val text-success" id="apxcPrice">$0.1117 USDT</div>
                     <small class="text-muted mt-2" id="ohlcDetail">O: 0.1115 | H: 0.1121 | L: 0.1112 | C: 0.1117</small>
                 </div>
@@ -288,9 +288,9 @@
             <!-- FOUNDER BALANCE -->
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
-                    <div class="text-secondary mb-2"><i class="fa-solid fa-wallet text-warning me-2"></i><span>Founder Reserve (5%)</span></div>
+                    <div class="text-secondary mb-2"><i class="fa-solid fa-wallet text-warning me-2"></i><span>Quỹ dự trữ người sáng lập (5%)</span></div>
                     <div class="stat-val text-warning" id="founderBalance">353,762 APXC</div>
-                    <small class="text-muted mt-2">Targeted Tokenomics Allocation</small>
+                    <small class="text-muted mt-2">Phân bổ Tokenomics có mục tiêu</small>
                 </div>
             </div>
 
@@ -328,20 +328,20 @@
             <div class="col-12">
                 <div class="card card-custom p-4 border-warning" style="background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
-                        <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-microchip text-warning me-2"></i><span>APXC Web Light Miner Node</span></h5>
-                        <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill" id="refBadge">24H Epoch Protocol</span>
+                        <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-microchip text-warning me-2"></i><span>Máy khai thác APXC Web Light Miner Node</span></h5>
+                        <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill" id="refBadge">Giao thức kỷ nguyên 24H</span>
                     </div>
 
                     <div class="row g-3 text-center align-items-center mb-3">
                         <div class="col-md-3">
                             <div class="p-3 bg-white rounded-3 border">
-                                <small class="text-muted d-block">Node Hashrate</small>
+                                <small class="text-muted d-block">Tốc độ Node</small>
                                 <span class="fw-bold text-primary fs-4" id="webHashrate">0.0 H/s</span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="p-3 bg-white rounded-3 border">
-                                <small class="text-muted d-block">Mined APXC Balance</small>
+                                <small class="text-muted d-block">Số dư APXC đã khai thác</small>
                                 <span class="fw-bold text-success fs-4" id="unclaimedReward">0.0000 APXC</span>
                             </div>
                         </div>
@@ -351,29 +351,29 @@
                             </div>
 
                             <button class="btn btn-primary fw-bold px-4 py-2 rounded-pill shadow-sm fs-6" id="startMiningBtn" onclick="triggerServerStartMining()">
-                                <i class="fa-solid fa-play me-2"></i> <span id="miningBtnTxt">Start 24H Mining Session</span>
+                                <i class="fa-solid fa-play me-2"></i> <span id="miningBtnTxt">Bắt đầu phiên 24H</span>
                             </button>
                         </div>
                     </div>
 
                     <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div class="small text-muted" id="serverStatusTxt">
-                            <i class="fa-solid fa-server me-1 text-success"></i> Synced with Real-Time Apex Cloud Node Engine.
+                            <i class="fa-solid fa-server me-1 text-success"></i> Đồng bộ đám mây Apex Cloud Engine.
                         </div>
-                        <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Mainnet Withdrawal to Web3 Wallet will open soon after Phase 1 Epoch Completion!')">
-                            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Withdraw to Wallet (Soon)
+                        <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Tính năng Rút về ví Web3 sẽ mở sau khi hoàn thành Phase 1 Epoch!')">
+                            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Rút về Ví (Sắp mở)
                         </button>
                     </div>
 
                     <div class="mt-4 pt-3 border-top">
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <small class="fw-bold text-dark"><i class="fa-solid fa-user-plus text-primary me-1"></i> <span>Referral Affiliate Program (+10% Speed)</span></small>
-                            <span class="badge bg-info-subtle text-info rounded-pill">10% Commission</span>
+                            <small class="fw-bold text-dark"><i class="fa-solid fa-user-plus text-primary me-1"></i> <span>Chương trình giới thiệu (+10% Tốc độ)</span></small>
+                            <span class="badge bg-info-subtle text-info rounded-pill">10% Hoa hồng</span>
                         </div>
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control font-monospace text-primary bg-white" id="refLinkInput" readonly value="https://apexphoenix-network.github.io/apexphoenix-network/">
                             <button class="btn btn-primary fw-bold px-3" onclick="copyReferralLink()">
-                                <i class="fa-solid fa-copy me-1"></i> <span>Copy Link</span>
+                                <i class="fa-solid fa-copy me-1"></i> <span>Sao chép Link</span>
                             </button>
                         </div>
                     </div>
@@ -383,16 +383,16 @@
             <!-- MINING PROFIT CALCULATOR -->
             <div class="col-md-6">
                 <div class="card card-custom p-4 h-100">
-                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-calculator me-2"></i><span>Mining Profit Calculator</span></h5>
+                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-calculator me-2"></i><span>Máy tính lợi nhuận đào</span></h5>
                     <div class="mb-3">
                         <label class="form-label text-muted small fw-bold d-flex justify-content-between">
-                            <span>Running Duration:</span>
-                            <span class="text-primary fw-bold" id="calcHoursTxt">24 Hours (1 Day)</span>
+                            <span>Thời gian chạy:</span>
+                            <span class="text-primary fw-bold" id="calcHoursTxt">24 Giờ (1 Ngày)</span>
                         </label>
                         <input type="range" class="form-range" min="1" max="720" value="24" id="calcRange" oninput="updateCalculator()">
                     </div>
                     <div class="p-3 bg-light rounded-3 border text-center">
-                        <small class="text-muted d-block">Estimated Mined APXC:</small>
+                        <small class="text-muted d-block">Ước tính APXC đào được:</small>
                         <h3 class="fw-bold text-success mb-1" id="calcApxcVal">216.00 APXC</h3>
                         <small class="text-muted fw-bold" id="calcUsdtVal">≈ $24.12 USDT</small>
                     </div>
@@ -403,30 +403,30 @@
             <div class="col-md-6">
                 <div class="card card-custom p-4 h-100 border-info">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-lock text-info me-2"></i><span>APXC Lockup & Staking</span></h5>
-                        <span class="badge bg-success text-white fw-bold px-3 py-1 rounded-pill" id="currentBoostBadge">+30% Boost Rate</span>
+                        <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-lock text-info me-2"></i><span>Khóa & Staking APXC</span></h5>
+                        <span class="badge bg-success text-white fw-bold px-3 py-1 rounded-pill" id="currentBoostBadge">+30% Tăng tốc</span>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label text-muted small fw-bold">Select Lockup Duration:</label>
+                        <label class="form-label text-muted small fw-bold">Chọn thời gian khóa:</label>
                         <select class="form-select form-select-sm fw-bold border-info text-dark" id="lockDurationSelect" onchange="updateLockupBoostDisplay()">
-                            <option value="0.10">6 Months (+10% Boost / 10% APY)</option>
-                            <option value="0.30" selected>1 Year (+30% Boost / 30% APY)</option>
-                            <option value="0.70">2 Years (+70% Boost / 70% APY)</option>
-                            <option value="1.50">3 Years (+150% Boost / 150% APY)</option>
+                            <option value="0.10">6 Tháng (+10% Boost / 10% APY)</option>
+                            <option value="0.30" selected>1 Năm (+30% Boost / 30% APY)</option>
+                            <option value="0.70">2 Năm (+70% Boost / 70% APY)</option>
+                            <option value="1.50">3 Năm (+150% Boost / 150% APY)</option>
                         </select>
                     </div>
 
                     <div class="row g-2 mb-3 text-center">
                         <div class="col-6">
                             <div class="p-2 bg-light rounded-3 border">
-                                <small class="text-muted d-block" style="font-size: 0.75rem;">Locked APXC</small>
+                                <small class="text-muted d-block" style="font-size: 0.75rem;">APXC Đã khóa</small>
                                 <span class="fw-bold text-dark" id="stakedAmount">0.00 APXC</span>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="p-2 bg-light rounded-3 border">
-                                <small class="text-muted d-block" style="font-size: 0.75rem;">Earned Yield</small>
+                                <small class="text-muted d-block" style="font-size: 0.75rem;">Lợi nhuận nhận được</small>
                                 <span class="fw-bold text-success" id="earnedYield">0.0000 APXC</span>
                             </div>
                         </div>
@@ -434,13 +434,13 @@
 
                     <div class="d-flex gap-2 mb-2">
                         <button class="btn btn-info text-white fw-bold w-50 rounded-pill" onclick="stakeTokensOnServer()">
-                            <i class="fa-solid fa-key me-1"></i> <span>Lock APXC Now</span>
+                            <i class="fa-solid fa-key me-1"></i> <span>Khóa APXC ngay</span>
                         </button>
                         <button class="btn btn-outline-success fw-bold w-50 rounded-pill" onclick="claimYield()">
-                            <i class="fa-solid fa-gift me-1"></i> <span>Claim Yield</span>
+                            <i class="fa-solid fa-gift me-1"></i> <span>Nhận Lợi Nhận</span>
                         </button>
                     </div>
-                    <small class="text-muted text-center d-block" style="font-size: 0.73rem;">Longer lockup duration = Higher mining boost reward!</small>
+                    <small class="text-muted text-center d-block" style="font-size: 0.73rem;">Khóa càng lâu = Tốc độ đào thưởng càng cao!</small>
                 </div>
             </div>
 
@@ -448,17 +448,17 @@
             <div class="col-12">
                 <div class="card card-custom p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="fw-bold text-primary mb-0"><i class="fa-solid fa-trophy text-warning me-2"></i><span>Top Miners Leaderboard</span></h5>
-                        <span class="badge bg-warning-subtle text-warning border border-warning px-3 py-1 rounded-pill">24h Network Ranking</span>
+                        <h5 class="fw-bold text-primary mb-0"><i class="fa-solid fa-trophy text-warning me-2"></i><span>Bảng xếp hạng Thợ đào Top</span></h5>
+                        <span class="badge bg-warning-subtle text-warning border border-warning px-3 py-1 rounded-pill">Xếp hạng 24h</span>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0" style="font-size: 0.88rem;">
                             <thead class="table-light">
                                 <tr>
-                                    <th class="text-center"># Rank</th>
-                                    <th>Miner Node ID</th>
-                                    <th class="text-center">Node Hashrate</th>
-                                    <th class="text-end">Total Mined APXC</th>
+                                    <th class="text-center"># Hạng</th>
+                                    <th>Mã Node Thợ đào</th>
+                                    <th class="text-center">Tốc độ Node</th>
+                                    <th class="text-end">Tổng APXC đã đào</th>
                                 </tr>
                             </thead>
                             <tbody id="leaderboardBody">
@@ -502,19 +502,19 @@
             <div class="col-12">
                 <div class="card card-custom p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="fw-bold text-primary mb-0"><i class="fa-solid fa-cubes me-2"></i><span>Recent Block Explorer</span></h5>
-                        <span class="badge bg-info-subtle text-info px-3 py-2 rounded-pill">1 Block / 60s</span>
+                        <h5 class="fw-bold text-primary mb-0"><i class="fa-solid fa-cubes me-2"></i><span>Trình khám phá Khối mới nhất</span></h5>
+                        <span class="badge bg-info-subtle text-info px-3 py-2 rounded-pill">1 Khối / 60s</span>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0" style="font-size: 0.88rem;">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Block</th>
-                                    <th>Block Hash</th>
-                                    <th>Miner Node</th>
-                                    <th class="text-center">Tx</th>
-                                    <th class="text-end">Reward</th>
-                                    <th class="text-end">Age</th>
+                                    <th>Khối</th>
+                                    <th>Mã Hash Khối</th>
+                                    <th>Node Khai thác</th>
+                                    <th class="text-center">Giao dịch</th>
+                                    <th class="text-end">Phần thưởng</th>
+                                    <th class="text-end">Thời gian</th>
                                 </tr>
                             </thead>
                             <tbody id="blockExplorerBody">
@@ -529,13 +529,13 @@
             <div class="col-12">
                 <div class="card card-custom p-4">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="fw-bold text-secondary"><i class="fa-solid fa-hashtag me-2"></i>Latest Block Hash</span>
+                        <span class="fw-bold text-secondary"><i class="fa-solid fa-hashtag me-2"></i>Mã Hash Khối mới nhất</span>
                         <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill" id="liveTag">Live Network</span>
                     </div>
                     <div class="hash-box fs-6 mb-3" id="latestHash">1A51FAEE32344109922C32922158A98301B87F43A6</div>
                     
                     <div class="d-flex justify-content-between align-items-center pt-2 border-top">
-                        <small class="text-muted"><i class="fa-solid fa-key me-1"></i> Founder Address:</small>
+                        <small class="text-muted"><i class="fa-solid fa-key me-1"></i> Địa chỉ Người sáng lập:</small>
                         <small class="font-monospace text-primary fw-semibold text-truncate ms-2" style="max-width: 400px;" id="founderAddr">APX355DC38C8ABA6691A1C4020510982B01B87F43A6</small>
                     </div>
                 </div>
@@ -544,7 +544,7 @@
             <!-- ROADMAP 2026 -->
             <div class="col-12">
                 <div class="card card-custom p-4">
-                    <h5 class="fw-bold text-primary mb-4"><i class="fa-solid fa-route me-2"></i>Apex Phoenix Network Roadmap 2026</h5>
+                    <h5 class="fw-bold text-primary mb-4"><i class="fa-solid fa-route me-2"></i>Lộ trình Apex Phoenix Network 2026</h5>
                     <div class="row g-3">
                         <div class="col-md-3">
                             <div class="p-3 border-start border-4 border-primary bg-light rounded-3 h-100">
@@ -581,10 +581,10 @@
             <!-- PROTOCOL RESOURCES & COMMUNITY -->
             <div class="col-12">
                 <div class="card card-custom p-4 text-center">
-                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-shield-halved me-2"></i>Protocol Resources & Web3 Tools</h5>
+                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-shield-halved me-2"></i>Tài nguyên Giao thức & Công cụ Web3</h5>
                     <div class="d-flex flex-wrap justify-content-center gap-3">
                         <a href="./whitepaper.html" class="btn btn-dark px-4 py-2 rounded-pill shadow-sm">
-                            <i class="fa-solid fa-file-lines text-warning me-2"></i>Whitepaper
+                            <i class="fa-solid fa-file-lines text-warning me-2"></i>Sách Trắng (Whitepaper)
                         </a>
 
                         <a href="https://github.com/apexphoenix-network/apexphoenix-network" target="_blank" class="btn btn-dark px-4 py-2 rounded-pill shadow-sm">
@@ -592,11 +592,11 @@
                         </a>
 
                         <button class="btn btn-primary px-4 py-2 rounded-pill shadow-sm" onclick="openUpdatesModal()">
-                            <i class="fa-solid fa-bullhorn me-2"></i>Network News
+                            <i class="fa-solid fa-bullhorn me-2"></i>Tin tức Mạng
                         </button>
 
                         <button class="btn btn-warning text-dark fw-bold px-4 py-2 rounded-pill shadow-sm" onclick="triggerPwaInstall()">
-                            <i class="fa-solid fa-mobile-screen-button me-2"></i>Install Web App (PWA)
+                            <i class="fa-solid fa-mobile-screen-button me-2"></i>Cài đặt Web App (PWA)
                         </button>
                     </div>
                 </div>
@@ -650,12 +650,15 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- REAL-TIME CLOUD NODE & GLOBAL SYNCHRONIZED CANDLE ENGINE -->
+    <!-- REAL-TIME CLOUD NODE & ACCURATE BLOCK + CANDLE ENGINE -->
     <script>
         const RAW_NODE_API = "http://42.96.5.132:9035/";
+        
+        // GENESIS TIMESTAMP: 00:00:00 ngày 22/07/2026 UTC
+        const GENESIS_TIMESTAMP = 1784659200; 
+
         let chart = null;
         let candleSeries = null;
-        
         let currentTimeframeSec = 60; // Default M1 Timeframe
         let m1History = [];
         let minerNodeId = null;
@@ -666,12 +669,20 @@
         let localLockupRate = 0.30;
         let currentPrice = 0.1117;
 
+        // 1. TÍNH TOÁN SỐ KHỐI CHUẨN TỪ 22/07/2026 (1 KHỐI / 60 GIÂY)
+        function calculateExactBlock() {
+            const nowSec = Math.floor(Date.now() / 1000);
+            if (nowSec < GENESIS_TIMESTAMP) return 1;
+            const elapsedSec = nowSec - GENESIS_TIMESTAMP;
+            return Math.floor(elapsedSec / 60) + 1;
+        }
+
         function openUpdatesModal() {
             new bootstrap.Modal(document.getElementById('updatesModal')).show();
         }
 
         function triggerPwaInstall() {
-            alert("To install as Web App: Tap Share button on Safari/Chrome -> Add to Home Screen!");
+            alert("Để cài đặt Web App: Bấm nút Chia sẻ (Share) trên trình duyệt Safari/Chrome -> Chọn 'Thêm vào màn hình chính' (Add to Home Screen)!");
         }
 
         function initDeviceMinerNode() {
@@ -745,7 +756,7 @@
             if (isActive && remainingSec > 0) {
                 document.getElementById('webHashrate').innerText = hashrate + " H/s";
                 btn.className = "btn btn-success fw-bold px-4 py-2 rounded-pill shadow-sm fs-6 disabled";
-                txtSpan.innerText = "Mining Session Active";
+                txtSpan.innerText = "Phiên đào đang hoạt động";
 
                 const hours = Math.floor(remainingSec / 3600).toString().padStart(2, '0');
                 const minutes = Math.floor((remainingSec % 3600) / 60).toString().padStart(2, '0');
@@ -756,7 +767,7 @@
                 document.getElementById('webHashrate').innerText = "0.0 H/s";
                 document.getElementById('epochTimer').innerText = "24:00:00";
                 btn.className = "btn btn-primary fw-bold px-4 py-2 rounded-pill shadow-sm fs-6";
-                txtSpan.innerText = "Start 24H Mining Session";
+                txtSpan.innerText = "Bắt đầu phiên 24H";
             }
         }
 
@@ -783,7 +794,7 @@
             const boostVal = parseFloat(select.value);
             localLockupRate = boostVal;
 
-            const amountStr = prompt("Enter APXC Amount to LOCK on Cloud Vault:", "100");
+            const amountStr = prompt("Nhập số lượng APXC muốn KHÓA trên Cloud Vault:", "100");
             if (amountStr && !isNaN(amountStr) && parseFloat(amountStr) > 0) {
                 const amount = parseFloat(amountStr);
                 localStaked += amount;
@@ -798,18 +809,18 @@
                 } catch (e) {}
 
                 fetchServerUserStatus();
-                alert(`Successfully locked ${amount} APXC into Staking Vault!`);
+                alert(`Đã khóa thành công ${amount} APXC vào Staking Vault!`);
             }
         }
 
         function claimYield() {
-            alert("Staking Yield automatically added to your Balance!");
+            alert("Lợi nhuận Staking đã được cộng tự động vào Số dư của bạn!");
         }
 
         function copyTokenContractAddress() {
             const contractAddr = "0x89234F2B99E23108B7F43A60355DC38C8ABA6691";
             navigator.clipboard.writeText(contractAddr);
-            alert("Copied Contract Address: " + contractAddr);
+            alert("Đã sao chép địa chỉ Hợp đồng: " + contractAddr);
         }
 
         function updateLockupBoostDisplay() {
@@ -817,7 +828,7 @@
             if (!select) return;
             const boostVal = parseFloat(select.value);
             const boostPercent = (boostVal * 100).toFixed(0);
-            document.getElementById('currentBoostBadge').innerText = `+${boostPercent}% Boost Rate`;
+            document.getElementById('currentBoostBadge').innerText = `+${boostPercent}% Tăng tốc`;
         }
 
         function updateReferralLink() {
@@ -832,7 +843,7 @@
             if (input) {
                 input.select();
                 document.execCommand('copy');
-                alert("Copied Referral Link!");
+                alert("Đã sao chép Link giới thiệu!");
             }
         }
 
@@ -840,10 +851,10 @@
             const rangeEl = document.getElementById('calcRange');
             if (!rangeEl) return;
             const hours = parseInt(rangeEl.value);
-            let durationText = hours + " Hours";
+            let durationText = hours + " Giờ";
             if (hours >= 24) {
                 const days = (hours / 24).toFixed(1);
-                durationText = `${hours} Hours (${days} Days)`;
+                durationText = `${hours} Giờ (${days} Ngày)`;
             }
             document.getElementById('calcHoursTxt').innerText = durationText;
 
@@ -854,7 +865,6 @@
             document.getElementById('calcUsdtVal').innerText = `≈ $${estUsdt} USDT`;
         }
 
-        // DYNAMIC TIMEFRAME CANDLE COUNTDOWN ENGINE (M1 TO MN DYNAMIC FORMAT)
         function startCandleCountdownEngine() {
             function updateClock() {
                 const nowSec = Math.floor(Date.now() / 1000);
@@ -864,16 +874,16 @@
                 
                 let timeStr = "";
 
-                if (tf <= 3600) { // M1, M5, M15, M30, H1
+                if (tf <= 3600) {
                     const m = Math.floor(displaySec / 60).toString().padStart(2, '0');
                     const s = Math.floor(displaySec % 60).toString().padStart(2, '0');
                     timeStr = `${m}:${s}`;
-                } else if (tf <= 86400) { // H4, D1
+                } else if (tf <= 86400) {
                     const h = Math.floor(displaySec / 3600).toString().padStart(2, '0');
                     const m = Math.floor((displaySec % 3600) / 60).toString().padStart(2, '0');
                     const s = Math.floor(displaySec % 60).toString().padStart(2, '0');
                     timeStr = `${h}:${m}:${s}`;
-                } else { // W1, MN
+                } else {
                     const d = Math.floor(displaySec / 86400);
                     const h = Math.floor((displaySec % 86400) / 3600).toString().padStart(2, '0');
                     const m = Math.floor((displaySec % 3600) / 60).toString().padStart(2, '0');
@@ -890,13 +900,13 @@
             setInterval(updateClock, 1000);
         }
 
-        // CONTINUOUS LONG-TERM OHLC HISTORY LOAD & SEED
+        // 2. ĐỌC LỊCH SỬ NẾN ĐÀO THẬT TỪ MÁY CHỦ VPS
         async function loadLongTermOHLCHistory() {
             try {
                 const res = await fetch(RAW_NODE_API + "api/history?_t=" + Date.now());
                 if (res.ok) {
                     const dbHistory = await res.json();
-                    if (dbHistory && dbHistory.length > 0) {
+                    if (Array.isArray(dbHistory) && dbHistory.length > 0) {
                         m1History = dbHistory;
                         renderAggregatedChart();
                         return;
@@ -904,34 +914,42 @@
                 }
             } catch (e) {}
 
+            // Nếu máy chủ chưa phản hồi mảng, dùng thuật toán sinh nến Random Walk tự nhiên
             if (m1History.length === 0) {
-                m1History = generateGenesisSeedHistory(0.1115);
+                m1History = generateNaturalRandomWalkHistory(0.1115);
                 renderAggregatedChart();
             }
         }
 
-        // THUẬT TOÁN SINH NẾN ĐỒNG BỘ TOÀN CẦU (GLOBAL SYNCHRONIZED SEED)
-        function generateGenesisSeedHistory(baseP) {
-            const genesisTime = 1774000000;
+        // 3. THUẬT TOÁN TẠO NẾN TỰ NHIÊN (RANDOM WALK CHUẨN SÀN GIAO DỊCH)
+        function generateNaturalRandomWalkHistory(baseP) {
             const nowSeconds = Math.floor(Date.now() / 60000) * 60;
             const seedCount = 2880;
             let price = baseP || 0.1115;
             const history = [];
 
+            function pseudoRandom(seed) {
+                let x = Math.sin(seed) * 10000;
+                return x - Math.floor(x);
+            }
+
             for (let i = seedCount; i >= 1; i--) {
                 const time = nowSeconds - (i * 60);
-                if (time < genesisTime) continue;
+                if (time < GENESIS_TIMESTAMP) continue;
+
+                const rand = pseudoRandom(time);
+                const changePercent = (rand - 0.49) * 0.005; // Biến động ngẫu nhiên ±0.25%
                 
-                const wave = Math.sin(time / 1800) * 0.0005;
-                const noise = (Math.sin(time / 31) * 0.0003);
-                const change = wave + noise;
-
                 const open = parseFloat(price.toFixed(4));
-                const close = parseFloat(Math.max(0.05, price + change).toFixed(4));
-                const high = parseFloat((Math.max(open, close) + Math.abs(Math.sin(time / 13)) * 0.0004).toFixed(4));
-                const low = parseFloat((Math.min(open, close) - Math.abs(Math.cos(time / 17)) * 0.0004).toFixed(4));
+                const close = parseFloat(Math.max(0.05, open * (1 + changePercent)).toFixed(4));
+                
+                const highDiff = Math.abs(pseudoRandom(time + 1)) * 0.0006;
+                const lowDiff = Math.abs(pseudoRandom(time + 2)) * 0.0006;
+                
+                const high = parseFloat((Math.max(open, close) + highDiff).toFixed(4));
+                const low = parseFloat((Math.min(open, close) - lowDiff).toFixed(4));
+                
                 price = close;
-
                 history.push({ time, open, high, low, close });
             }
             return history;
@@ -986,12 +1004,11 @@
             renderAggregatedChart();
         }
 
-        // BẢNG BLOCK EXPLORER ĐỒNG BỘ CHÍNH XÁC THEO KHỐI SERVER
         function renderBlockExplorer() {
             const body = document.getElementById('blockExplorerBody');
             if (!body) return;
             const currentBlkTxt = document.getElementById('currentBlock').innerText.replace(/[^0-9]/g, '');
-            let currentBlk = parseInt(currentBlkTxt) || 1;
+            let currentBlk = parseInt(currentBlkTxt) || calculateExactBlock();
             
             let html = "";
             for (let i = 0; i < 5; i++) {
@@ -1012,32 +1029,34 @@
             body.innerHTML = html;
         }
 
+        // 4. LẤY DỮ LIỆU ĐỒNG BỘ TỪ MÁY CHỦ REALTIME
         async function fetchNodeData() {
             try {
                 const res = await fetch(RAW_NODE_API + "?_t=" + Date.now());
                 if (res.ok) {
                     const data = await res.json();
-                    document.getElementById('currentBlock').innerText = "#" + data.current_block.toLocaleString();
+                    
+                    // Ưu tiên hiển thị số khối từ máy chủ backend
+                    const activeBlock = data.current_block || calculateExactBlock();
+                    document.getElementById('currentBlock').innerText = "#" + activeBlock.toLocaleString();
                     document.getElementById('founderBalance').innerText = data.founder_balance_apxc;
                     document.getElementById('latestHash').innerText = data.latest_hash;
-                    renderBlockExplorer();
 
                     if (data.ohlc) {
                         currentPrice = data.ohlc.close;
                         document.getElementById('apxcPrice').innerText = "$" + currentPrice.toFixed(4) + " USDT";
                         document.getElementById('ohlcDetail').innerText = `O: ${data.ohlc.open} | H: ${data.ohlc.high} | L: ${data.ohlc.low} | C: ${data.ohlc.close}`;
 
-                        // PUSH REALTIME CANDLE TO LONG-TERM HISTORY
-                        const nowMin = Math.floor(Date.now() / 60000) * 60;
+                        const candleTime = data.ohlc.time || Math.floor(Date.now() / 60000) * 60;
                         const lastCandle = m1History[m1History.length - 1];
                         
-                        if (lastCandle && lastCandle.time === nowMin) {
+                        if (lastCandle && lastCandle.time === candleTime) {
                             lastCandle.high = Math.max(lastCandle.high, data.ohlc.high);
                             lastCandle.low = Math.min(lastCandle.low, data.ohlc.low);
                             lastCandle.close = data.ohlc.close;
                         } else {
                             m1History.push({
-                                time: nowMin,
+                                time: candleTime,
                                 open: data.ohlc.open,
                                 high: data.ohlc.high,
                                 low: data.ohlc.low,
@@ -1046,12 +1065,14 @@
                         }
                         renderAggregatedChart();
                     }
+                    renderBlockExplorer();
+                } else {
+                    throw new Error("Server offline");
                 }
             } catch (e) {
-                let nowSec = Math.floor(Date.now() / 1000);
-                let genesisTime = 1774000000;
-                let currentBlk = nowSec >= genesisTime ? (1 + Math.floor((nowSec - genesisTime) / 60)) : 1;
-                document.getElementById('currentBlock').innerText = "#" + currentBlk.toLocaleString();
+                // Fallback tự động khi không có dữ liệu máy chủ
+                const exactBlock = calculateExactBlock();
+                document.getElementById('currentBlock').innerText = "#" + exactBlock.toLocaleString('vi-VN');
                 renderBlockExplorer();
             }
         }
