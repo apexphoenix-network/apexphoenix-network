@@ -11,10 +11,8 @@
     <!-- TRADINGVIEW LIGHTWEIGHT CHARTS -->
     <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
     
-    <!-- ETHERS.JS & WEB3MODAL FOR WALLET CONNECTION -->
+    <!-- ETHERS.JS V5 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.12/dist/index.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
     
     <!-- GOOGLE TRANSLATE ENGINE -->
     <script type="text/javascript">
@@ -581,7 +579,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH TÍCH HỢP DỮ LIỆU THỰC TẾ TỪ VPS, WEB3MODAL & BYPASS LOCALTUNNEL -->
+    <!-- SCRIPT CHÍNH TÍCH HỢP NATIVE WEB3 WALLET & LOCALTUNNEL BYPASS -->
     <script>
         const RAW_NODE_API  = "https://apxc-node-9035.loca.lt/";
         const HALVING_API   = "https://apxc-api-3000.loca.lt/api/halving-status";
@@ -623,44 +621,36 @@
             new bootstrap.Modal(document.getElementById('updatesModal')).show();
         }
 
+        // KẾT NỐI VÍ NATIVE TRỰC TIẾP (BẤM LÀ NHẬN VÍ CÓ SẴN TRÊN ĐIỆN THOẠI/PC)
         async function connectWeb3Wallet() {
-            try {
-                const providerOptions = {
-                    walletconnect: {
-                        package: window.WalletConnectProvider.default,
-                        options: {
-                            rpc: { 56: 'https://bsc-dataseed.binance.org/' },
-                            network: 'binance'
-                        }
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    if (!accounts || accounts.length === 0) {
+                        alert("❌ Không tìm thấy tài khoản ví nào được cấp phép!");
+                        return;
                     }
-                };
 
-                const web3Modal = new window.Web3Modal.default({
-                    cacheProvider: false,
-                    providerOptions,
-                    theme: "dark"
-                });
-
-                const instance = await web3Modal.connect();
-                const provider = new ethers.providers.Web3Provider(instance);
-                const signer = provider.getSigner();
-                const address = await signer.getAddress();
-                
-                minerNodeId = address;
-                isWeb3Wallet = true;
-                localStorage.setItem('apxc_device_node_id', minerNodeId);
-                
-                const shortAddr = address.substring(0, 6) + "..." + address.substring(address.length - 4);
-                document.getElementById('nodeIdTxt').innerText = shortAddr;
-                
-                document.getElementById('walletBtn').innerText = "Đã kết nối Ví";
-                document.getElementById('minerNodeBadge').classList.remove('d-none');
-                
-                updateReferralLink();
-                fetchServerUserStatus();
-                alert("✅ Kết nối Ví thành công: " + address);
-            } catch (e) {
-                console.log("Người dùng hủy kết nối");
+                    const address = accounts[0];
+                    minerNodeId = address;
+                    isWeb3Wallet = true;
+                    localStorage.setItem('apxc_device_node_id', minerNodeId);
+                    
+                    const shortAddr = address.substring(0, 6) + "..." + address.substring(address.length - 4);
+                    document.getElementById('nodeIdTxt').innerText = shortAddr;
+                    
+                    document.getElementById('walletBtn').innerText = "Đã kết nối Ví";
+                    document.getElementById('minerNodeBadge').classList.remove('d-none');
+                    
+                    updateReferralLink();
+                    fetchServerUserStatus();
+                    alert("✅ Kết nối Ví thành công: " + address);
+                } catch (e) {
+                    console.log("Người dùng hủy kết nối ví", e);
+                    alert("⚠️ Bạn đã hủy yêu cầu kết nối ví.");
+                }
+            } else {
+                alert("⚠️ HƯỚNG DẪN KẾT NỐI VÍ TRÊN DI ĐỘNG:\n\nTrình duyệt Safari/Chrome ngoài không tìm thấy môi trường Web3 trực tiếp.\n\n👉 CÁCH KHẮC PHỤC:\n1. Copy đường link trang web này.\n2. Mở ứng dụng ví của anh (Metamask, Trust Wallet, v.v.).\n3. Vào mục 'Trình duyệt' (Browser) bên trong ứng dụng ví đó và dán link để cắm Node trực tiếp mượt mà 100%!");
             }
         }
 
