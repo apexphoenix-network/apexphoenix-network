@@ -8,12 +8,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
+    <!-- TRADINGVIEW LIGHTWEIGHT CHARTS -->
     <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
     
+    <!-- ETHERS.JS & WEB3MODAL FOR WALLET CONNECTION -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.12/dist/index.js"></script>
     <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
     
+    <!-- GOOGLE TRANSLATE ENGINE -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
@@ -203,9 +206,11 @@
 </head>
 <body>
 
+    <!-- NAVBAR 2 TẦNG CHỐNG VỠ MOBILE LAYOUT -->
     <nav class="navbar navbar-dark navbar-sky sticky-top py-2">
         <div class="container d-flex flex-column gap-2">
             
+            <!-- Tầng 1: Logo, Thông báo & Ngôn ngữ -->
             <div class="d-flex justify-content-between align-items-center w-100">
                 <a class="navbar-brand fw-bold fs-4 d-flex align-items-center m-0" href="#">
                     <img src="apex-coin-logo.png" alt="APEX APXC Coin Logo" class="nav-logo-img me-2">
@@ -220,11 +225,12 @@
                 </div>
             </div>
 
-            <div class="w-100 text-center">
+            <!-- Tầng 2: Nút Connect Web3 Wallet & Badge Node độc lập -->
+            <div class="w-100 d-flex flex-column gap-1 text-center">
                 <button class="btn btn-sm btn-web3 fw-bold shadow-sm" id="walletBtn" onclick="connectWeb3Wallet()">
                     <i class="fa-solid fa-wallet me-1"></i> <span>Connect Web3 Wallet</span>
                 </button>
-                <span class="badge bg-success text-white fw-bold px-4 py-2 rounded-pill shadow-sm d-none w-100" id="minerNodeBadge" style="font-size: 0.9rem;">
+                <span class="badge bg-success text-white fw-bold px-3 py-2 rounded-pill shadow-sm d-none w-100" id="minerNodeBadge" style="font-size: 0.85rem;">
                     <i class="fa-solid fa-server me-1"></i> <span id="nodeIdTxt">Khởi tạo...</span>
                 </span>
             </div>
@@ -232,6 +238,7 @@
         </div>
     </nav>
 
+    <!-- HERO SECTION -->
     <section class="hero-codepen-section text-center">
         <div class="container">
             <div class="mb-3">
@@ -261,9 +268,11 @@
         </div>
     </section>
 
+    <!-- LIVE MONITORING DASHBOARD -->
     <div class="container my-4">
         <div class="row g-4">
             
+            <!-- CURRENT BLOCK -->
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
                     <div class="text-secondary mb-2"><i class="fa-solid fa-cube text-primary me-2"></i><span>Khối hiện tại</span></div>
@@ -272,6 +281,7 @@
                 </div>
             </div>
 
+            <!-- APXC PRICE -->
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
                     <div class="text-secondary mb-2"><i class="fa-solid fa-chart-line text-success me-2"></i><span>Giá trực tiếp APXC (Bull/Bear)</span></div>
@@ -280,6 +290,7 @@
                 </div>
             </div>
 
+            <!-- FOUNDER BALANCE -->
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
                     <div class="text-secondary mb-2"><i class="fa-solid fa-wallet text-warning me-2"></i><span>Quỹ dự trữ Founder (5%)</span></div>
@@ -288,6 +299,7 @@
                 </div>
             </div>
 
+            <!-- LIVE CHART -->
             <div class="col-12">
                 <div class="card card-custom p-3 p-md-4" style="background-color: #0c101a; border-color: #1e293b;">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
@@ -317,11 +329,12 @@
                 </div>
             </div>
 
+            <!-- REAL-TIME CLOUD MINING NODE -->
             <div class="col-12">
                 <div class="card card-custom p-4 border-warning" style="background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
                         <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-microchip text-warning me-2"></i><span>APXC Web Light Miner Node</span></h5>
-                        <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill" id="refBadge">Giao thức 24H | Tốc độ: <span id="mining-rate">Đang kết nối...</span></span>
+                        <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill" id="refBadge">Giao thức 24H | Tốc độ: <span id="mining-rate">Đang đồng bộ VPS...</span></span>
                     </div>
 
                     <div class="row g-3 text-center align-items-center mb-3">
@@ -372,6 +385,7 @@
                 </div>
             </div>
 
+            <!-- MINING PROFIT CALCULATOR -->
             <div class="col-md-6">
                 <div class="card card-custom p-4 h-100">
                     <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-calculator me-2"></i><span>Máy tính lợi nhuận</span></h5>
@@ -390,6 +404,7 @@
                 </div>
             </div>
 
+            <!-- APXC STAKING VAULT -->
             <div class="col-md-6">
                 <div class="card card-custom p-4 h-100 border-info">
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -434,6 +449,7 @@
                 </div>
             </div>
 
+            <!-- TOP 5 MINERS LEADERBOARD -->
             <div class="col-12">
                 <div class="card card-custom p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -487,6 +503,7 @@
                 </div>
             </div>
 
+            <!-- RECENT BLOCK EXPLORER -->
             <div class="col-12">
                 <div class="card card-custom p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -511,6 +528,7 @@
                 </div>
             </div>
 
+            <!-- LATEST HASH & FOUNDER ADDRESS -->
             <div class="col-12">
                 <div class="card card-custom p-4">
                     <div class="d-flex justify-content-between align-items-center mb-2">
@@ -529,6 +547,7 @@
         </div>
     </div>
 
+    <!-- IN-DAPP ANNOUNCEMENTS MODAL -->
     <div class="modal fade" id="updatesModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content rounded-4 border-0 shadow-lg">
@@ -554,19 +573,20 @@
         </div>
     </div>
 
+    <!-- FOOTER -->
     <footer class="text-center py-4 text-muted border-top">
         <small>© 2026 Apex Phoenix Network. All Protocol Rules Reserved.</small>
     </footer>
 
+    <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- SCRIPT CHÍNH TÍCH HỢP DỮ LIỆU THỰC TẾ TỪ VPS, WEB3MODAL & BYPASS LOCALTUNNEL -->
     <script>
-        // LINK CỐ ĐỊNH LOCALTUNNEL
         const RAW_NODE_API  = "https://apxc-node-9035.loca.lt/";
         const HALVING_API   = "https://apxc-api-3000.loca.lt/api/halving-status";
         const PING_NODE_API = "https://apxc-api-3000.loca.lt/api/ping-node";
 
-        // CHÌA KHÓA TÀNG HÌNH LOCALTUNNEL (BYPASS REMINDER)
         const BYPASS_HEADERS = {
             'Bypass-Tunnel-Reminder': 'true',
             'Content-Type': 'application/json'
@@ -603,7 +623,6 @@
             new bootstrap.Modal(document.getElementById('updatesModal')).show();
         }
 
-        // CONNECT VÍ WEB3 QUA WEB3MODAL
         async function connectWeb3Wallet() {
             try {
                 const providerOptions = {
@@ -634,7 +653,7 @@
                 const shortAddr = address.substring(0, 6) + "..." + address.substring(address.length - 4);
                 document.getElementById('nodeIdTxt').innerText = shortAddr;
                 
-                document.getElementById('walletBtn').classList.add('d-none');
+                document.getElementById('walletBtn').innerText = "Đã kết nối Ví";
                 document.getElementById('minerNodeBadge').classList.remove('d-none');
                 
                 updateReferralLink();
@@ -645,7 +664,6 @@
             }
         }
 
-        // TẢI TỐC ĐỘ CHIA ĐỀU VỚI CƠ CHẾ MEMORY CACHE BỌC THÉP
         async function loadApxcHalvingData() {
             try {
                 const response = await fetch(HALVING_API, { headers: { 'Bypass-Tunnel-Reminder': 'true' }});
@@ -653,8 +671,6 @@
                     const data = await response.json();
                     if (data.currentRatePer24h) {
                         currentBaseRate24h = parseFloat(data.currentRatePer24h);
-                        // LƯU TỐC ĐỘ THỰC TẾ MỚI NHẤT VÀO BỘ NHỚ ĐIỆN THOẠI
-                        localStorage.setItem('apxc_last_known_rate', currentBaseRate24h.toString());
                     }
                     
                     const rateEl = document.getElementById('mining-rate');
@@ -671,19 +687,10 @@
                     updateCalculator(); 
                 }
             } catch (error) {
-                console.log("Mất kết nối Server. Kích hoạt Memory Cache dự phòng.");
-                
-                // LẤY LẠI TỐC ĐỘ GẦN NHẤT, NẾU CHƯA CÓ DÙNG MỨC MIN AN TOÀN (10 APXC)
-                let lastKnownRate = parseFloat(localStorage.getItem('apxc_last_known_rate'));
-                if (!isNaN(lastKnownRate) && lastKnownRate > 0) {
-                    currentBaseRate24h = lastKnownRate;
-                } else {
-                    currentBaseRate24h = 10.0;
-                }
-
+                currentBaseRate24h = 0.0;
                 const rateEl = document.getElementById('mining-rate');
                 if (rateEl) {
-                    rateEl.innerText = currentBaseRate24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' APXC / 24h (Mất kết nối)';
+                    rateEl.innerText = 'Đang kết nối lại VPS...';
                     rateEl.classList.add('text-danger');
                 }
                 updateCalculator();
@@ -698,16 +705,9 @@
             }
             minerNodeId = savedId;
             
-            if (minerNodeId.startsWith("0x")) {
-                const shortAddr = minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4);
-                document.getElementById('nodeIdTxt').innerText = shortAddr;
-                document.getElementById('walletBtn').classList.add('d-none');
-                document.getElementById('minerNodeBadge').classList.remove('d-none');
-            } else {
-                document.getElementById('nodeIdTxt').innerText = minerNodeId;
-                document.getElementById('minerNodeBadge').classList.remove('d-none');
-                document.getElementById('walletBtn').classList.add('d-none');
-            }
+            const shortAddr = minerNodeId.startsWith("0x") ? (minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4)) : minerNodeId;
+            document.getElementById('nodeIdTxt').innerText = shortAddr;
+            document.getElementById('minerNodeBadge').classList.remove('d-none');
 
             localMiningStart = parseInt(localStorage.getItem('apxc_local_start') || '0');
             localUnclaimed = parseFloat(localStorage.getItem('apxc_local_balance') || '0.0');
@@ -1077,7 +1077,7 @@
             const currentBlkTxt = document.getElementById('currentBlock').innerText.replace(/[^0-9]/g, '');
             let currentBlk = parseInt(currentBlkTxt) || calculateExactBlock();
             
-            const blockReward = currentBaseRate24h > 0 ? (currentBaseRate24h / 1440).toFixed(6) : "0.006944";
+            const blockReward = currentBaseRate24h > 0 ? (currentBaseRate24h / 1440).toFixed(6) : "0.000000";
 
             let html = "";
             for (let i = 0; i < 5; i++) {
