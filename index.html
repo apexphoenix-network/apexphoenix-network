@@ -8,10 +8,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
+    <!-- TRADINGVIEW LIGHTWEIGHT CHARTS -->
     <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
     
+    <!-- ETHERS.JS V5 FOR WEB3 WALLET CONNECTION -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
     
+    <!-- GOOGLE TRANSLATE ENGINE -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
@@ -179,10 +182,24 @@
             border-radius: 30px;
             box-shadow: 0 0 10px rgba(0, 168, 255, 0.3);
         }
+        
+        /* Tùy chỉnh nút Connect Wallet */
+        .btn-web3 {
+            background: linear-gradient(135deg, #f6851b, #e2761b);
+            color: white;
+            border: none;
+            transition: all 0.2s ease;
+        }
+        .btn-web3:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(246, 133, 27, 0.5);
+            color: white;
+        }
     </style>
 </head>
 <body>
 
+    <!-- NAVBAR WITH APEX COIN LOGO & WEB3 WALLET CONNECT -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sky sticky-top py-2">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4 d-flex align-items-center" href="#">
@@ -191,20 +208,29 @@
             </a>
 
             <div class="d-flex align-items-center gap-2">
+                <!-- Nút thông báo -->
                 <button class="btn btn-warning btn-sm rounded-circle text-dark position-relative" onclick="openUpdatesModal()" title="Network Announcements">
                     <i class="fa-solid fa-bell"></i>
                     <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
                 </button>
 
+                <!-- Ngôn ngữ -->
                 <div id="google_translate_element"></div>
 
-                <button class="btn btn-sm bg-success text-white fw-bold px-3 py-2 rounded-pill shadow-sm border-0" id="minerNodeBtn" onclick="connectWeb3Wallet()">
-                    <i class="fa-solid fa-wallet me-1"></i> <span id="nodeIdTxt">Connect Web3 Wallet</span>
+                <!-- NÚT CONNECT VÍ ĐỘC LẬP -->
+                <button class="btn btn-sm btn-web3 fw-bold px-3 py-2 rounded-pill shadow-sm" id="walletBtn" onclick="connectWeb3Wallet()">
+                    <i class="fa-solid fa-wallet me-1"></i> <span>Connect Web3</span>
                 </button>
+
+                <!-- MÃ NODE ĐANG CHẠY -->
+                <span class="badge bg-success text-white fw-bold px-3 py-2 rounded-pill shadow-sm d-none d-md-inline-block" id="minerNodeBadge">
+                    <i class="fa-solid fa-server me-1"></i> <span id="nodeIdTxt">Khởi tạo...</span>
+                </span>
             </div>
         </div>
     </nav>
 
+    <!-- HERO SECTION -->
     <section class="hero-codepen-section text-center">
         <div class="container">
             <div class="mb-3">
@@ -234,20 +260,21 @@
         </div>
     </section>
 
+    <!-- LIVE MONITORING DASHBOARD -->
     <div class="container my-4">
         <div class="row g-4">
             
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
-                    <div class="text-secondary mb-2"><i class="fa-solid fa-cube text-primary me-2"></i><span>Current Block</span></div>
+                    <div class="text-secondary mb-2"><i class="fa-solid fa-cube text-primary me-2"></i><span>Khối hiện tại</span></div>
                     <div class="stat-val" id="currentBlock">#0</div>
-                    <small class="text-muted mt-2">1 Block / 60 Sec</small>
+                    <small class="text-muted mt-2">1 Khối / 60 Giây</small>
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
-                    <div class="text-secondary mb-2"><i class="fa-solid fa-chart-line text-success me-2"></i><span>APXC Live Price (Bull/Bear)</span></div>
+                    <div class="text-secondary mb-2"><i class="fa-solid fa-chart-line text-success me-2"></i><span>Giá trực tiếp APXC</span></div>
                     <div class="stat-val text-success" id="apxcPrice">$0.1117 USDT</div>
                     <small class="text-muted mt-2" id="ohlcDetail">O: 0.1115 | H: 0.1121 | L: 0.1112 | C: 0.1117</small>
                 </div>
@@ -255,12 +282,13 @@
 
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
-                    <div class="text-secondary mb-2"><i class="fa-solid fa-wallet text-warning me-2"></i><span>Founder Reserve Vault (5%)</span></div>
+                    <div class="text-secondary mb-2"><i class="fa-solid fa-wallet text-warning me-2"></i><span>Quỹ dự trữ Founder (5%)</span></div>
                     <div class="stat-val text-warning" id="founderBalance">353,762 APXC</div>
-                    <small class="text-muted mt-2">Targeted Tokenomics Allocation</small>
+                    <small class="text-muted mt-2">Đã khóa Tokenomics</small>
                 </div>
             </div>
 
+            <!-- LIVE CHART -->
             <div class="col-12">
                 <div class="card card-custom p-3 p-md-4" style="background-color: #0c101a; border-color: #1e293b;">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
@@ -290,23 +318,24 @@
                 </div>
             </div>
 
+            <!-- REAL-TIME CLOUD MINING NODE -->
             <div class="col-12">
                 <div class="card card-custom p-4 border-warning" style="background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
                         <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-microchip text-warning me-2"></i><span>APXC Web Light Miner Node</span></h5>
-                        <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill" id="refBadge">24H Protocol Era | Rate: <span id="mining-rate">10.0 APXC / 24h</span></span>
+                        <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill" id="refBadge">Giao thức 24H | Tốc độ: <span id="mining-rate">Đang đồng bộ mạng...</span></span>
                     </div>
 
                     <div class="row g-3 text-center align-items-center mb-3">
                         <div class="col-md-3">
                             <div class="p-3 bg-white rounded-3 border">
-                                <small class="text-muted d-block">Node Hashrate</small>
+                                <small class="text-muted d-block">Tốc độ Hashrate</small>
                                 <span class="fw-bold text-primary fs-4" id="webHashrate">0.0 H/s</span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="p-3 bg-white rounded-3 border">
-                                <small class="text-muted d-block">Mined APXC Balance</small>
+                                <small class="text-muted d-block">Số dư khai thác (Live)</small>
                                 <span class="fw-bold text-success fs-5 font-monospace" id="unclaimedReward">0.00000000 APXC</span>
                             </div>
                         </div>
@@ -316,24 +345,24 @@
                             </div>
 
                             <button class="btn btn-primary fw-bold px-4 py-2 rounded-pill shadow-sm fs-6" id="startMiningBtn" onclick="triggerServerStartMining()">
-                                <i class="fa-solid fa-play me-2"></i> <span id="miningBtnTxt">Start 24H Epoch</span>
+                                <i class="fa-solid fa-play me-2"></i> <span id="miningBtnTxt">Bắt đầu phiên 24H</span>
                             </button>
                         </div>
                     </div>
 
                     <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div class="small text-muted" id="serverStatusTxt">
-                            <i class="fa-solid fa-server me-1 text-success"></i> Apex Cloud Engine Sync. <span class="badge bg-secondary ms-1" id="current-era">Era 1</span> (Next Halving: <span id="next-halving-date">2027-07-22</span>)
+                            <i class="fa-solid fa-server me-1 text-success"></i> Đồng bộ đám mây Apex Cloud. <span class="badge bg-secondary ms-1" id="current-era">Era ...</span> (Halving tới: <span id="next-halving-date">...</span>)
                         </div>
-                        <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Web3 Wallet Withdrawal opens after Phase 1 Epoch Completion!')">
-                            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Withdraw (Phase 2)
+                        <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Tính năng Rút về ví Web3 sẽ mở khóa ở Phase 2!')">
+                            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Rút về Ví (Sắp mở)
                         </button>
                     </div>
 
                     <div class="mt-4 pt-3 border-top">
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <small class="fw-bold text-dark"><i class="fa-solid fa-user-plus text-primary me-1"></i> <span>Referral Program (+10% Boost)</span></small>
-                            <span class="badge bg-info-subtle text-info rounded-pill">10% Commission</span>
+                            <small class="fw-bold text-dark"><i class="fa-solid fa-user-plus text-primary me-1"></i> <span>Mời bạn bè (+10% Tốc độ)</span></small>
+                            <span class="badge bg-info-subtle text-info rounded-pill">10% Hoa hồng</span>
                         </div>
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control font-monospace text-primary bg-white" id="refLinkInput" readonly value="https://apexphoenix-network.github.io/apexphoenix-network/">
@@ -345,82 +374,85 @@
                 </div>
             </div>
 
+            <!-- MINING PROFIT CALCULATOR -->
             <div class="col-md-6">
                 <div class="card card-custom p-4 h-100">
-                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-calculator me-2"></i><span>Yield Calculator</span></h5>
+                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-calculator me-2"></i><span>Máy tính lợi nhuận</span></h5>
                     <div class="mb-3">
                         <label class="form-label text-muted small fw-bold d-flex justify-content-between">
-                            <span>Runtime:</span>
-                            <span class="text-primary fw-bold" id="calcHoursTxt">24 Hours (1.0 Day)</span>
+                            <span>Thời gian chạy:</span>
+                            <span class="text-primary fw-bold" id="calcHoursTxt">24 Giờ (1.0 Ngày)</span>
                         </label>
                         <input type="range" class="form-range" min="1" max="720" value="24" id="calcRange" oninput="updateCalculator()">
                     </div>
                     <div class="p-3 bg-light rounded-3 border text-center">
-                        <small class="text-muted d-block">Estimated APXC Yield:</small>
-                        <h3 class="fw-bold text-success mb-1" id="calcApxcVal">10.00 APXC</h3>
-                        <small class="text-muted fw-bold" id="calcUsdtVal">≈ $1.12 USDT</small>
+                        <small class="text-muted d-block">Ước tính thu hoạch:</small>
+                        <h3 class="fw-bold text-success mb-1" id="calcApxcVal">Đang tính...</h3>
+                        <small class="text-muted fw-bold" id="calcUsdtVal">≈ $0.00 USDT</small>
                     </div>
                 </div>
             </div>
 
+            <!-- APXC STAKING VAULT -->
             <div class="col-md-6">
                 <div class="card card-custom p-4 h-100 border-info">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-lock text-info me-2"></i><span>APXC Lockup & Staking</span></h5>
-                        <span class="badge bg-success text-white fw-bold px-3 py-1 rounded-pill" id="currentBoostBadge">+30% Boost</span>
+                        <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-lock text-info me-2"></i><span>Khóa & Staking</span></h5>
+                        <span class="badge bg-success text-white fw-bold px-3 py-1 rounded-pill" id="currentBoostBadge">+30% Tăng tốc</span>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label text-muted small fw-bold">Select Lock Duration:</label>
+                        <label class="form-label text-muted small fw-bold">Chọn chu kỳ khóa:</label>
                         <select class="form-select form-select-sm fw-bold border-info text-dark" id="lockDurationSelect" onchange="updateLockupBoostDisplay()">
-                            <option value="0.10">6 Months (+10% Boost / 10% APY)</option>
-                            <option value="0.30" selected>1 Year (+30% Boost / 30% APY)</option>
-                            <option value="0.70">2 Years (+70% Boost / 70% APY)</option>
-                            <option value="1.50">3 Years (+150% Boost / 150% APY)</option>
+                            <option value="0.10">6 Tháng (+10% Boost / 10% APY)</option>
+                            <option value="0.30" selected>1 Năm (+30% Boost / 30% APY)</option>
+                            <option value="0.70">2 Năm (+70% Boost / 70% APY)</option>
+                            <option value="1.50">3 Năm (+150% Boost / 150% APY)</option>
                         </select>
                     </div>
 
                     <div class="row g-2 mb-3 text-center">
                         <div class="col-6">
                             <div class="p-2 bg-light rounded-3 border">
-                                <small class="text-muted d-block" style="font-size: 0.75rem;">Locked APXC</small>
-                                <span class="fw-bold text-dark" id="stakedAmount">0.00 APXC</span>
+                                <small class="text-muted d-block" style="font-size: 0.75rem;">Đang khóa (APXC)</small>
+                                <span class="fw-bold text-dark" id="stakedAmount">0.00</span>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="p-2 bg-light rounded-3 border">
-                                <small class="text-muted d-block" style="font-size: 0.75rem;">Earned Yield</small>
-                                <span class="fw-bold text-success" id="earnedYield">0.0000 APXC</span>
+                                <small class="text-muted d-block" style="font-size: 0.75rem;">Lợi nhuận (APY)</small>
+                                <span class="fw-bold text-success" id="earnedYield">0.0000</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="d-flex gap-2 mb-2">
                         <button class="btn btn-info text-white fw-bold w-50 rounded-pill" onclick="stakeTokensOnServer()">
-                            <i class="fa-solid fa-key me-1"></i> <span>Lock APXC</span>
+                            <i class="fa-solid fa-key me-1"></i> <span>Khóa APXC</span>
                         </button>
                         <button class="btn btn-outline-success fw-bold w-50 rounded-pill" onclick="claimYield()">
-                            <i class="fa-solid fa-gift me-1"></i> <span>Claim Reward</span>
+                            <i class="fa-solid fa-gift me-1"></i> <span>Nhận lãi</span>
                         </button>
                     </div>
-                    <small class="text-muted text-center d-block" style="font-size: 0.73rem;">Longer Lock = Higher Mining Boost!</small>
+                    <small class="text-muted text-center d-block" style="font-size: 0.73rem;">Khóa càng lâu = Tốc độ đào càng cao!</small>
                 </div>
             </div>
 
+            <!-- TOP MINERS LEADERBOARD (CẬP NHẬT 5 NODE) -->
             <div class="col-12">
                 <div class="card card-custom p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="fw-bold text-primary mb-0"><i class="fa-solid fa-trophy text-warning me-2"></i><span>Top Miners Leaderboard</span></h5>
-                        <span class="badge bg-warning-subtle text-warning border border-warning px-3 py-1 rounded-pill">24h Ranking</span>
+                        <h5 class="fw-bold text-primary mb-0"><i class="fa-solid fa-trophy text-warning me-2"></i><span>Top 5 Thợ đào dẫn đầu</span></h5>
+                        <span class="badge bg-warning-subtle text-warning border border-warning px-3 py-1 rounded-pill">Rank 24h</span>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0" style="font-size: 0.88rem;">
                             <thead class="table-light">
                                 <tr>
-                                    <th class="text-center"># Rank</th>
-                                    <th>Miner Node ID</th>
-                                    <th class="text-center">Node Speed</th>
-                                    <th class="text-end">Total Mined APXC</th>
+                                    <th class="text-center"># Hạng</th>
+                                    <th>Mã Node / Ví</th>
+                                    <th class="text-center">Tốc độ Hash</th>
+                                    <th class="text-end">Tổng APXC đã đào</th>
                                 </tr>
                             </thead>
                             <tbody id="leaderboardBody">
@@ -436,28 +468,47 @@
                                     <td class="text-center">15.2 H/s</td>
                                     <td class="text-end fw-bold">1,280.00 APXC</td>
                                 </tr>
+                                <tr>
+                                    <td class="text-center fw-bold text-danger">🥉 #3</td>
+                                    <td class="font-monospace text-muted">0x4F2...A669</td>
+                                    <td class="text-center">14.1 H/s</td>
+                                    <td class="text-end fw-bold">950.40 APXC</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center fw-bold text-muted">#4</td>
+                                    <td class="font-monospace text-muted">APX-NODE-12F8</td>
+                                    <td class="text-center">12.5 H/s</td>
+                                    <td class="text-end fw-bold">810.15 APXC</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center fw-bold text-muted">#5</td>
+                                    <td class="font-monospace text-muted">0x1B8...922C</td>
+                                    <td class="text-center">11.0 H/s</td>
+                                    <td class="text-end fw-bold">620.00 APXC</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
+            <!-- RECENT BLOCK EXPLORER -->
             <div class="col-12">
                 <div class="card card-custom p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="fw-bold text-primary mb-0"><i class="fa-solid fa-cubes me-2"></i><span>Recent Block Explorer</span></h5>
-                        <span class="badge bg-info-subtle text-info px-3 py-2 rounded-pill">1 Block / 60s</span>
+                        <h5 class="fw-bold text-primary mb-0"><i class="fa-solid fa-cubes me-2"></i><span>Trình khám phá Khối (Block Explorer)</span></h5>
+                        <span class="badge bg-info-subtle text-info px-3 py-2 rounded-pill">1 Khối / 60s</span>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0" style="font-size: 0.88rem;">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Block</th>
-                                    <th>Block Hash</th>
-                                    <th>Miner Node</th>
-                                    <th class="text-center">TXs</th>
-                                    <th class="text-end">Reward</th>
-                                    <th class="text-end">Age</th>
+                                    <th>Khối</th>
+                                    <th>Mã Hash Khối</th>
+                                    <th>Node Khai thác</th>
+                                    <th class="text-center">Lệnh (TX)</th>
+                                    <th class="text-end">Phần thưởng</th>
+                                    <th class="text-end">Thời gian</th>
                                 </tr>
                             </thead>
                             <tbody id="blockExplorerBody"></tbody>
@@ -466,16 +517,17 @@
                 </div>
             </div>
 
+            <!-- LATEST HASH & FOUNDER ADDRESS -->
             <div class="col-12">
                 <div class="card card-custom p-4">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="fw-bold text-secondary"><i class="fa-solid fa-hashtag me-2"></i>Latest Block Hash</span>
+                        <span class="fw-bold text-secondary"><i class="fa-solid fa-hashtag me-2"></i>Mã Hash mới nhất</span>
                         <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill" id="liveTag">Live Network</span>
                     </div>
                     <div class="hash-box fs-6 mb-3" id="latestHash">1A51FAEE32344109922C32922158A98301B87F43A6</div>
                     
                     <div class="d-flex justify-content-between align-items-center pt-2 border-top">
-                        <small class="text-muted"><i class="fa-solid fa-key me-1"></i> Founder Vault Address:</small>
+                        <small class="text-muted"><i class="fa-solid fa-key me-1"></i> Ví Tổng Founder:</small>
                         <small class="font-monospace text-primary fw-semibold text-truncate ms-2" style="max-width: 400px;" id="founderAddr">APX355DC38C8ABA6691A1C4020510982B01B87F43A6</small>
                     </div>
                 </div>
@@ -484,16 +536,44 @@
         </div>
     </div>
 
+    <!-- IN-DAPP ANNOUNCEMENTS MODAL -->
+    <div class="modal fade" id="updatesModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-4 border-0 shadow-lg">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="fw-bold text-primary mb-0 d-flex align-items-center">
+                        <i class="fa-solid fa-bullhorn text-warning me-2 fs-4"></i>Apex Phoenix Network News & Updates
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="p-3 bg-light rounded-3 border mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="badge bg-success">Live Mainnet Sync</span>
+                            <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-07-24</small>
+                        </div>
+                        <h6 class="fw-bold text-dark mb-1">Cloud Mining Engine & Real-Time Database Activated</h6>
+                        <p class="small text-muted mb-0">
+                            Successfully integrated SQLite database backend on VPS 42.96.5.132. All miner balances and 24H epoch mining states are now automatically synced in real-time.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
     <footer class="text-center py-4 text-muted border-top">
         <small>© 2026 Apex Phoenix Network. All Protocol Rules Reserved.</small>
     </footer>
 
+    <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- SCRIPT CHÍNH TÍCH HỢP TỐC ĐỘ ĐỘNG & WEB3 -->
     <script>
-        // LỰA CHỌN GIAO THỨC TỰ ĐỘNG CHỐNG MIXED CONTENT (HTTPS / HTTP)
         const PROTOCOL = window.location.protocol === 'https:' ? 'https:' : 'http:';
-        const API_HOST = "42.96.5.132"; // Anh có thể thay bằng domain HTTPS Cloudflare khi sẵn sàng
+        const API_HOST = "42.96.5.132"; 
         
         const RAW_NODE_API = `${PROTOCOL}//${API_HOST}:9035/`;
         const HALVING_API  = `${PROTOCOL}//${API_HOST}:3000/api/halving-status`;
@@ -513,7 +593,8 @@
         let localLockupRate = 0.30;
         let currentPrice = 0.1117;
 
-        let currentBaseRate24h = 10.0; 
+        // Bỏ tốc độ cứng 10, để bằng 0 chờ Server trả về!
+        let currentBaseRate24h = 0.0; 
         let isMiningSessionActive = false;
 
         function calculateExactBlock() {
@@ -522,7 +603,11 @@
             return Math.floor((nowSec - GENESIS_TIMESTAMP) / 60) + 1;
         }
 
-        // CONNECT VÍ WEB3 CHUẨN ĐỊNH DANH 100%
+        function openUpdatesModal() {
+            new bootstrap.Modal(document.getElementById('updatesModal')).show();
+        }
+
+        // CONNECT VÍ WEB3
         async function connectWeb3Wallet() {
             if (window.ethereum) {
                 try {
@@ -537,19 +622,23 @@
                     
                     const shortAddr = address.substring(0, 6) + "..." + address.substring(address.length - 4);
                     document.getElementById('nodeIdTxt').innerText = shortAddr;
-                    document.getElementById('minerNodeBtn').className = "btn btn-sm btn-primary fw-bold px-3 py-2 rounded-pill shadow-sm border-0";
+                    
+                    // Ẩn nút Connect, chỉ hiện Badge Mã Node
+                    document.getElementById('walletBtn').classList.add('d-none');
+                    document.getElementById('minerNodeBadge').classList.remove('d-none');
                     
                     updateReferralLink();
                     fetchServerUserStatus();
-                    alert("Connected Web3 Wallet: " + address);
+                    alert("Kết nối Ví Web3 thành công: " + address);
                 } catch (e) {
-                    alert("Web3 Wallet Connection Refused!");
+                    alert("Bạn đã từ chối kết nối Ví!");
                 }
             } else {
-                alert("Metamask or Web3 Wallet not detected! Please install Metamask extension/app.");
+                alert("Không tìm thấy Web3 Wallet! Vui lòng cài đặt Metamask, Trust Wallet hoặc mở web bằng trình duyệt trong App Ví.");
             }
         }
 
+        // TẢI TỐC ĐỘ CHIA ĐỀU TỪ VPS PORT 3000
         async function loadApxcHalvingData() {
             try {
                 const response = await fetch(HALVING_API);
@@ -570,7 +659,8 @@
                     updateCalculator(); 
                 }
             } catch (error) {
-                console.log("Fallback to Era 1 Default Mining Rate (10.0 APXC/24h)");
+                console.log("Lỗi đồng bộ tốc độ đào");
+                document.getElementById('mining-rate').innerText = 'Lỗi kết nối Server';
             }
         }
 
@@ -582,12 +672,15 @@
             }
             minerNodeId = savedId;
             
+            // Xử lý hiển thị UI cho người dùng cũ
             if (minerNodeId.startsWith("0x")) {
                 const shortAddr = minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4);
                 document.getElementById('nodeIdTxt').innerText = shortAddr;
-                document.getElementById('minerNodeBtn').className = "btn btn-sm btn-primary fw-bold px-3 py-2 rounded-pill shadow-sm border-0";
+                document.getElementById('walletBtn').classList.add('d-none');
+                document.getElementById('minerNodeBadge').classList.remove('d-none');
             } else {
                 document.getElementById('nodeIdTxt').innerText = minerNodeId;
+                document.getElementById('minerNodeBadge').classList.remove('d-none');
             }
 
             localMiningStart = parseInt(localStorage.getItem('apxc_local_start') || '0');
@@ -597,17 +690,17 @@
             updateReferralLink();
             fetchServerUserStatus();
             
-            // CHỐNG DDOS SERVER: ĐỔI THỜI GIAN POLING TỪ 1s NÊN 30s (GIẢM 96.6% TẢI VPS)
+            // Chống DDOS: Giãn cách 30s mới check server 1 lần
             setInterval(fetchServerUserStatus, 30000); 
             
             renderBlockExplorer();
             startRealtimeCoinTicker();
         }
 
-        // TICKER CHẠY CẠNH CLIENT TỰ ĐỘNG NHẢY MƯỢT MỖI 1 GIÂY
+        // ĐẾM SỐ COIN TRỰC TIẾP TRÊN MÀN HÌNH
         function startRealtimeCoinTicker() {
             setInterval(() => {
-                if (isMiningSessionActive) {
+                if (isMiningSessionActive && currentBaseRate24h > 0) {
                     const totalMultiplier = 1.0 + localLockupRate;
                     const apxcPerSecond = (currentBaseRate24h / 86400) * totalMultiplier;
 
@@ -636,7 +729,6 @@
                 if (res.ok) {
                     const data = await res.json();
                     fetchedSuccess = true;
-                    // XÁC THỰC SERVER-SIDE CỰC KỲ AN TOÀN
                     if(data.balance && parseFloat(data.balance) > localUnclaimed) {
                         localUnclaimed = parseFloat(data.balance);
                     }
@@ -669,7 +761,7 @@
             isMiningSessionActive = isActive && remainingSec > 0;
 
             document.getElementById('unclaimedReward').innerText = balance.toFixed(8) + " APXC";
-            document.getElementById('stakedAmount').innerText = parseFloat(staked).toFixed(2) + " APXC";
+            document.getElementById('stakedAmount').innerText = parseFloat(staked).toFixed(2);
 
             const btn = document.getElementById('startMiningBtn');
             const txtSpan = document.getElementById('miningBtnTxt');
@@ -677,7 +769,7 @@
             if (isMiningSessionActive) {
                 document.getElementById('webHashrate').innerText = hashrate + " H/s";
                 btn.className = "btn btn-success fw-bold px-4 py-2 rounded-pill shadow-sm fs-6 disabled";
-                txtSpan.innerText = "Mining Session Active";
+                txtSpan.innerText = "Phiên đào đang hoạt động";
 
                 const hours = Math.floor(remainingSec / 3600).toString().padStart(2, '0');
                 const minutes = Math.floor((remainingSec % 3600) / 60).toString().padStart(2, '0');
@@ -688,7 +780,7 @@
                 document.getElementById('webHashrate').innerText = "0.0 H/s";
                 document.getElementById('epochTimer').innerText = "24:00:00";
                 btn.className = "btn btn-primary fw-bold px-4 py-2 rounded-pill shadow-sm fs-6";
-                txtSpan.innerText = "Start 24H Epoch";
+                txtSpan.innerText = "Bắt đầu phiên 24H";
             }
         }
 
@@ -704,7 +796,6 @@
                 });
             } catch (e) {}
 
-            // BÁO DANH ĐẾM THỢ ĐÀO LÊN SERVER PORT 3000
             try {
                 fetch(`${PROTOCOL}//${API_HOST}:3000/api/ping-node`, {
                     method: 'POST',
@@ -719,26 +810,24 @@
             fetchServerUserStatus();
         }
 
-        // BỌC THÉP BẢO MẬT STAKING INPUT VALIDATION (CHỐNG NHẬP CHỮ, SỐ ÂM & HACK F12)
+        // BỌC THÉP HÀM KHÓA COIN CHỐNG HACK
         async function stakeTokensOnServer() {
-            if (!minerNodeId) return alert("Please connect Node / Wallet first!");
+            if (!minerNodeId) return alert("Vui lòng kết nối Node / Ví trước!");
             const select = document.getElementById('lockDurationSelect');
             const boostVal = parseFloat(select.value);
 
-            const amountStr = prompt(`Enter APXC amount to LOCK (Max available: ${localUnclaimed.toFixed(4)} APXC):`, "100");
+            const amountStr = prompt(`Nhập số lượng APXC muốn KHÓA (Tối đa: ${localUnclaimed.toFixed(4)} APXC):`, "100");
             if (!amountStr) return;
 
             const amount = parseFloat(amountStr.trim());
 
-            // THUẬT TOÁN BẢO MẬT CHẶN VÁ HỖNG STAKING
             if (isNaN(amount) || amount <= 0) {
-                return alert("❌ Invalid Amount: Lockup amount must be a positive number!");
+                return alert("❌ Lỗi: Số lượng khóa phải là số dương hợp lệ!");
             }
             if (amount > localUnclaimed) {
-                return alert(`❌ Insufficient Balance: You only have ${localUnclaimed.toFixed(4)} APXC available!`);
+                return alert(`❌ Không đủ số dư: Bạn chỉ có ${localUnclaimed.toFixed(4)} APXC!`);
             }
 
-            // Trừ bớt số dư khả dụng ngay lập tức
             localUnclaimed -= amount;
             localStaked += amount;
             localStorage.setItem('apxc_local_balance', localUnclaimed.toString());
@@ -753,17 +842,17 @@
             } catch (e) {}
 
             fetchServerUserStatus();
-            alert(`✅ Locked successfully ${amount.toFixed(2)} APXC into Staking Vault! Boost increased.`);
+            alert(`✅ Đã khóa thành công ${amount.toFixed(2)} APXC! Tốc độ đào của bạn đã tăng lên.`);
         }
 
         function claimYield() {
-            alert("Staking Yield rewards are automatically compounded into your Mining Balance!");
+            alert("Lợi nhuận Staking đã được hệ thống tự động cộng dồn vào Số dư khai thác của bạn!");
         }
 
         function copyTokenContractAddress() {
             const contractAddr = "0x89234F2B99E23108B7F43A60355DC38C8ABA6691";
             navigator.clipboard.writeText(contractAddr);
-            alert("Copied Contract Address: " + contractAddr);
+            alert("Đã sao chép địa chỉ Smart Contract: " + contractAddr);
         }
 
         function updateLockupBoostDisplay() {
@@ -772,7 +861,7 @@
             const boostVal = parseFloat(select.value);
             localLockupRate = boostVal;
             const boostPercent = (boostVal * 100).toFixed(0);
-            document.getElementById('currentBoostBadge').innerText = `+${boostPercent}% Boost`;
+            document.getElementById('currentBoostBadge').innerText = `+${boostPercent}% Tăng tốc`;
             updateCalculator();
         }
 
@@ -788,20 +877,28 @@
             if (input) {
                 input.select();
                 document.execCommand('copy');
-                alert("Copied Referral Link!");
+                alert("Đã sao chép Link Mời bạn bè!");
             }
         }
 
+        // TÍNH TOÁN LỢI NHUẬN DỰA THEO TỐC ĐỘ ĐỘNG (KHÔNG CÒN FIX CỨNG 10 NỮA)
         function updateCalculator() {
             const rangeEl = document.getElementById('calcRange');
             if (!rangeEl) return;
             const hours = parseInt(rangeEl.value);
-            let durationText = hours + " Hours";
+            let durationText = hours + " Giờ";
             if (hours >= 24) {
                 const days = (hours / 24).toFixed(1);
-                durationText = `${hours} Hours (${days} Days)`;
+                durationText = `${hours} Giờ (${days} Ngày)`;
             }
             document.getElementById('calcHoursTxt').innerText = durationText;
+
+            // Chờ Server trả về tốc độ mới tính
+            if (currentBaseRate24h === 0) {
+                document.getElementById('calcApxcVal').innerText = `Đang đồng bộ...`;
+                document.getElementById('calcUsdtVal').innerText = `≈ $0.00 USDT`;
+                return;
+            }
 
             const ratePerHour = (currentBaseRate24h / 24) * (1.0 + localLockupRate);
             const estApxc = (hours * ratePerHour).toFixed(2);
@@ -933,12 +1030,15 @@
             renderAggregatedChart();
         }
 
+        // EXPLORER TÍNH TOÁN DỰA TRÊN TỐC ĐỘ ĐỘNG
         function renderBlockExplorer() {
             const body = document.getElementById('blockExplorerBody');
             if (!body) return;
             const currentBlkTxt = document.getElementById('currentBlock').innerText.replace(/[^0-9]/g, '');
             let currentBlk = parseInt(currentBlkTxt) || calculateExactBlock();
-            const blockReward = (currentBaseRate24h / 1440).toFixed(6);
+            
+            // Chia thưởng block dựa trên Rate thực tế của Server
+            const blockReward = currentBaseRate24h > 0 ? (currentBaseRate24h / 1440).toFixed(6) : "0.000000";
 
             let html = "";
             for (let i = 0; i < 5; i++) {
@@ -946,7 +1046,7 @@
                 const hash = "1A51FAEE" + Math.random().toString(16).substring(2, 10).toUpperCase() + "355D";
                 const miner = "APX-NODE-" + Math.random().toString(36).substring(2, 6).toUpperCase();
                 const tx = Math.floor(Math.random() * 12) + 1;
-                const age = (i * 60 + 12) + "s ago";
+                const age = (i * 60 + 12) + "s trước";
                 html += `<tr>
                     <td class="fw-bold text-primary">#${blk.toLocaleString()}</td>
                     <td class="font-monospace text-muted">${hash}</td>
