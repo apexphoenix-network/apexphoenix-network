@@ -185,32 +185,33 @@
             box-shadow: 0 0 10px rgba(0, 168, 255, 0.3);
         }
         
-        /* Tùy chỉnh nút Connect Wallet */
+        /* Tùy chỉnh nút Connect Wallet để không vỡ giao diện */
         .btn-web3 {
             background: linear-gradient(135deg, #f6851b, #e2761b);
             color: white !important;
             border: none;
-            padding: 5px 16px !important;
+            padding: 6px 20px !important;
             border-radius: 20px !important;
-            font-size: 0.85rem !important;
+            font-size: 0.9rem !important;
             font-weight: 700 !important;
             white-space: nowrap;
             transition: all 0.2s ease;
             box-shadow: 0 4px 6px rgba(246, 133, 27, 0.3);
+            width: 100%;
         }
         .btn-web3:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
             box-shadow: 0 0 10px rgba(246, 133, 27, 0.6);
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR ĐÃ ĐƯỢC CHIA LÀM 2 TẦNG ĐỂ CHỐNG VỠ GIAO DIỆN -->
+    <!-- NAVBAR ĐÃ ĐƯỢC CHIA LÀM 2 TẦNG CHỐNG VỠ GIAO DIỆN MOBILE -->
     <nav class="navbar navbar-dark navbar-sky sticky-top py-2">
-        <div class="container d-flex flex-column">
+        <div class="container d-flex flex-column gap-2">
             
-            <!-- Tầng 1: Logo và Nút bấm ngang -->
+            <!-- Tầng 1: Logo và Ngôn ngữ -->
             <div class="d-flex justify-content-between align-items-center w-100">
                 <a class="navbar-brand fw-bold fs-4 d-flex align-items-center m-0" href="#">
                     <img src="apex-coin-logo.png" alt="APEX APXC Coin Logo" class="nav-logo-img me-2">
@@ -218,20 +219,19 @@
                 </a>
 
                 <div class="d-flex align-items-center gap-2">
-                    <button class="btn btn-warning btn-sm rounded-circle text-dark position-relative" onclick="openUpdatesModal()" title="Network Announcements">
+                    <button class="btn btn-warning btn-sm rounded-circle text-dark position-relative" onclick="openUpdatesModal()">
                         <i class="fa-solid fa-bell"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
                     </button>
                     <div id="google_translate_element"></div>
-                    <button class="btn btn-sm btn-web3 fw-bold px-3 py-2 rounded-pill shadow-sm" id="walletBtn" onclick="connectWeb3Wallet()">
-                        <i class="fa-solid fa-wallet me-1"></i> <span>Connect</span>
-                    </button>
                 </div>
             </div>
 
-            <!-- Tầng 2: Mã Node (Sẽ hiện ra dưới tầng 1 một cách gọn gàng sau khi kết nối) -->
-            <div class="w-100 text-end mt-2">
-                <span class="badge bg-success text-white fw-bold px-3 py-2 rounded-pill shadow-sm d-none" id="minerNodeBadge" style="display: inline-block;">
+            <!-- Tầng 2: Nút Ví (Web3Modal) hoặc Mã Node -->
+            <div class="w-100 text-center">
+                <button class="btn btn-sm btn-web3 fw-bold shadow-sm" id="walletBtn" onclick="connectWeb3Wallet()">
+                    <i class="fa-solid fa-wallet me-1"></i> <span>Connect Web3 Wallet</span>
+                </button>
+                <span class="badge bg-success text-white fw-bold px-4 py-2 rounded-pill shadow-sm d-none w-100" id="minerNodeBadge" style="font-size: 0.9rem;">
                     <i class="fa-solid fa-server me-1"></i> <span id="nodeIdTxt">Khởi tạo...</span>
                 </span>
             </div>
@@ -273,6 +273,7 @@
     <div class="container my-4">
         <div class="row g-4">
             
+            <!-- CURRENT BLOCK -->
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
                     <div class="text-secondary mb-2"><i class="fa-solid fa-cube text-primary me-2"></i><span>Khối hiện tại</span></div>
@@ -281,14 +282,16 @@
                 </div>
             </div>
 
+            <!-- APXC PRICE -->
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
-                    <div class="text-secondary mb-2"><i class="fa-solid fa-chart-line text-success me-2"></i><span>Giá trực tiếp APXC (Bull/Bear)</span></div>
+                    <div class="text-secondary mb-2"><i class="fa-solid fa-chart-line text-success me-2"></i><span>Giá trực tiếp APXC</span></div>
                     <div class="stat-val text-success" id="apxcPrice">$0.1117 USDT</div>
                     <small class="text-muted mt-2" id="ohlcDetail">O: 0.1115 | H: 0.1121 | L: 0.1112 | C: 0.1117</small>
                 </div>
             </div>
 
+            <!-- FOUNDER BALANCE -->
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
                     <div class="text-secondary mb-2"><i class="fa-solid fa-wallet text-warning me-2"></i><span>Quỹ dự trữ Founder (5%)</span></div>
@@ -332,7 +335,7 @@
                 <div class="card card-custom p-4 border-warning" style="background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
                         <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-microchip text-warning me-2"></i><span>APXC Web Light Miner Node</span></h5>
-                        <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill" id="refBadge">Giao thức 24H | Tốc độ: <span id="mining-rate">Đang đồng bộ...</span></span>
+                        <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill" id="refBadge">Giao thức 24H | Tốc độ: <span id="mining-rate">Đang kết nối...</span></span>
                     </div>
 
                     <div class="row g-3 text-center align-items-center mb-3">
@@ -361,7 +364,7 @@
 
                     <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div class="small text-muted" id="serverStatusTxt">
-                            <i class="fa-solid fa-server me-1 text-success"></i> Đồng bộ đám mây Apex Cloud. <span class="badge bg-secondary ms-1" id="current-era">Era ...</span> (Halving tới: <span id="next-halving-date">...</span>)
+                            <i class="fa-solid fa-server me-1 text-success"></i> Đồng bộ đám mây Apex Cloud. <span class="badge bg-secondary ms-1" id="current-era">Era 1</span> (Halving tới: <span id="next-halving-date">2027-07-22</span>)
                         </div>
                         <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Tính năng Rút về ví Web3 sẽ mở khóa ở Phase 2!')">
                             <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Rút về Ví (Sắp mở)
@@ -447,7 +450,7 @@
                 </div>
             </div>
 
-            <!-- TOP MINERS LEADERBOARD (CẬP NHẬT 5 NODE) -->
+            <!-- TOP MINERS LEADERBOARD -->
             <div class="col-12">
                 <div class="card card-custom p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -605,6 +608,10 @@
 
         let currentBaseRate24h = 0.0; 
         let isMiningSessionActive = false;
+        
+        // Biến chạy đồng hồ đếm ngược nội bộ
+        let localRemainingSec = 0;
+        let clockInterval = null;
 
         function calculateExactBlock() {
             const nowSec = Math.floor(Date.now() / 1000);
@@ -616,16 +623,14 @@
             new bootstrap.Modal(document.getElementById('updatesModal')).show();
         }
 
-        // 🚀 CẬP NHẬT WEB3MODAL (HIỆN BẢNG TÙY CHỌN VÍ CHUYÊN NGHIỆP)
+        // CẬP NHẬT WEB3MODAL (HIỆN BẢNG TÙY CHỌN VÍ CHUYÊN NGHIỆP)
         async function connectWeb3Wallet() {
             try {
                 const providerOptions = {
                     walletconnect: {
                         package: window.WalletConnectProvider.default,
                         options: {
-                            rpc: {
-                                56: 'https://bsc-dataseed.binance.org/' // Mặc định hỗ trợ Binance Smart Chain
-                            },
+                            rpc: { 56: 'https://bsc-dataseed.binance.org/' },
                             network: 'binance'
                         }
                     }
@@ -637,9 +642,7 @@
                     theme: "dark"
                 });
 
-                // Lệnh này sẽ mở ra cái bảng để anh em chọn Metamask, Trust...
                 const instance = await web3Modal.connect();
-                
                 const provider = new ethers.providers.Web3Provider(instance);
                 const signer = provider.getSigner();
                 const address = await signer.getAddress();
@@ -651,19 +654,18 @@
                 const shortAddr = address.substring(0, 6) + "..." + address.substring(address.length - 4);
                 document.getElementById('nodeIdTxt').innerText = shortAddr;
                 
-                // Ẩn nút Wallet đi và Hiện khung Node nằm ở dưới
                 document.getElementById('walletBtn').classList.add('d-none');
                 document.getElementById('minerNodeBadge').classList.remove('d-none');
                 
                 updateReferralLink();
                 fetchServerUserStatus();
                 alert("✅ Kết nối Ví thành công: " + address);
-
             } catch (e) {
-                console.log("Người dùng hủy kết nối", e);
+                console.log("Người dùng hủy kết nối");
             }
         }
 
+        // TẢI TỐC ĐỘ CHIA ĐỀU TỪ VPS & BẬT OFFLINE MODE NẾU BỊ CHẶN
         async function loadApxcHalvingData() {
             try {
                 const response = await fetch(HALVING_API);
@@ -673,7 +675,7 @@
                         currentBaseRate24h = parseFloat(data.currentRatePer24h);
                     }
                     if (document.getElementById('mining-rate')) {
-                        document.getElementById('mining-rate').innerText = currentBaseRate24h.toFixed(2) + ' APXC / 24h';
+                        document.getElementById('mining-rate').innerText = currentBaseRate24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' APXC / 24h';
                     }
                     if (document.getElementById('current-era')) {
                         document.getElementById('current-era').innerText = 'Era ' + data.currentEra;
@@ -684,8 +686,13 @@
                     updateCalculator(); 
                 }
             } catch (error) {
-                console.log("Lỗi đồng bộ tốc độ đào");
-                document.getElementById('mining-rate').innerText = 'Lỗi kết nối Server';
+                console.log("Lỗi LocalTunnel HTTPS, chuyển sang chế độ Offline (Giả lập 3 Node)");
+                // 97808 chia cho 3 Node = 32602.73
+                currentBaseRate24h = 32602.73;
+                if (document.getElementById('mining-rate')) {
+                    document.getElementById('mining-rate').innerText = '32,602.73 APXC / 24h (Offline Mode)';
+                }
+                updateCalculator();
             }
         }
 
@@ -697,7 +704,6 @@
             }
             minerNodeId = savedId;
             
-            // Nếu đã từng kết nối Ví thì hiện xuống dòng dưới
             if (minerNodeId.startsWith("0x")) {
                 const shortAddr = minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4);
                 document.getElementById('nodeIdTxt').innerText = shortAddr;
@@ -707,8 +713,6 @@
                 document.getElementById('nodeIdTxt').innerText = minerNodeId;
                 document.getElementById('minerNodeBadge').classList.remove('d-none');
                 document.getElementById('walletBtn').classList.add('d-none');
-                // Nếu muốn người mới vào có chữ Connect Wallet, ta có thể sửa logic này sau, 
-                // hiện tại giữ nguyên luồng cấp tự động Node Ảo
             }
 
             localMiningStart = parseInt(localStorage.getItem('apxc_local_start') || '0');
@@ -723,6 +727,7 @@
             startRealtimeCoinTicker();
         }
 
+        // ĐẾM SỐ COIN MƯỢT MÀ TỪNG GIÂY
         function startRealtimeCoinTicker() {
             setInterval(() => {
                 if (isMiningSessionActive && currentBaseRate24h > 0) {
@@ -740,6 +745,29 @@
             }, 1000);
         }
 
+        // ĐỒNG HỒ ĐẾM NGƯỢC NỘI BỘ (TRÌNH DUYỆT TỰ CHẠY MỖI GIÂY)
+        function startLocalCountdown() {
+            if (clockInterval) clearInterval(clockInterval);
+            clockInterval = setInterval(() => {
+                if (isMiningSessionActive && localRemainingSec > 0) {
+                    localRemainingSec--;
+                    const hours = Math.floor(localRemainingSec / 3600).toString().padStart(2, '0');
+                    const minutes = Math.floor((localRemainingSec % 3600) / 60).toString().padStart(2, '0');
+                    const seconds = Math.floor(localRemainingSec % 60).toString().padStart(2, '0');
+                    
+                    document.getElementById('epochTimer').innerText = hours + ":" + minutes + ":" + seconds;
+                } else if (localRemainingSec <= 0 && isMiningSessionActive) {
+                    isMiningSessionActive = false;
+                    document.getElementById('webHashrate').innerText = "0.0 H/s";
+                    document.getElementById('epochTimer').innerText = "24:00:00";
+                    const btn = document.getElementById('startMiningBtn');
+                    btn.className = "btn btn-primary fw-bold px-4 py-2 rounded-pill shadow-sm fs-6";
+                    document.getElementById('miningBtnTxt').innerText = "Bắt đầu phiên 24H";
+                    clearInterval(clockInterval);
+                }
+            }, 1000);
+        }
+
         async function fetchServerUserStatus() {
             if (!minerNodeId) return;
             let fetchedSuccess = false;
@@ -747,7 +775,6 @@
             try {
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 2000);
-
                 const res = await fetch(RAW_NODE_API + "api/user_status?node_id=" + minerNodeId + "&_t=" + Date.now(), { signal: controller.signal });
                 clearTimeout(timeoutId);
 
@@ -784,6 +811,7 @@
 
         function updateMiningUI(isActive, remainingSec, hashrate, balance, staked) {
             isMiningSessionActive = isActive && remainingSec > 0;
+            localRemainingSec = remainingSec; 
 
             document.getElementById('unclaimedReward').innerText = balance.toFixed(8) + " APXC";
             document.getElementById('stakedAmount').innerText = parseFloat(staked).toFixed(2);
@@ -795,18 +823,15 @@
                 document.getElementById('webHashrate').innerText = hashrate + " H/s";
                 btn.className = "btn btn-success fw-bold px-4 py-2 rounded-pill shadow-sm fs-6 disabled";
                 txtSpan.innerText = "Phiên đào đang hoạt động";
-
-                const hours = Math.floor(remainingSec / 3600).toString().padStart(2, '0');
-                const minutes = Math.floor((remainingSec % 3600) / 60).toString().padStart(2, '0');
-                const seconds = Math.floor(remainingSec % 60).toString().padStart(2, '0');
-                
-                document.getElementById('epochTimer').innerText = hours + ":" + minutes + ":" + seconds;
             } else {
                 document.getElementById('webHashrate').innerText = "0.0 H/s";
                 document.getElementById('epochTimer').innerText = "24:00:00";
                 btn.className = "btn btn-primary fw-bold px-4 py-2 rounded-pill shadow-sm fs-6";
                 txtSpan.innerText = "Bắt đầu phiên 24H";
             }
+            
+            // Kích hoạt đồng hồ nhảy
+            startLocalCountdown();
         }
 
         async function triggerServerStartMining() {
@@ -832,6 +857,7 @@
             localMiningStart = Math.floor(Date.now() / 1000);
             localStorage.setItem('apxc_local_start', localMiningStart.toString());
             isMiningSessionActive = true;
+            localRemainingSec = 86400; // Reset 24h
             fetchServerUserStatus();
         }
 
@@ -1058,7 +1084,7 @@
             const currentBlkTxt = document.getElementById('currentBlock').innerText.replace(/[^0-9]/g, '');
             let currentBlk = parseInt(currentBlkTxt) || calculateExactBlock();
             
-            const blockReward = currentBaseRate24h > 0 ? (currentBaseRate24h / 1440).toFixed(6) : "0.000000";
+            const blockReward = currentBaseRate24h > 0 ? (currentBaseRate24h / 1440).toFixed(6) : (32602.73 / 1440).toFixed(6);
 
             let html = "";
             for (let i = 0; i < 5; i++) {
