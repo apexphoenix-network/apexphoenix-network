@@ -561,12 +561,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // CẬP NHẬT LINK CỐ ĐỊNH LOCALTUNNEL VỚI SUBDOMAIN
+        // LINK CỐ ĐỊNH LOCALTUNNEL
         const RAW_NODE_API  = "https://apxc-node-9035.loca.lt/";
         const HALVING_API   = "https://apxc-api-3000.loca.lt/api/halving-status";
         const PING_NODE_API = "https://apxc-api-3000.loca.lt/api/ping-node";
 
-        // CHÌA KHÓA TÀNG HÌNH LOCALTUNNEL (CHỐNG HIỆN BẢNG CẢNH BÁO XÁC NHẬN)
+        // CHÌA KHÓA TÀNG HÌNH LOCALTUNNEL (BYPASS REMINDER)
         const BYPASS_HEADERS = {
             'Bypass-Tunnel-Reminder': 'true',
             'Content-Type': 'application/json'
@@ -603,7 +603,7 @@
             new bootstrap.Modal(document.getElementById('updatesModal')).show();
         }
 
-        // CONNECT VÍ WEB3 CHUYÊN NGHIỆP QUA WEB3MODAL
+        // CONNECT VÍ WEB3 QUA WEB3MODAL
         async function connectWeb3Wallet() {
             try {
                 const providerOptions = {
@@ -645,7 +645,7 @@
             }
         }
 
-        // TẢI TỐC ĐỘ CHIA ĐỀU TỪ VPS & HỖ TRỢ CHẾ ĐỘ DỰ PHÒNG OFFLINE (3 NODE)
+        // TẢI TỐC ĐỘ CHIA ĐỀU VỚI CƠ CHẾ MEMORY CACHE BỌC THÉP
         async function loadApxcHalvingData() {
             try {
                 const response = await fetch(HALVING_API, { headers: { 'Bypass-Tunnel-Reminder': 'true' }});
@@ -653,9 +653,14 @@
                     const data = await response.json();
                     if (data.currentRatePer24h) {
                         currentBaseRate24h = parseFloat(data.currentRatePer24h);
+                        // LƯU TỐC ĐỘ THỰC TẾ MỚI NHẤT VÀO BỘ NHỚ ĐIỆN THOẠI
+                        localStorage.setItem('apxc_last_known_rate', currentBaseRate24h.toString());
                     }
-                    if (document.getElementById('mining-rate')) {
-                        document.getElementById('mining-rate').innerText = currentBaseRate24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' APXC / 24h';
+                    
+                    const rateEl = document.getElementById('mining-rate');
+                    if (rateEl) {
+                        rateEl.innerText = currentBaseRate24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' APXC / 24h';
+                        rateEl.classList.remove('text-danger');
                     }
                     if (document.getElementById('current-era')) {
                         document.getElementById('current-era').innerText = 'Era ' + data.currentEra;
@@ -666,10 +671,20 @@
                     updateCalculator(); 
                 }
             } catch (error) {
-                console.log("Chuyển sang chế độ Offline Mode (Tốc độ giả lập 3 Node)");
-                currentBaseRate24h = 32602.73; // 97808 / 3 Node
-                if (document.getElementById('mining-rate')) {
-                    document.getElementById('mining-rate').innerText = '32,602.73 APXC / 24h (Offline Mode)';
+                console.log("Mất kết nối Server. Kích hoạt Memory Cache dự phòng.");
+                
+                // LẤY LẠI TỐC ĐỘ GẦN NHẤT, NẾU CHƯA CÓ DÙNG MỨC MIN AN TOÀN (10 APXC)
+                let lastKnownRate = parseFloat(localStorage.getItem('apxc_last_known_rate'));
+                if (!isNaN(lastKnownRate) && lastKnownRate > 0) {
+                    currentBaseRate24h = lastKnownRate;
+                } else {
+                    currentBaseRate24h = 10.0;
+                }
+
+                const rateEl = document.getElementById('mining-rate');
+                if (rateEl) {
+                    rateEl.innerText = currentBaseRate24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' APXC / 24h (Mất kết nối)';
+                    rateEl.classList.add('text-danger');
                 }
                 updateCalculator();
             }
@@ -706,7 +721,6 @@
             startRealtimeCoinTicker();
         }
 
-        // NHẢY SỐ COIN TỰ ĐỘNG TỪNG GIÂY
         function startRealtimeCoinTicker() {
             setInterval(() => {
                 if (isMiningSessionActive && currentBaseRate24h > 0) {
@@ -724,7 +738,6 @@
             }, 1000);
         }
 
-        // ĐỒNG HỒ ĐẾM NGƯỢC LÙI MƯỢT MÀ TỪNG GIÂY
         function startLocalCountdown() {
             if (clockInterval) clearInterval(clockInterval);
             clockInterval = setInterval(() => {
@@ -1064,7 +1077,7 @@
             const currentBlkTxt = document.getElementById('currentBlock').innerText.replace(/[^0-9]/g, '');
             let currentBlk = parseInt(currentBlkTxt) || calculateExactBlock();
             
-            const blockReward = currentBaseRate24h > 0 ? (currentBaseRate24h / 1440).toFixed(6) : (32602.73 / 1440).toFixed(6);
+            const blockReward = currentBaseRate24h > 0 ? (currentBaseRate24h / 1440).toFixed(6) : "0.006944";
 
             let html = "";
             for (let i = 0; i < 5; i++) {
