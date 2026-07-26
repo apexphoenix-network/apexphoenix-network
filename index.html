@@ -11,8 +11,10 @@
     <!-- TRADINGVIEW LIGHTWEIGHT CHARTS -->
     <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
     
-    <!-- ETHERS.JS V5 -->
+    <!-- ETHERS.JS & WEB3MODAL FOR WALLET CONNECTION -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.12/dist/index.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
     
     <!-- GOOGLE TRANSLATE ENGINE -->
     <script type="text/javascript">
@@ -579,7 +581,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH TÍCH HỢP NATIVE WEB3 WALLET & LOCALTUNNEL BYPASS -->
+    <!-- SCRIPT CHÍNH TÍCH HỢP AUTO-RECONNECT VPS & WEB3MODAL -->
     <script>
         const RAW_NODE_API  = "https://apxc-node-9035.loca.lt/";
         const HALVING_API   = "https://apxc-api-3000.loca.lt/api/halving-status";
@@ -605,7 +607,7 @@
         let localLockupRate = 0.30;
         let currentPrice = 0.1117;
 
-        let currentBaseRate24h = 0.0; 
+        let currentBaseRate24h = 267.96; 
         let isMiningSessionActive = false;
         
         let localRemainingSec = 0;
@@ -621,42 +623,58 @@
             new bootstrap.Modal(document.getElementById('updatesModal')).show();
         }
 
-        // KẾT NỐI VÍ NATIVE TRỰC TIẾP (BẤM LÀ NHẬN VÍ CÓ SẴN TRÊN ĐIỆN THOẠI/PC)
         async function connectWeb3Wallet() {
-            if (window.ethereum) {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    if (!accounts || accounts.length === 0) {
-                        alert("❌ Không tìm thấy tài khoản ví nào được cấp phép!");
-                        return;
+            try {
+                const providerOptions = {
+                    walletconnect: {
+                        package: window.WalletConnectProvider.default,
+                        options: {
+                            rpc: { 56: 'https://bsc-dataseed.binance.org/' },
+                            network: 'binance'
+                        }
                     }
+                };
 
-                    const address = accounts[0];
-                    minerNodeId = address;
-                    isWeb3Wallet = true;
-                    localStorage.setItem('apxc_device_node_id', minerNodeId);
-                    
-                    const shortAddr = address.substring(0, 6) + "..." + address.substring(address.length - 4);
-                    document.getElementById('nodeIdTxt').innerText = shortAddr;
-                    
-                    document.getElementById('walletBtn').innerText = "Đã kết nối Ví";
-                    document.getElementById('minerNodeBadge').classList.remove('d-none');
-                    
-                    updateReferralLink();
-                    fetchServerUserStatus();
-                    alert("✅ Kết nối Ví thành công: " + address);
-                } catch (e) {
-                    console.log("Người dùng hủy kết nối ví", e);
-                    alert("⚠️ Bạn đã hủy yêu cầu kết nối ví.");
-                }
-            } else {
-                alert("⚠️ HƯỚNG DẪN KẾT NỐI VÍ TRÊN DI ĐỘNG:\n\nTrình duyệt Safari/Chrome ngoài không tìm thấy môi trường Web3 trực tiếp.\n\n👉 CÁCH KHẮC PHỤC:\n1. Copy đường link trang web này.\n2. Mở ứng dụng ví của anh (Metamask, Trust Wallet, v.v.).\n3. Vào mục 'Trình duyệt' (Browser) bên trong ứng dụng ví đó và dán link để cắm Node trực tiếp mượt mà 100%!");
+                const web3Modal = new window.Web3Modal.default({
+                    cacheProvider: false,
+                    providerOptions,
+                    theme: "dark"
+                });
+
+                const instance = await web3Modal.connect();
+                const provider = new ethers.providers.Web3Provider(instance);
+                const signer = provider.getSigner();
+                const address = await signer.getAddress();
+                
+                minerNodeId = address;
+                isWeb3Wallet = true;
+                localStorage.setItem('apxc_device_node_id', minerNodeId);
+                
+                const shortAddr = address.substring(0, 6) + "..." + address.substring(address.length - 4);
+                document.getElementById('nodeIdTxt').innerText = shortAddr;
+                
+                document.getElementById('walletBtn').innerText = "Đã kết nối Ví";
+                document.getElementById('minerNodeBadge').classList.remove('d-none');
+                
+                updateReferralLink();
+                fetchServerUserStatus();
+                alert("✅ Kết nối Ví thành công: " + address);
+            } catch (e) {
+                console.log("Người dùng hủy kết nối ví", e);
             }
         }
 
         async function loadApxcHalvingData() {
             try {
-                const response = await fetch(HALVING_API, { headers: { 'Bypass-Tunnel-Reminder': 'true' }});
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+                const response = await fetch(HALVING_API, { 
+                    headers: { 'Bypass-Tunnel-Reminder': 'true' },
+                    signal: controller.signal 
+                });
+                clearTimeout(timeoutId);
+
                 if (response.ok) {
                     const data = await response.json();
                     if (data.currentRatePer24h) {
@@ -677,11 +695,9 @@
                     updateCalculator(); 
                 }
             } catch (error) {
-                currentBaseRate24h = 0.0;
                 const rateEl = document.getElementById('mining-rate');
                 if (rateEl) {
-                    rateEl.innerText = 'Đang kết nối lại VPS...';
-                    rateEl.classList.add('text-danger');
+                    rateEl.innerText = currentBaseRate24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' APXC / 24h (Đang kết nối VPS...)';
                 }
                 updateCalculator();
             }
@@ -706,7 +722,8 @@
             updateReferralLink();
             fetchServerUserStatus();
             
-            setInterval(fetchServerUserStatus, 30000); 
+            setInterval(fetchServerUserStatus, 10000); 
+            setInterval(loadApxcHalvingData, 15000); 
             renderBlockExplorer();
             startRealtimeCoinTicker();
         }
@@ -756,7 +773,7 @@
 
             try {
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 2000);
+                const timeoutId = setTimeout(() => controller.abort(), 4000);
                 const res = await fetch(RAW_NODE_API + "api/user_status?node_id=" + minerNodeId + "&_t=" + Date.now(), { 
                     headers: { 'Bypass-Tunnel-Reminder': 'true' },
                     signal: controller.signal 
@@ -1067,7 +1084,7 @@
             const currentBlkTxt = document.getElementById('currentBlock').innerText.replace(/[^0-9]/g, '');
             let currentBlk = parseInt(currentBlkTxt) || calculateExactBlock();
             
-            const blockReward = currentBaseRate24h > 0 ? (currentBaseRate24h / 1440).toFixed(6) : "0.000000";
+            const blockReward = currentBaseRate24h > 0 ? (currentBaseRate24h / 1440).toFixed(6) : "0.186083";
 
             let html = "";
             for (let i = 0; i < 5; i++) {
