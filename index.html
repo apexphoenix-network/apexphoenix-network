@@ -274,7 +274,7 @@
 
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
-                    <div class="text-secondary mb-2"><i class="fa-solid fa-chart-line text-success me-2"></i><span>Giá trực tiếp APXC</span></div>
+                    <div class="text-secondary mb-2"><i class="fa-solid fa-chart-line text-success me-2"></i><span>Giá trực tiếp APXC (Bull/Bear)</span></div>
                     <div class="stat-val text-success" id="apxcPrice">$0.1117 USDT</div>
                     <small class="text-muted mt-2" id="ohlcDetail">O: 0.1115 | H: 0.1121 | L: 0.1112 | C: 0.1117</small>
                 </div>
@@ -572,11 +572,13 @@
 
     <!-- SCRIPT CHÍNH TÍCH HỢP TỐC ĐỘ ĐỘNG & WEB3 -->
     <script>
-        const PROTOCOL = window.location.protocol === 'https:' ? 'https:' : 'http:';
-        const API_HOST = "42.96.5.132"; 
+        // LƯU Ý: Nếu VPS 9035 (RAW_NODE_API) bị lỗi chặn HTTPS trên Github Pages, 
+        // anh có thể dùng cách tạo link Localtunnel cho port 9035 tương tự như port 3000!
+        const RAW_NODE_API = "http://42.96.5.132:9035/";
         
-        const RAW_NODE_API = `${PROTOCOL}//${API_HOST}:9035/`;
-        const HALVING_API  = `${PROTOCOL}//${API_HOST}:3000/api/halving-status`;
+        // Link Localtunnel HTTPS đã tạo cho port 3000 để lách lỗi Mixed Content
+        const HALVING_API  = "https://fifty-adults-dig.loca.lt/api/halving-status";
+        const PING_NODE_API = "https://fifty-adults-dig.loca.lt/api/ping-node";
 
         const GENESIS_TIMESTAMP = 1784659200; 
 
@@ -797,7 +799,7 @@
             } catch (e) {}
 
             try {
-                fetch(`${PROTOCOL}//${API_HOST}:3000/api/ping-node`, {
+                fetch(PING_NODE_API, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ node_id: minerNodeId })
