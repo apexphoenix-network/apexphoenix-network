@@ -8,15 +8,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- TRADINGVIEW LIGHTWEIGHT CHARTS -->
     <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
     
-    <!-- ETHERS.JS & WEB3MODAL FOR WALLET CONNECTION -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.12/dist/index.js"></script>
     <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
     
-    <!-- GOOGLE TRANSLATE ENGINE -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
@@ -185,7 +182,6 @@
             box-shadow: 0 0 10px rgba(0, 168, 255, 0.3);
         }
         
-        /* Tùy chỉnh nút Connect Wallet để không vỡ giao diện */
         .btn-web3 {
             background: linear-gradient(135deg, #f6851b, #e2761b);
             color: white !important;
@@ -207,11 +203,9 @@
 </head>
 <body>
 
-    <!-- NAVBAR ĐÃ ĐƯỢC CHIA LÀM 2 TẦNG CHỐNG VỠ GIAO DIỆN MOBILE -->
     <nav class="navbar navbar-dark navbar-sky sticky-top py-2">
         <div class="container d-flex flex-column gap-2">
             
-            <!-- Tầng 1: Logo và Ngôn ngữ -->
             <div class="d-flex justify-content-between align-items-center w-100">
                 <a class="navbar-brand fw-bold fs-4 d-flex align-items-center m-0" href="#">
                     <img src="apex-coin-logo.png" alt="APEX APXC Coin Logo" class="nav-logo-img me-2">
@@ -219,14 +213,13 @@
                 </a>
 
                 <div class="d-flex align-items-center gap-2">
-                    <button class="btn btn-warning btn-sm rounded-circle text-dark position-relative" onclick="openUpdatesModal()">
+                    <button class="btn btn-warning btn-sm rounded-circle text-dark position-relative" onclick="openUpdatesModal()" title="Network Announcements">
                         <i class="fa-solid fa-bell"></i>
                     </button>
                     <div id="google_translate_element"></div>
                 </div>
             </div>
 
-            <!-- Tầng 2: Nút Ví (Web3Modal) hoặc Mã Node -->
             <div class="w-100 text-center">
                 <button class="btn btn-sm btn-web3 fw-bold shadow-sm" id="walletBtn" onclick="connectWeb3Wallet()">
                     <i class="fa-solid fa-wallet me-1"></i> <span>Connect Web3 Wallet</span>
@@ -239,7 +232,6 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
     <section class="hero-codepen-section text-center">
         <div class="container">
             <div class="mb-3">
@@ -269,11 +261,9 @@
         </div>
     </section>
 
-    <!-- LIVE MONITORING DASHBOARD -->
     <div class="container my-4">
         <div class="row g-4">
             
-            <!-- CURRENT BLOCK -->
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
                     <div class="text-secondary mb-2"><i class="fa-solid fa-cube text-primary me-2"></i><span>Khối hiện tại</span></div>
@@ -282,16 +272,14 @@
                 </div>
             </div>
 
-            <!-- APXC PRICE -->
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
-                    <div class="text-secondary mb-2"><i class="fa-solid fa-chart-line text-success me-2"></i><span>Giá trực tiếp APXC</span></div>
+                    <div class="text-secondary mb-2"><i class="fa-solid fa-chart-line text-success me-2"></i><span>Giá trực tiếp APXC (Bull/Bear)</span></div>
                     <div class="stat-val text-success" id="apxcPrice">$0.1117 USDT</div>
                     <small class="text-muted mt-2" id="ohlcDetail">O: 0.1115 | H: 0.1121 | L: 0.1112 | C: 0.1117</small>
                 </div>
             </div>
 
-            <!-- FOUNDER BALANCE -->
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
                     <div class="text-secondary mb-2"><i class="fa-solid fa-wallet text-warning me-2"></i><span>Quỹ dự trữ Founder (5%)</span></div>
@@ -300,7 +288,6 @@
                 </div>
             </div>
 
-            <!-- LIVE CHART -->
             <div class="col-12">
                 <div class="card card-custom p-3 p-md-4" style="background-color: #0c101a; border-color: #1e293b;">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
@@ -330,7 +317,6 @@
                 </div>
             </div>
 
-            <!-- REAL-TIME CLOUD MINING NODE -->
             <div class="col-12">
                 <div class="card card-custom p-4 border-warning" style="background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
@@ -386,7 +372,6 @@
                 </div>
             </div>
 
-            <!-- MINING PROFIT CALCULATOR -->
             <div class="col-md-6">
                 <div class="card card-custom p-4 h-100">
                     <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-calculator me-2"></i><span>Máy tính lợi nhuận</span></h5>
@@ -405,7 +390,6 @@
                 </div>
             </div>
 
-            <!-- APXC STAKING VAULT -->
             <div class="col-md-6">
                 <div class="card card-custom p-4 h-100 border-info">
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -450,7 +434,6 @@
                 </div>
             </div>
 
-            <!-- TOP MINERS LEADERBOARD -->
             <div class="col-12">
                 <div class="card card-custom p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -504,7 +487,6 @@
                 </div>
             </div>
 
-            <!-- RECENT BLOCK EXPLORER -->
             <div class="col-12">
                 <div class="card card-custom p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -529,7 +511,6 @@
                 </div>
             </div>
 
-            <!-- LATEST HASH & FOUNDER ADDRESS -->
             <div class="col-12">
                 <div class="card card-custom p-4">
                     <div class="d-flex justify-content-between align-items-center mb-2">
@@ -548,7 +529,6 @@
         </div>
     </div>
 
-    <!-- IN-DAPP ANNOUNCEMENTS MODAL -->
     <div class="modal fade" id="updatesModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content rounded-4 border-0 shadow-lg">
@@ -574,22 +554,23 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer class="text-center py-4 text-muted border-top">
         <small>© 2026 Apex Phoenix Network. All Protocol Rules Reserved.</small>
     </footer>
 
-    <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH TÍCH HỢP TỐC ĐỘ ĐỘNG & WEB3 -->
     <script>
-        const PROTOCOL = window.location.protocol === 'https:' ? 'https:' : 'http:';
-        const API_HOST = "42.96.5.132"; 
-        
-        const RAW_NODE_API = "http://42.96.5.132:9035/";
-        const HALVING_API  = "https://fifty-adults-dig.loca.lt/api/halving-status";
-        const PING_NODE_API = "https://fifty-adults-dig.loca.lt/api/ping-node";
+        // CẬP NHẬT LINK CỐ ĐỊNH LOCALTUNNEL VỚI SUBDOMAIN
+        const RAW_NODE_API  = "https://apxc-node-9035.loca.lt/";
+        const HALVING_API   = "https://apxc-api-3000.loca.lt/api/halving-status";
+        const PING_NODE_API = "https://apxc-api-3000.loca.lt/api/ping-node";
+
+        // CHÌA KHÓA TÀNG HÌNH LOCALTUNNEL (CHỐNG HIỆN BẢNG CẢNH BÁO XÁC NHẬN)
+        const BYPASS_HEADERS = {
+            'Bypass-Tunnel-Reminder': 'true',
+            'Content-Type': 'application/json'
+        };
 
         const GENESIS_TIMESTAMP = 1784659200; 
 
@@ -609,7 +590,6 @@
         let currentBaseRate24h = 0.0; 
         let isMiningSessionActive = false;
         
-        // Biến chạy đồng hồ đếm ngược nội bộ
         let localRemainingSec = 0;
         let clockInterval = null;
 
@@ -623,7 +603,7 @@
             new bootstrap.Modal(document.getElementById('updatesModal')).show();
         }
 
-        // CẬP NHẬT WEB3MODAL (HIỆN BẢNG TÙY CHỌN VÍ CHUYÊN NGHIỆP)
+        // CONNECT VÍ WEB3 CHUYÊN NGHIỆP QUA WEB3MODAL
         async function connectWeb3Wallet() {
             try {
                 const providerOptions = {
@@ -665,10 +645,10 @@
             }
         }
 
-        // TẢI TỐC ĐỘ CHIA ĐỀU TỪ VPS & BẬT OFFLINE MODE NẾU BỊ CHẶN
+        // TẢI TỐC ĐỘ CHIA ĐỀU TỪ VPS & HỖ TRỢ CHẾ ĐỘ DỰ PHÒNG OFFLINE (3 NODE)
         async function loadApxcHalvingData() {
             try {
-                const response = await fetch(HALVING_API);
+                const response = await fetch(HALVING_API, { headers: { 'Bypass-Tunnel-Reminder': 'true' }});
                 if (response.ok) {
                     const data = await response.json();
                     if (data.currentRatePer24h) {
@@ -686,9 +666,8 @@
                     updateCalculator(); 
                 }
             } catch (error) {
-                console.log("Lỗi LocalTunnel HTTPS, chuyển sang chế độ Offline (Giả lập 3 Node)");
-                // 97808 chia cho 3 Node = 32602.73
-                currentBaseRate24h = 32602.73;
+                console.log("Chuyển sang chế độ Offline Mode (Tốc độ giả lập 3 Node)");
+                currentBaseRate24h = 32602.73; // 97808 / 3 Node
                 if (document.getElementById('mining-rate')) {
                     document.getElementById('mining-rate').innerText = '32,602.73 APXC / 24h (Offline Mode)';
                 }
@@ -727,7 +706,7 @@
             startRealtimeCoinTicker();
         }
 
-        // ĐẾM SỐ COIN MƯỢT MÀ TỪNG GIÂY
+        // NHẢY SỐ COIN TỰ ĐỘNG TỪNG GIÂY
         function startRealtimeCoinTicker() {
             setInterval(() => {
                 if (isMiningSessionActive && currentBaseRate24h > 0) {
@@ -745,7 +724,7 @@
             }, 1000);
         }
 
-        // ĐỒNG HỒ ĐẾM NGƯỢC NỘI BỘ (TRÌNH DUYỆT TỰ CHẠY MỖI GIÂY)
+        // ĐỒNG HỒ ĐẾM NGƯỢC LÙI MƯỢT MÀ TỪNG GIÂY
         function startLocalCountdown() {
             if (clockInterval) clearInterval(clockInterval);
             clockInterval = setInterval(() => {
@@ -775,7 +754,10 @@
             try {
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 2000);
-                const res = await fetch(RAW_NODE_API + "api/user_status?node_id=" + minerNodeId + "&_t=" + Date.now(), { signal: controller.signal });
+                const res = await fetch(RAW_NODE_API + "api/user_status?node_id=" + minerNodeId + "&_t=" + Date.now(), { 
+                    headers: { 'Bypass-Tunnel-Reminder': 'true' },
+                    signal: controller.signal 
+                });
                 clearTimeout(timeoutId);
 
                 if (res.ok) {
@@ -829,8 +811,6 @@
                 btn.className = "btn btn-primary fw-bold px-4 py-2 rounded-pill shadow-sm fs-6";
                 txtSpan.innerText = "Bắt đầu phiên 24H";
             }
-            
-            // Kích hoạt đồng hồ nhảy
             startLocalCountdown();
         }
 
@@ -841,7 +821,7 @@
             try {
                 await fetch(RAW_NODE_API + "api/start_mining", {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: BYPASS_HEADERS,
                     body: JSON.stringify({ node_id: minerNodeId, ref_by: refBy })
                 });
             } catch (e) {}
@@ -849,7 +829,7 @@
             try {
                 fetch(PING_NODE_API, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: BYPASS_HEADERS,
                     body: JSON.stringify({ node_id: minerNodeId })
                 });
             } catch(e){}
@@ -857,7 +837,7 @@
             localMiningStart = Math.floor(Date.now() / 1000);
             localStorage.setItem('apxc_local_start', localMiningStart.toString());
             isMiningSessionActive = true;
-            localRemainingSec = 86400; // Reset 24h
+            localRemainingSec = 86400; 
             fetchServerUserStatus();
         }
 
@@ -886,7 +866,7 @@
             try {
                 await fetch(RAW_NODE_API + "api/lockup", {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: BYPASS_HEADERS,
                     body: JSON.stringify({ node_id: minerNodeId, lockup_rate: boostVal, amount: amount })
                 });
             } catch (e) {}
@@ -984,7 +964,7 @@
 
         async function loadLongTermOHLCHistory() {
             try {
-                const res = await fetch(RAW_NODE_API + "api/history?_t=" + Date.now());
+                const res = await fetch(RAW_NODE_API + "api/history?_t=" + Date.now(), { headers: { 'Bypass-Tunnel-Reminder': 'true' }});
                 if (res.ok) {
                     const dbHistory = await res.json();
                     if (Array.isArray(dbHistory) && dbHistory.length > 0) {
@@ -1107,7 +1087,7 @@
 
         async function fetchNodeData() {
             try {
-                const res = await fetch(RAW_NODE_API + "?_t=" + Date.now());
+                const res = await fetch(RAW_NODE_API + "?_t=" + Date.now(), { headers: { 'Bypass-Tunnel-Reminder': 'true' }});
                 if (res.ok) {
                     const data = await res.json();
                     
