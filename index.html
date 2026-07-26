@@ -653,7 +653,12 @@
     <!-- REAL-TIME CLOUD NODE & ACCURATE BLOCK + CANDLE ENGINE -->
     <script>
         const RAW_NODE_API = "http://42.96.5.132:9035/";
-        const HALVING_API = "http://42.96.5.132:3000/api/halving-status";
+        
+        // CẬP NHẬT: Số lượng Node thực tế ảo để VPS chia độ khó
+        const simulatedActiveMiners = 10000; 
+        
+        // CẬP NHẬT: Gắn tham số active_miners vào API Halving
+        const HALVING_API = `http://42.96.5.132:3000/api/halving-status?active_miners=${simulatedActiveMiners}`;
         
         // GENESIS TIMESTAMP: 00:00:00 ngày 22/07/2026 UTC
         const GENESIS_TIMESTAMP = 1784659200; 
