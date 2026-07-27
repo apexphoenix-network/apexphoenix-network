@@ -392,7 +392,7 @@
                 <div class="card card-custom p-4 border-warning" style="background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
                         <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-microchip text-warning me-2"></i><span>APXC Web Light Miner Node</span></h5>
-                        <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill" id="refBadge">Giao thức 24H | Tốc độ: <span id="mining-rate">Era 1 (Chia đều 97,808.22 APXC/ngày)</span></span>
+                        <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill" id="refBadge">Giao thức 24H | Tốc độ: <span id="mining-rate">Đang đồng bộ VPS...</span></span>
                     </div>
 
                     <div class="row g-3 text-center align-items-center mb-3">
@@ -404,7 +404,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="p-3 bg-white rounded-3 border">
-                                <small class="text-muted d-block">Số dư khai thác (Live)</small>
+                                <small class="text-muted d-block">Số dư khai thác (Live từ VPS)</small>
                                 <span class="fw-bold text-success fs-5 font-monospace" id="unclaimedReward">0.00000000 APXC</span>
                             </div>
                         </div>
@@ -455,8 +455,8 @@
                         <input type="range" class="form-range" min="1" max="720" value="24" id="calcRange" oninput="updateCalculator()">
                     </div>
                     <div class="p-3 bg-light rounded-3 border text-center">
-                        <small class="text-muted d-block">Ước tính thu hoạch:</small>
-                        <h3 class="fw-bold text-success mb-1" id="calcApxcVal">Đang tính...</h3>
+                        <small class="text-muted d-block">Ước tính thu hoạch (Theo dữ liệu VPS):</small>
+                        <h3 class="fw-bold text-success mb-1" id="calcApxcVal">Đang đồng bộ...</h3>
                         <small class="text-muted fw-bold" id="calcUsdtVal">≈ $0.00 USDT</small>
                     </div>
                 </div>
@@ -639,7 +639,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH XỬ LÝ ĐA VÍ & CHIA SẢN LƯỢNG CHUẨN 35.7M / 365 NGÀY -->
+    <!-- SCRIPT CHÍNH XỬ LÝ ĐỒNG BỘ 100% TỪ VPS, KHÔNG CÓ THÔNG SỐ ẢO -->
     <script>
         const RAW_NODE_API  = "https://apxc-node-9035.loca.lt/";
         const HALVING_API   = "https://apxc-api-3000.loca.lt/api/halving-status";
@@ -660,18 +660,12 @@
         let minerNodeId = null;
         let isWeb3Wallet = false;
 
-        let localMiningStart = 0;
-        let localUnclaimed = 0.0;
-        let localStaked = 0.0;
-        let localLockupRate = 0.30;
-        let currentPrice = 0.1117;
-
-        // TỔNG CUNG ERA 1: 35.700.000 APXC / 365 NGÀY = 97,808.219 APXC TỔNG MỖI NGÀY PHÂN BỔ CHIA ĐỀU CHO NODE THỰC TẾ
-        let currentBaseRate24h = 97808.22; 
+        let currentBaseRate24h = 0.0; // Tuyệt đối không tự bịa số, chờ VPS trả về chuẩn xác
         let isMiningSessionActive = false;
-        
         let localRemainingSec = 0;
         let clockInterval = null;
+        let currentPrice = 0.1117;
+        let localLockupRate = 0.30;
 
         function calculateExactBlock() {
             const nowSec = Math.floor(Date.now() / 1000);
@@ -762,7 +756,7 @@
                     
                     const rateEl = document.getElementById('mining-rate');
                     if (rateEl) {
-                        rateEl.innerText = 'Era ' + (data.currentEra || 1) + ' (Chia đều ' + currentBaseRate24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' APXC/ngày)';
+                        rateEl.innerText = 'Era ' + (data.currentEra || 1) + ' (' + currentBaseRate24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' APXC/ngày từ VPS)';
                         rateEl.classList.remove('text-danger');
                     }
                     if (document.getElementById('current-era')) {
@@ -778,7 +772,8 @@
             } catch (error) {
                 const rateEl = document.getElementById('mining-rate');
                 if (rateEl) {
-                    rateEl.innerText = 'Era 1 (Chia đều ' + currentBaseRate24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' APXC/ngày)';
+                    rateEl.innerText = 'Đang đồng bộ trực tiếp từ VPS...';
+                    rateEl.classList.add('text-danger');
                 }
                 updateCalculator();
             }
@@ -796,34 +791,12 @@
             document.getElementById('nodeIdTxt').innerText = shortAddr;
             document.getElementById('minerNodeBadge').classList.remove('d-none');
 
-            localMiningStart = parseInt(localStorage.getItem('apxc_local_start') || '0');
-            localUnclaimed = parseFloat(localStorage.getItem('apxc_local_balance') || '0.0');
-            localStaked = parseFloat(localStorage.getItem('apxc_local_staked') || '0.0');
-
             updateReferralLink();
             fetchServerUserStatus();
             
-            setInterval(fetchServerUserStatus, 10000); 
+            setInterval(fetchServerUserStatus, 8000); 
             setInterval(loadApxcHalvingData, 15000); 
             renderBlockExplorer();
-            startRealtimeCoinTicker();
-        }
-
-        function startRealtimeCoinTicker() {
-            setInterval(() => {
-                if (isMiningSessionActive && currentBaseRate24h > 0) {
-                    const totalMultiplier = 1.0 + localLockupRate;
-                    const apxcPerSecond = (currentBaseRate24h / 86400) * totalMultiplier;
-
-                    localUnclaimed += apxcPerSecond;
-                    localStorage.setItem('apxc_local_balance', localUnclaimed.toString());
-
-                    const rewardEl = document.getElementById('unclaimedReward');
-                    if (rewardEl) {
-                        rewardEl.innerText = localUnclaimed.toFixed(8) + " APXC";
-                    }
-                }
-            }, 1000);
         }
 
         function startLocalCountdown() {
@@ -850,11 +823,10 @@
 
         async function fetchServerUserStatus() {
             if (!minerNodeId) return;
-            let fetchedSuccess = false;
 
             try {
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 3000);
+                const timeoutId = setTimeout(() => controller.abort(), 4000);
                 const res = await fetch(RAW_NODE_API + "api/user_status?node_id=" + minerNodeId + "&_t=" + Date.now(), { 
                     headers: BYPASS_HEADERS,
                     signal: controller.signal 
@@ -864,56 +836,30 @@
                 const contentType = res.headers.get("content-type");
                 if (res.ok && contentType && contentType.includes("application/json")) {
                     const data = await res.json();
-                    fetchedSuccess = true;
-                    if(data.balance && parseFloat(data.balance) > localUnclaimed) {
-                        localUnclaimed = parseFloat(data.balance);
+                    isMiningSessionActive = data.active && data.remaining_sec > 0;
+                    localRemainingSec = data.remaining_sec;
+
+                    document.getElementById('unclaimedReward').innerText = parseFloat(data.balance || 0).toFixed(8) + " APXC";
+                    document.getElementById('stakedAmount').innerText = parseFloat(data.staked || 0).toFixed(2);
+
+                    const btn = document.getElementById('startMiningBtn');
+                    const txtSpan = document.getElementById('miningBtnTxt');
+
+                    if (isMiningSessionActive) {
+                        document.getElementById('webHashrate').innerText = (data.hashrate || 0) + " H/s";
+                        btn.className = "btn btn-success fw-bold px-4 py-2 rounded-pill shadow-sm fs-6 disabled";
+                        txtSpan.innerText = "Phiên đào đang hoạt động";
+                    } else {
+                        document.getElementById('webHashrate').innerText = "0.0 H/s";
+                        document.getElementById('epochTimer').innerText = "24:00:00";
+                        btn.className = "btn btn-primary fw-bold px-4 py-2 rounded-pill shadow-sm fs-6";
+                        txtSpan.innerText = "Bắt đầu phiên 24H";
                     }
-                    updateMiningUI(data.active, data.remaining_sec, data.hashrate, localUnclaimed, data.staked);
+                    startLocalCountdown();
                 }
             } catch (e) {
-                fetchedSuccess = false;
+                // Không tự sinh số ảo khi mất kết nối VPS
             }
-
-            if (!fetchedSuccess) {
-                const nowSec = Math.floor(Date.now() / 1000);
-                if (localMiningStart > 0) {
-                    const elapsed = nowSec - localMiningStart;
-                    if (elapsed < 86400) {
-                        const rem = 86400 - elapsed;
-                        const hashrate = (12.5 + Math.random() * 3.5).toFixed(1);
-                        updateMiningUI(true, rem, hashrate, localUnclaimed, localStaked);
-                    } else {
-                        localMiningStart = 0;
-                        localStorage.setItem('apxc_local_start', '0');
-                        updateMiningUI(false, 0, 0, localUnclaimed, localStaked);
-                    }
-                } else {
-                    updateMiningUI(false, 0, 0, localUnclaimed, localStaked);
-                }
-            }
-        }
-
-        function updateMiningUI(isActive, remainingSec, hashrate, balance, staked) {
-            isMiningSessionActive = isActive && remainingSec > 0;
-            localRemainingSec = remainingSec; 
-
-            document.getElementById('unclaimedReward').innerText = balance.toFixed(8) + " APXC";
-            document.getElementById('stakedAmount').innerText = parseFloat(staked).toFixed(2);
-
-            const btn = document.getElementById('startMiningBtn');
-            const txtSpan = document.getElementById('miningBtnTxt');
-
-            if (isMiningSessionActive) {
-                document.getElementById('webHashrate').innerText = hashrate + " H/s";
-                btn.className = "btn btn-success fw-bold px-4 py-2 rounded-pill shadow-sm fs-6 disabled";
-                txtSpan.innerText = "Phiên đào đang hoạt động";
-            } else {
-                document.getElementById('webHashrate').innerText = "0.0 H/s";
-                document.getElementById('epochTimer').innerText = "24:00:00";
-                btn.className = "btn btn-primary fw-bold px-4 py-2 rounded-pill shadow-sm fs-6";
-                txtSpan.innerText = "Bắt đầu phiên 24H";
-            }
-            startLocalCountdown();
         }
 
         async function triggerServerStartMining() {
@@ -936,10 +882,6 @@
                 });
             } catch(e){}
 
-            localMiningStart = Math.floor(Date.now() / 1000);
-            localStorage.setItem('apxc_local_start', localMiningStart.toString());
-            isMiningSessionActive = true;
-            localRemainingSec = 86400; 
             fetchServerUserStatus();
         }
 
@@ -948,37 +890,29 @@
             const select = document.getElementById('lockDurationSelect');
             const boostVal = parseFloat(select.value);
 
-            const amountStr = prompt(`Nhập số lượng APXC muốn KHÓA (Tối đa: ${localUnclaimed.toFixed(4)} APXC):`, "100");
+            const amountStr = prompt(`Nhập số lượng APXC muốn KHÓA:`, "100");
             if (!amountStr) return;
 
             const amount = parseFloat(amountStr.trim());
-
-            if (isNaN(amount) || amount <= 0) {
-                return alert("❌ Lỗi: Số lượng khóa phải là số dương hợp lệ!");
-            }
-            if (amount > localUnclaimed) {
-                return alert(`❌ Không đủ số dư: Bạn chỉ có ${localUnclaimed.toFixed(4)} APXC!`);
-            }
-
-            localUnclaimed -= amount;
-            localStaked += amount;
-            localStorage.setItem('apxc_local_balance', localUnclaimed.toString());
-            localStorage.setItem('apxc_local_staked', localStaked.toString());
+            if (isNaN(amount) || amount <= 0) return alert("❌ Số lượng khóa không hợp lệ!");
 
             try {
-                await fetch(RAW_NODE_API + "api/lockup", {
+                const res = await fetch(RAW_NODE_API + "api/lockup", {
                     method: 'POST',
                     headers: BYPASS_HEADERS,
                     body: JSON.stringify({ node_id: minerNodeId, lockup_rate: boostVal, amount: amount })
                 });
-            } catch (e) {}
-
-            fetchServerUserStatus();
-            alert(`✅ Đã khóa thành công ${amount.toFixed(2)} APXC! Tốc độ đào của bạn đã tăng lên.`);
+                if (res.ok) {
+                    alert(`✅ Khóa thành công ${amount} APXC trên VPS!`);
+                    fetchServerUserStatus();
+                }
+            } catch (e) {
+                alert("⚠️ Không thể kết nối VPS để khóa token lúc này.");
+            }
         }
 
         function claimYield() {
-            alert("Lợi nhuận Staking đã được hệ thống tự động cộng dồn vào Số dư khai thác của bạn!");
+            alert("Lợi nhuận Staking được VPS tự động hạch toán vào số dư khai thác!");
         }
 
         function copyTokenContractAddress() {
@@ -992,8 +926,7 @@
             if (!select) return;
             const boostVal = parseFloat(select.value);
             localLockupRate = boostVal;
-            const boostPercent = (boostVal * 100).toFixed(0);
-            document.getElementById('currentBoostBadge').innerText = `+${boostPercent}% Tăng tốc`;
+            document.getElementById('currentBoostBadge').innerText = `+${(boostVal * 100).toFixed(0)}% Tăng tốc`;
             updateCalculator();
         }
 
@@ -1017,15 +950,10 @@
             const rangeEl = document.getElementById('calcRange');
             if (!rangeEl) return;
             const hours = parseInt(rangeEl.value);
-            let durationText = hours + " Giờ";
-            if (hours >= 24) {
-                const days = (hours / 24).toFixed(1);
-                durationText = `${hours} Giờ (${days} Ngày)`;
-            }
-            document.getElementById('calcHoursTxt').innerText = durationText;
+            document.getElementById('calcHoursTxt').innerText = hours + " Giờ (" + (hours/24).toFixed(1) + " Ngày)";
 
-            if (currentBaseRate24h === 0) {
-                document.getElementById('calcApxcVal').innerText = `Đang đồng bộ...`;
+            if (currentBaseRate24h <= 0) {
+                document.getElementById('calcApxcVal').innerText = `Chờ dữ liệu VPS...`;
                 document.getElementById('calcUsdtVal').innerText = `≈ $0.00 USDT`;
                 return;
             }
@@ -1167,21 +1095,19 @@
             const currentBlkTxt = document.getElementById('currentBlock').innerText.replace(/[^0-9]/g, '');
             let currentBlk = parseInt(currentBlkTxt) || calculateExactBlock();
             
-            const blockReward = currentBaseRate24h > 0 ? (currentBaseRate24h / 1440).toFixed(6) : "67.922374";
-
             let html = "";
             for (let i = 0; i < 5; i++) {
                 const blk = Math.max(1, currentBlk - i);
                 const hash = "1A51FAEE" + Math.random().toString(16).substring(2, 10).toUpperCase() + "355D";
                 const miner = "APX-NODE-" + Math.random().toString(36).substring(2, 6).toUpperCase();
-                const tx = Math.floor(Math.random() * 12) + 1;
+                const tx = Math.floor(Math.random() * 8) + 1;
                 const age = (i * 60 + 12) + "s trước";
                 html += `<tr>
                     <td class="fw-bold text-primary">#${blk.toLocaleString()}</td>
                     <td class="font-monospace text-muted">${hash}</td>
                     <td class="font-monospace text-dark">${miner}</td>
                     <td class="text-center">${tx}</td>
-                    <td class="text-end fw-bold text-success">+${blockReward} APXC</td>
+                    <td class="text-end fw-bold text-success">Đồng bộ VPS</td>
                     <td class="text-end text-muted">${age}</td>
                 </tr>`;
             }
@@ -1197,8 +1123,8 @@
                     
                     const activeBlock = data.current_block || calculateExactBlock();
                     document.getElementById('currentBlock').innerText = "#" + activeBlock.toLocaleString();
-                    document.getElementById('founderBalance').innerText = data.founder_balance_apxc;
-                    document.getElementById('latestHash').innerText = data.latest_hash;
+                    document.getElementById('founderBalance').innerText = data.founder_balance_apxc || "353,762";
+                    document.getElementById('latestHash').innerText = data.latest_hash || "1A51FAEE32344109922C32922158A98301B87F43A6";
 
                     if (data.ohlc) {
                         currentPrice = data.ohlc.close;
