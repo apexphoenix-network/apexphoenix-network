@@ -200,6 +200,26 @@
             transform: scale(1.02);
             box-shadow: 0 0 10px rgba(246, 133, 27, 0.6);
         }
+
+        .wallet-option-btn {
+            background: #1e293b;
+            color: white;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-weight: bold;
+            text-align: left;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .wallet-option-btn:hover {
+            border-color: var(--gold-primary);
+            background: #0f172a;
+            color: var(--gold-primary);
+        }
     </style>
 </head>
 <body>
@@ -225,7 +245,7 @@
 
             <!-- Tầng 2: Nút Connect Web3 Wallet & Badge Node độc lập -->
             <div class="w-100 d-flex flex-column gap-1 text-center">
-                <button class="btn btn-sm btn-web3 fw-bold shadow-sm" id="walletBtn" onclick="connectWeb3Wallet()">
+                <button class="btn btn-sm btn-web3 fw-bold shadow-sm" id="walletBtn" onclick="openWalletSelectorModal()">
                     <i class="fa-solid fa-wallet me-1"></i> <span>Connect Web3 Wallet</span>
                 </button>
                 <span class="badge bg-success text-white fw-bold px-3 py-2 rounded-pill shadow-sm d-none w-100" id="minerNodeBadge" style="font-size: 0.85rem;">
@@ -235,6 +255,46 @@
             
         </div>
     </nav>
+
+    <!-- MODAL CHỌN ĐA LOẠI VÍ (METAMASK, TRUST, OKX, PHANTOM) -->
+    <div class="modal fade" id="walletSelectorModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow-lg bg-dark text-white p-3">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="fw-bold text-warning mb-0"><i class="fa-solid fa-wallet me-2"></i>Select Web3 Wallet</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-4 d-flex flex-column gap-3">
+                    <p class="small text-muted mb-1">Choose your preferred decentralized Web3 provider to connect your Node:</p>
+                    
+                    <button class="wallet-option-btn" onclick="connectSpecificWallet('metamask')">
+                        <span><i class="fa-solid fa-cube text-warning me-2 fs-5"></i> MetaMask Wallet</span>
+                        <i class="fa-solid fa-chevron-right text-muted"></i>
+                    </button>
+
+                    <button class="wallet-option-btn" onclick="connectSpecificWallet('trust')">
+                        <span><i class="fa-solid fa-shield-halved text-primary me-2 fs-5"></i> Trust Wallet</span>
+                        <i class="fa-solid fa-chevron-right text-muted"></i>
+                    </button>
+
+                    <button class="wallet-option-btn" onclick="connectSpecificWallet('okx')">
+                        <span><i class="fa-solid fa-o text-info me-2 fs-5"></i> OKX Wallet</span>
+                        <i class="fa-solid fa-chevron-right text-muted"></i>
+                    </button>
+
+                    <button class="wallet-option-btn" onclick="connectSpecificWallet('phantom')">
+                        <span><i class="fa-solid fa-ghost text-secondary me-2 fs-5"></i> Phantom Wallet</span>
+                        <i class="fa-solid fa-chevron-right text-muted"></i>
+                    </button>
+
+                    <button class="wallet-option-btn" onclick="connectSpecificWallet('general')">
+                        <span><i class="fa-solid fa-qrcode text-success me-2 fs-5"></i> WalletConnect / Universal</span>
+                        <i class="fa-solid fa-chevron-right text-muted"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- HERO SECTION -->
     <section class="hero-codepen-section text-center">
@@ -332,7 +392,7 @@
                 <div class="card card-custom p-4 border-warning" style="background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
                         <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-microchip text-warning me-2"></i><span>APXC Web Light Miner Node</span></h5>
-                        <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill" id="refBadge">Giao thức 24H | Tốc độ: <span id="mining-rate">Era 1 (267.96 APXC / 24h)</span></span>
+                        <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill" id="refBadge">Giao thức 24H | Tốc độ: <span id="mining-rate">Era 1 (Chia đều 97,808.22 APXC/ngày)</span></span>
                     </div>
 
                     <div class="row g-3 text-center align-items-center mb-3">
@@ -579,7 +639,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH XỬ LÝ NATIVE WALLET & KẾT NỐI VPS BỌC THÉP -->
+    <!-- SCRIPT CHÍNH XỬ LÝ ĐA VÍ & CHIA SẢN LƯỢNG CHUẨN 35.7M / 365 NGÀY -->
     <script>
         const RAW_NODE_API  = "https://apxc-node-9035.loca.lt/";
         const HALVING_API   = "https://apxc-api-3000.loca.lt/api/halving-status";
@@ -606,7 +666,8 @@
         let localLockupRate = 0.30;
         let currentPrice = 0.1117;
 
-        let currentBaseRate24h = 267.96; 
+        // TỔNG CUNG ERA 1: 35.700.000 APXC / 365 NGÀY = 97,808.219 APXC TỔNG MỖI NGÀY PHÂN BỔ CHIA ĐỀU CHO NODE THỰC TẾ
+        let currentBaseRate24h = 97808.22; 
         let isMiningSessionActive = false;
         
         let localRemainingSec = 0;
@@ -622,35 +683,62 @@
             new bootstrap.Modal(document.getElementById('updatesModal')).show();
         }
 
-        // SỬA TRIỆT ĐỂ: GỌI TRỰC TIẾP window.ethereum HOẶC TỰ ĐỘNG MỞ DAPP BROWSER TRÊN METAMASK/TRUST
-        async function connectWeb3Wallet() {
-            if (window.ethereum) {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    if (!accounts || accounts.length === 0) return alert("❌ Không tìm thấy tài khoản ví!");
+        function openWalletSelectorModal() {
+            new bootstrap.Modal(document.getElementById('walletSelectorModal')).show();
+        }
 
-                    const address = accounts[0];
-                    minerNodeId = address;
-                    isWeb3Wallet = true;
-                    localStorage.setItem('apxc_device_node_id', minerNodeId);
-                    
-                    const shortAddr = address.substring(0, 6) + "..." + address.substring(address.length - 4);
-                    document.getElementById('nodeIdTxt').innerText = shortAddr;
-                    document.getElementById('walletBtn').innerText = "Đã kết nối Ví";
-                    document.getElementById('minerNodeBadge').classList.remove('d-none');
-                    
-                    updateReferralLink();
-                    fetchServerUserStatus();
-                    alert("✅ Kết nối Ví thành công: " + address);
-                } catch (e) {
-                    console.log("Hủy kết nối ví", e);
-                }
-            } else {
-                // Tự động chuyển hướng mở App MetaMask thông minh nếu bấm từ Safari/Chrome di động
-                const cleanHost = window.location.href.replace(/^https?:\/\//, '');
-                if (confirm("⚠️ Trình duyệt hiện tại chưa phát hiện ví Web3 tích hợp.\n\n👉 Bạn có muốn tự động mở ứng dụng MetaMask / Trust Wallet để kết nối trực tiếp không?")) {
+        async function connectSpecificWallet(walletType) {
+            const modalEl = document.getElementById('walletSelectorModal');
+            const modalInstance = bootstrap.Modal.getInstance(modalEl);
+            if (modalInstance) modalInstance.hide();
+
+            const cleanHost = window.location.href.replace(/^https?:\/\//, '');
+
+            if (walletType === 'metamask') {
+                if (window.ethereum) {
+                    await finalizeWalletConnection();
+                } else {
                     window.location.href = `https://metamask.app.link/dapp/${cleanHost}`;
                 }
+            } else if (walletType === 'trust') {
+                if (window.ethereum) {
+                    await finalizeWalletConnection();
+                } else {
+                    window.location.href = `https://link.trustwallet.com/open_url?coin_id=20000714&url=https://${cleanHost}`;
+                }
+            } else if (walletType === 'okx') {
+                window.location.href = `https://www.okx.com/download?url=https://${cleanHost}`;
+            } else if (walletType === 'phantom') {
+                window.location.href = `https://phantom.app/ul/browse/https://${cleanHost}?ref=https://${cleanHost}`;
+            } else {
+                if (window.ethereum) {
+                    await finalizeWalletConnection();
+                } else {
+                    alert("⚠️ Vui lòng mở trình duyệt bên trong ứng dụng ví Web3 của bạn để kết nối Node!");
+                }
+            }
+        }
+
+        async function finalizeWalletConnection() {
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                if (!accounts || accounts.length === 0) return alert("❌ Không tìm thấy tài khoản ví!");
+
+                const address = accounts[0];
+                minerNodeId = address;
+                isWeb3Wallet = true;
+                localStorage.setItem('apxc_device_node_id', minerNodeId);
+                
+                const shortAddr = address.substring(0, 6) + "..." + address.substring(address.length - 4);
+                document.getElementById('nodeIdTxt').innerText = shortAddr;
+                document.getElementById('walletBtn').innerText = "Đã kết nối Ví";
+                document.getElementById('minerNodeBadge').classList.remove('d-none');
+                
+                updateReferralLink();
+                fetchServerUserStatus();
+                alert("✅ Kết nối Ví thành công: " + address);
+            } catch (e) {
+                console.log("Hủy kết nối ví", e);
             }
         }
 
@@ -674,7 +762,7 @@
                     
                     const rateEl = document.getElementById('mining-rate');
                     if (rateEl) {
-                        rateEl.innerText = 'Era ' + (data.currentEra || 1) + ' (' + currentBaseRate24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' APXC / 24h)';
+                        rateEl.innerText = 'Era ' + (data.currentEra || 1) + ' (Chia đều ' + currentBaseRate24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' APXC/ngày)';
                         rateEl.classList.remove('text-danger');
                     }
                     if (document.getElementById('current-era')) {
@@ -690,7 +778,7 @@
             } catch (error) {
                 const rateEl = document.getElementById('mining-rate');
                 if (rateEl) {
-                    rateEl.innerText = 'Era 1 (' + currentBaseRate24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' APXC / 24h)';
+                    rateEl.innerText = 'Era 1 (Chia đều ' + currentBaseRate24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' APXC/ngày)';
                 }
                 updateCalculator();
             }
@@ -1079,7 +1167,7 @@
             const currentBlkTxt = document.getElementById('currentBlock').innerText.replace(/[^0-9]/g, '');
             let currentBlk = parseInt(currentBlkTxt) || calculateExactBlock();
             
-            const blockReward = currentBaseRate24h > 0 ? (currentBaseRate24h / 1440).toFixed(6) : "0.186083";
+            const blockReward = currentBaseRate24h > 0 ? (currentBaseRate24h / 1440).toFixed(6) : "67.922374";
 
             let html = "";
             for (let i = 0; i < 5; i++) {
