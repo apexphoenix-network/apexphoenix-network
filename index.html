@@ -657,9 +657,11 @@
 
     <!-- SCRIPT CHÍNH ĐỒNG BỘ 100% TỪ CLOUDFLARE TUNNEL -->
     <script>
-        const RAW_NODE_API  = "https://introduction-accidents-interview-heath.trycloudflare.com/";
-        const HALVING_API   = "https://introduction-accidents-interview-heath.trycloudflare.com/api/halving-status";
-        const PING_NODE_API = "https://introduction-accidents-interview-heath.trycloudflare.com/api/ping-node";
+        const CLOUD_TUNNEL_URL = "https://introduction-accidents-interview-heath.trycloudflare.com";
+
+        const RAW_NODE_API  = CLOUD_TUNNEL_URL + "/";
+        const HALVING_API   = CLOUD_TUNNEL_URL + "/api/halving-status";
+        const PING_NODE_API = CLOUD_TUNNEL_URL + "/api/ping-node";
 
         const BYPASS_HEADERS = {
             'Bypass-Tunnel-Reminder': 'true',
