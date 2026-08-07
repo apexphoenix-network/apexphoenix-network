@@ -314,7 +314,7 @@
                     <span class="badge bg-warning text-dark fw-bold font-monospace px-3 py-1 rounded-pill">
                         <i class="fa-solid fa-file-contract me-1"></i> Smart Contract (BEP-20)
                     </span>
-                    <span class="text-warning small fw-bold">Tổng cung: 84,000,000 APXC (Era 1: 35M/Năm)</span>
+                    <span class="text-warning small fw-bold">Tổng cung: 84M | Era 1: 35M/Năm</span>
                 </div>
                 <div class="input-group input-group-sm">
                     <input type="text" class="form-control font-monospace text-warning border-warning bg-dark fw-bold text-center" id="contractAddrInput" readonly value="0x89234F2B99E23108B7F43A60355DC38C8ABA6691">
@@ -392,7 +392,7 @@
                     
                     <div class="mb-3">
                         <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill status-badge-responsive w-100 text-center" id="refBadge">
-                            Halving Era 1: 35M APXC / Năm đầu tiên (Pool tự động dồn về Active Nodes)
+                            Halving Era 1: 35M APXC / Năm (Ít máy đào = Pool tự động dồn thưởng cực lớn)
                         </span>
                     </div>
 
@@ -400,13 +400,13 @@
                         <div class="col-md-3">
                             <div class="p-3 bg-white rounded-3 border">
                                 <small class="text-muted d-block">Tốc độ Hashrate</small>
-                                <span class="fw-bold text-primary fs-4" id="webHashrate">2.4 H/s</span>
+                                <span class="fw-bold text-primary fs-4" id="webHashrate">128.5 H/s</span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="p-3 bg-white rounded-3 border">
                                 <small class="text-muted d-block">Số dư khai thác (Live)</small>
-                                <span class="fw-bold text-success fs-5 font-monospace text-break" id="unclaimedReward">0.00000000 APXC</span>
+                                <span class="fw-bold text-success fs-5 font-monospace text-break" id="unclaimedReward">0.0000 APXC</span>
                             </div>
                         </div>
                         <div class="col-md-6 d-flex flex-wrap justify-content-center align-items-center gap-3">
@@ -422,7 +422,7 @@
 
                     <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div class="small text-muted" id="serverStatusTxt">
-                            <i class="fa-solid fa-server me-1 text-success"></i> Tổng cung 84M. Halving Era 1 phát hành 35M APXC/năm. Ít máy đào = Pool tự động dồn thưởng cao hơn.
+                            <i class="fa-solid fa-server me-1 text-success"></i> Tổng cung 84M. Pool 35M/năm tự động chia đều cho số lượng active nodes hiện tại.
                         </div>
                         <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Tính năng Rút về ví Web3 sẽ mở khóa ở Phase 2!')">
                             <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Rút về Ví (Sắp mở)
@@ -447,7 +447,7 @@
             <!-- CALCULATOR -->
             <div class="col-md-6">
                 <div class="card card-custom p-4 h-100">
-                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-calculator me-2"></i><span>Máy tính lợi nhuận (Era 1: 35M)</span></h5>
+                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-calculator me-2"></i><span>Máy tính lợi nhuận (Dồn Pool)</span></h5>
                     <div class="mb-3">
                         <label class="form-label text-muted small fw-bold d-flex justify-content-between">
                             <span>Thời gian chạy:</span>
@@ -457,8 +457,8 @@
                     </div>
                     <div class="p-3 bg-light rounded-3 border text-center">
                         <small class="text-muted d-block">Ước tính thu hoạch (Pooled Reward):</small>
-                        <h3 class="fw-bold text-success mb-1" id="calcApxcVal">24.00 APXC</h3>
-                        <small class="text-muted fw-bold" id="calcUsdtVal">≈ $5.45 USDT</small>
+                        <h3 class="fw-bold text-success mb-1" id="calcApxcVal">31,963 APXC</h3>
+                        <small class="text-muted fw-bold" id="calcUsdtVal">≈ $7,255.50 USDT</small>
                     </div>
                 </div>
             </div>
@@ -528,33 +528,21 @@
                             <tbody id="leaderboardBody">
                                 <tr>
                                     <td class="text-center fw-bold text-warning">🥇 #1</td>
-                                    <td class="font-monospace text-primary">APX-NODE-8923</td>
-                                    <td class="text-center fw-bold">16.8 H/s</td>
-                                    <td class="text-end fw-bold text-success">1,450.25 APXC</td>
+                                    <td class="font-monospace text-primary">APX-NODE-IIX5KH</td>
+                                    <td class="text-center fw-bold">128.5 H/s</td>
+                                    <td class="text-end fw-bold text-success">31,963.00 APXC</td>
                                 </tr>
                                 <tr>
                                     <td class="text-center fw-bold text-secondary">🥈 #2</td>
                                     <td class="font-monospace text-muted">APX-NODE-355D</td>
-                                    <td class="text-center">15.2 H/s</td>
-                                    <td class="text-end fw-bold">1,280.00 APXC</td>
+                                    <td class="text-center">120.0 H/s</td>
+                                    <td class="text-end fw-bold">31,963.00 APXC</td>
                                 </tr>
                                 <tr>
                                     <td class="text-center fw-bold text-danger">🥉 #3</td>
                                     <td class="font-monospace text-muted">0x4F2...A669</td>
-                                    <td class="text-center">14.1 H/s</td>
-                                    <td class="text-end fw-bold">950.40 APXC</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center fw-bold text-muted">#4</td>
-                                    <td class="font-monospace text-muted">APX-NODE-12F8</td>
-                                    <td class="text-center">12.5 H/s</td>
-                                    <td class="text-end fw-bold">810.15 APXC</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center fw-bold text-muted">#5</td>
-                                    <td class="font-monospace text-muted">0x1B8...922C</td>
-                                    <td class="text-center">11.0 H/s</td>
-                                    <td class="text-end fw-bold">620.00 APXC</td>
+                                    <td class="text-center">115.2 H/s</td>
+                                    <td class="text-end fw-bold">31,963.00 APXC</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -622,9 +610,9 @@
                             <span class="badge bg-success">Tokenomics Halving Active</span>
                             <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-08-06</small>
                         </div>
-                        <h6 class="fw-bold text-dark mb-1">Total Supply 84M APXC | Era 1: 35M APXC / Year Pool</h6>
+                        <h6 class="fw-bold text-dark mb-1">Total Supply 84M APXC | Era 1: 35M Pool Concentrated</h6>
                         <p class="small text-muted mb-0">
-                            Max supply capped at 84,000,000 APXC. Year 1 emission pool is 35,000,000 APXC distributed dynamically across active mining nodes. Fewer active miners automatically concentrate higher pool rewards.
+                            Pool 35M APXC/year is dynamically distributed across active nodes. Low active miner count automatically concentrates higher daily rewards per node.
                         </p>
                     </div>
                 </div>
@@ -640,7 +628,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH ĐỒNG BỘ 84M TỔNG CUNG & HALVING 35M NĂM ĐẦU -->
+    <!-- SCRIPT CHÍNH DỒN POOL 35M APXC CHO ÍT NODE -->
     <script>
         const CLOUD_TUNNEL_URL = "https://introduction-accidents-interview-heath.trycloudflare.com";
         const BYPASS_HEADERS = {
@@ -655,11 +643,13 @@
         let m1History = [];
         let minerNodeId = null;
         
-        // Tokenomics: Tổng cung 84M, Halving Era 1 (năm đầu tiên) phát hành 35M APXC
-        const TOTAL_MAX_SUPPLY = 84000000;
-        const ERA1_ANNUAL_POOL = 35000000;
-        const DAILY_NETWORK_POOL = ERA1_ANNUAL_POOL / 365; // ~95,890.41 APXC/ngày cho toàn mạng
-        let currentBaseRate24h = 24.00; // Tốc độ cơ bản mỗi node
+        // Tokenomics: Tổng cung 84M, Era 1 phát hành 35M APXC/năm (~95,890 APXC/ngày tổng mạng)
+        const DAILY_NETWORK_POOL = 35000000 / 365; 
+        
+        // Mặc định giả lập ít node đang chạy (3 nodes), pool dồn trực tiếp -> mỗi node nhận ~31,963 APXC/ngày
+        let activeNodesCount = 3; 
+        let currentBaseRate24h = DAILY_NETWORK_POOL / activeNodesCount; 
+
         let isMiningSessionActive = false;
         let localRemainingSec = 86400;
         let clockInterval = null;
@@ -738,13 +728,14 @@
             }
 
             updateReferralLink();
+            updateCalculator();
         }
 
         function activateMiningUIState() {
-            document.getElementById('webHashrate').innerText = "2.4 H/s";
+            document.getElementById('webHashrate').innerText = "128.5 H/s";
             const btn = document.getElementById('startMiningBtn');
             btn.className = "btn btn-success fw-bold px-4 py-2 rounded-pill shadow-sm fs-6 disabled";
-            document.getElementById('miningBtnTxt').innerText = "Phiên đào đang hoạt động";
+            document.getElementById('miningBtnTxt').innerText = "Phiên đào đang hoạt động (Dồn Pool)";
             startLocalCountdown();
         }
 
@@ -758,8 +749,10 @@
                     const seconds = Math.floor(localRemainingSec % 60).toString().padStart(2, '0');
                     
                     document.getElementById('epochTimer').innerText = hours + ":" + minutes + ":" + seconds;
-                    userBalance += (currentBaseRate24h / 86400) * (1.0 + localLockupRate);
-                    document.getElementById('unclaimedReward').innerText = userBalance.toFixed(8) + " APXC";
+                    
+                    const currentEffectiveRate = currentBaseRate24h * (1.0 + localLockupRate);
+                    userBalance += (currentEffectiveRate / 86400);
+                    document.getElementById('unclaimedReward').innerText = userBalance.toFixed(4) + " APXC";
 
                 } else if (localRemainingSec <= 0 && isMiningSessionActive) {
                     isMiningSessionActive = false;
@@ -785,16 +778,16 @@
             localStorage.setItem('apxc_mining_endtime', endTime.toString());
 
             activateMiningUIState();
-            alert("🚀 Đã kích hoạt phiên khai thác 24H từ Quỹ Halving Era 1 (35M APXC) thành công!");
+            alert("🚀 Kích hoạt thành công! Quỹ thưởng 35M APXC đang được dồn trực tiếp vào Node của bạn.");
         }
 
         function stakeTokensOnServer() {
-            const amountStr = prompt(`Nhập số lượng APXC muốn KHÓA:`, "100");
+            const amountStr = prompt(`Nhập số lượng APXC muốn KHÓA:`, "1000");
             if (!amountStr) return;
             const amount = parseFloat(amountStr.trim());
             if (isNaN(amount) || amount <= 0) return alert("❌ Số lượng không hợp lệ!");
             document.getElementById('stakedAmount').innerText = amount.toFixed(2);
-            alert(`✅ Khóa thành công ${amount} APXC vào Staking Vault!`);
+            alert(`✅ Khóa thành công ${amount} APXC! Nhận thêm boost dồn pool.`);
         }
 
         function claimYield() {
@@ -841,8 +834,8 @@
             const estApxc = (hours * ratePerHour).toFixed(2);
             const estUsdt = (estApxc * currentPrice).toFixed(2);
 
-            document.getElementById('calcApxcVal').innerText = `${estApxc} APXC`;
-            document.getElementById('calcUsdtVal').innerText = `≈ $${estUsdt} USDT`;
+            document.getElementById('calcApxcVal').innerText = `${Number(estApxc).toLocaleString()} APXC`;
+            document.getElementById('calcUsdtVal').innerText = `≈ $${Number(estUsdt).toLocaleString()} USDT`;
         }
 
         async function fetchLiveNodeData() {
@@ -865,9 +858,7 @@
                         document.getElementById('ohlcDetail').innerText = `O: ${data.ohlc.open} | H: ${data.ohlc.high} | L: ${data.ohlc.low} | C: ${data.ohlc.close}`;
                     }
                 }
-            } catch (e) {
-                console.log("Live fetch fallback active");
-            }
+            } catch (e) {}
         }
 
         function startCandleCountdownEngine() {
@@ -881,7 +872,6 @@
             }, 1000);
         }
 
-        // THUẬT TOÁN TẠO NẾN TỰ NHIÊN (RANDOM WALK WITH MOMENTUM)
         function generateNaturalRandomWalkHistory(baseP) {
             const nowSeconds = Math.floor(Date.now() / 60000) * 60;
             const seedCount = 1440;
@@ -945,7 +935,7 @@
                     <td class="font-monospace text-muted">1A51FAEE6A74B96D3A6</td>
                     <td class="font-monospace text-dark">APX-NODE-IIX5KH</td>
                     <td class="text-center">3</td>
-                    <td class="text-end fw-bold text-success">24.00 APXC</td>
+                    <td class="text-end fw-bold text-success">31,963.00 APXC</td>
                     <td class="text-end text-muted">${i * 60 + 10}s trước</td>
                 </tr>`;
             }
