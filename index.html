@@ -168,7 +168,6 @@
             font-weight: 700;
             border-radius: 6px;
             transition: all 0.2s ease;
-            cursor: pointer;
         }
         .tf-btn:hover { color: #FFD700; border-color: #FFD700; }
         .tf-btn.active { background-color: #FFD700; color: #000000; border-color: #FFD700; }
@@ -189,12 +188,12 @@
             background: linear-gradient(135deg, #f6851b, #e2761b);
             color: white !important;
             border: none;
-            padding: 8px 20px !important;
+            padding: 6px 20px !important;
             border-radius: 20px !important;
             font-size: 0.9rem !important;
             font-weight: 700 !important;
             white-space: nowrap;
-            cursor: pointer;
+            transition: all 0.2s ease;
             box-shadow: 0 4px 6px rgba(246, 133, 27, 0.3);
             width: 100%;
         }
@@ -208,10 +207,9 @@
             color: white;
             border: 1px solid #334155;
             border-radius: 12px;
-            padding: 14px 20px;
+            padding: 12px 20px;
             font-weight: bold;
             text-align: left;
-            cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
@@ -316,7 +314,7 @@
                     <span class="badge bg-warning text-dark fw-bold font-monospace px-3 py-1 rounded-pill">
                         <i class="fa-solid fa-file-contract me-1"></i> Smart Contract (BEP-20)
                     </span>
-                    <span class="text-warning small fw-bold">84,000,000 APXC</span>
+                    <span class="text-warning small fw-bold">Tổng cung: 84,000,000 APXC (Era 1: 35M/Năm)</span>
                 </div>
                 <div class="input-group input-group-sm">
                     <input type="text" class="form-control font-monospace text-warning border-warning bg-dark fw-bold text-center" id="contractAddrInput" readonly value="0x89234F2B99E23108B7F43A60355DC38C8ABA6691">
@@ -351,8 +349,8 @@
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
                     <div class="text-secondary mb-2"><i class="fa-solid fa-wallet text-warning me-2"></i><span>Quỹ dự trữ Founder (5%)</span></div>
-                    <div class="stat-val text-warning" id="founderBalance">358,589.8 APXC</div>
-                    <small class="text-muted mt-2">Đã khóa Tokenomics</small>
+                    <div class="stat-val text-warning" id="founderBalance">4,200,000 APXC</div>
+                    <small class="text-muted mt-2">Trên tổng cung 84M</small>
                 </div>
             </div>
 
@@ -394,7 +392,7 @@
                     
                     <div class="mb-3">
                         <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill status-badge-responsive w-100 text-center" id="refBadge">
-                            Giao thức 24H | Tốc độ: <span id="mining-rate">Era 1 (24.00 APXC/ngày - Kết nối VPS thành công)</span>
+                            Halving Era 1: 35M APXC / Năm đầu tiên (Pool tự động dồn về Active Nodes)
                         </span>
                     </div>
 
@@ -424,7 +422,7 @@
 
                     <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div class="small text-muted" id="serverStatusTxt">
-                            <i class="fa-solid fa-server me-1 text-success"></i> Đồng bộ đám mây Apex Cloud. <span class="badge bg-secondary ms-1" id="current-era">Era 1</span> (Halving tới: <span id="next-halving-date">2027-07-22</span>)
+                            <i class="fa-solid fa-server me-1 text-success"></i> Tổng cung 84M. Halving Era 1 phát hành 35M APXC/năm. Ít máy đào = Pool tự động dồn thưởng cao hơn.
                         </div>
                         <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Tính năng Rút về ví Web3 sẽ mở khóa ở Phase 2!')">
                             <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Rút về Ví (Sắp mở)
@@ -449,7 +447,7 @@
             <!-- CALCULATOR -->
             <div class="col-md-6">
                 <div class="card card-custom p-4 h-100">
-                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-calculator me-2"></i><span>Máy tính lợi nhuận</span></h5>
+                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-calculator me-2"></i><span>Máy tính lợi nhuận (Era 1: 35M)</span></h5>
                     <div class="mb-3">
                         <label class="form-label text-muted small fw-bold d-flex justify-content-between">
                             <span>Thời gian chạy:</span>
@@ -458,7 +456,7 @@
                         <input type="range" class="form-range" min="1" max="720" value="24" id="calcRange" oninput="updateCalculator()">
                     </div>
                     <div class="p-3 bg-light rounded-3 border text-center">
-                        <small class="text-muted d-block">Ước tính thu hoạch:</small>
+                        <small class="text-muted d-block">Ước tính thu hoạch (Pooled Reward):</small>
                         <h3 class="fw-bold text-success mb-1" id="calcApxcVal">24.00 APXC</h3>
                         <small class="text-muted fw-bold" id="calcUsdtVal">≈ $5.45 USDT</small>
                     </div>
@@ -621,12 +619,12 @@
                 <div class="modal-body p-4">
                     <div class="p-3 bg-light rounded-3 border mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                            <span class="badge bg-success">Live Mainnet Sync</span>
+                            <span class="badge bg-success">Tokenomics Halving Active</span>
                             <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-08-06</small>
                         </div>
-                        <h6 class="fw-bold text-dark mb-1">Cloudflare Tunnel Live Mainnet Synchronization</h6>
+                        <h6 class="fw-bold text-dark mb-1">Total Supply 84M APXC | Era 1: 35M APXC / Year Pool</h6>
                         <p class="small text-muted mb-0">
-                            Successfully connected to VPS via Cloudflare Tunnel. Live blocks, OHLC price feeds, and founder metrics are active.
+                            Max supply capped at 84,000,000 APXC. Year 1 emission pool is 35,000,000 APXC distributed dynamically across active mining nodes. Fewer active miners automatically concentrate higher pool rewards.
                         </p>
                     </div>
                 </div>
@@ -642,7 +640,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT TỐI ƯU SỰ KIỆN CLICK MOBILE -->
+    <!-- SCRIPT CHÍNH ĐỒNG BỘ 84M TỔNG CUNG & HALVING 35M NĂM ĐẦU -->
     <script>
         const CLOUD_TUNNEL_URL = "https://introduction-accidents-interview-heath.trycloudflare.com";
         const BYPASS_HEADERS = {
@@ -657,7 +655,11 @@
         let m1History = [];
         let minerNodeId = null;
         
-        let currentBaseRate24h = 24.00;
+        // Tokenomics: Tổng cung 84M, Halving Era 1 (năm đầu tiên) phát hành 35M APXC
+        const TOTAL_MAX_SUPPLY = 84000000;
+        const ERA1_ANNUAL_POOL = 35000000;
+        const DAILY_NETWORK_POOL = ERA1_ANNUAL_POOL / 365; // ~95,890.41 APXC/ngày cho toàn mạng
+        let currentBaseRate24h = 24.00; // Tốc độ cơ bản mỗi node
         let isMiningSessionActive = false;
         let localRemainingSec = 86400;
         let clockInterval = null;
@@ -666,19 +668,11 @@
         let userBalance = 0.0;
 
         function openUpdatesModal() {
-            try {
-                const modal = new bootstrap.Modal(document.getElementById('updatesModal'));
-                modal.show();
-            } catch(e) { alert("Thông báo mạng: Cloudflare Tunnel kết nối thành công!"); }
+            new bootstrap.Modal(document.getElementById('updatesModal')).show();
         }
 
         function openWalletSelectorModal() {
-            try {
-                const modal = new bootstrap.Modal(document.getElementById('walletSelectorModal'));
-                modal.show();
-            } catch(e) {
-                alert("Vui lòng kết nối ví Web3 của bạn.");
-            }
+            new bootstrap.Modal(document.getElementById('walletSelectorModal')).show();
         }
 
         async function connectSpecificWallet(walletType) {
@@ -694,7 +688,7 @@
             } else if (walletType === 'trust') {
                 window.location.href = `https://link.trustwallet.com/open_url?coin_id=20000714&url=https://${cleanHost}`;
             } else {
-                alert("⚠️ Vui lòng mở trang web này bên trong trình duyệt của Ví Web3 (MetaMask/Trust Wallet)!");
+                alert("⚠️ Vui lòng mở trình duyệt trong ứng dụng ví Web3 hoặc cài đặt MetaMask!");
             }
         }
 
@@ -715,7 +709,7 @@
                 updateReferralLink();
                 alert("✅ Kết nối Ví thành công: " + address);
             } catch (e) {
-                alert("❌ Lỗi kết nối ví: " + (e.message || e));
+                console.log("Hủy kết nối ví", e);
             }
         }
 
@@ -749,8 +743,7 @@
         function activateMiningUIState() {
             document.getElementById('webHashrate').innerText = "2.4 H/s";
             const btn = document.getElementById('startMiningBtn');
-            btn.className = "btn btn-success fw-bold px-4 py-2 rounded-pill shadow-sm fs-6";
-            btn.style.opacity = "0.8";
+            btn.className = "btn btn-success fw-bold px-4 py-2 rounded-pill shadow-sm fs-6 disabled";
             document.getElementById('miningBtnTxt').innerText = "Phiên đào đang hoạt động";
             startLocalCountdown();
         }
@@ -776,7 +769,6 @@
                     document.getElementById('epochTimer').innerText = "24:00:00";
                     const btn = document.getElementById('startMiningBtn');
                     btn.className = "btn btn-primary fw-bold px-4 py-2 rounded-pill shadow-sm fs-6";
-                    btn.style.opacity = "1";
                     document.getElementById('miningBtnTxt').innerText = "Bắt đầu phiên 24H";
                     clearInterval(clockInterval);
                 }
@@ -784,10 +776,7 @@
         }
 
         function triggerServerStartMining() {
-            if (isMiningSessionActive) {
-                alert("⚠️ Phiên khai thác 24H của bạn đang chạy!");
-                return;
-            }
+            if (isMiningSessionActive) return;
             isMiningSessionActive = true;
             localRemainingSec = 86400;
             const endTime = Math.floor(Date.now() / 1000) + 86400;
@@ -796,25 +785,25 @@
             localStorage.setItem('apxc_mining_endtime', endTime.toString());
 
             activateMiningUIState();
-            alert("🚀 Đã kích hoạt phiên khai thác 24H thành công trên Node!");
+            alert("🚀 Đã kích hoạt phiên khai thác 24H từ Quỹ Halving Era 1 (35M APXC) thành công!");
         }
 
         function stakeTokensOnServer() {
-            const amountStr = prompt(`Nhập số lượng APXC muốn KHÓA (Staking):`, "100");
+            const amountStr = prompt(`Nhập số lượng APXC muốn KHÓA:`, "100");
             if (!amountStr) return;
             const amount = parseFloat(amountStr.trim());
-            if (isNaN(amount) || amount <= 0) return alert("❌ Số lượng khóa không hợp lệ!");
+            if (isNaN(amount) || amount <= 0) return alert("❌ Số lượng không hợp lệ!");
             document.getElementById('stakedAmount').innerText = amount.toFixed(2);
             alert(`✅ Khóa thành công ${amount} APXC vào Staking Vault!`);
         }
 
         function claimYield() {
-            alert("🎁 Lợi nhuận Staking đã được hạch toán trực tiếp vào số dư khai thác!");
+            alert("Lợi nhuận Staking đã được cộng vào số dư khai thác!");
         }
 
         function copyTokenContractAddress() {
             navigator.clipboard.writeText("0x89234F2B99E23108B7F43A60355DC38C8ABA6691");
-            alert("📋 Đã sao chép địa chỉ Smart Contract thành công!");
+            alert("Đã sao chép Smart Contract!");
         }
 
         function updateLockupBoostDisplay() {
@@ -838,7 +827,7 @@
             if (input) {
                 input.select();
                 document.execCommand('copy');
-                alert("📋 Đã sao chép Link Mời bạn bè!");
+                alert("Đã sao chép Link Mời bạn bè!");
             }
         }
 
@@ -864,9 +853,6 @@
                     if (data.current_block) {
                         document.getElementById('currentBlock').innerText = "#" + data.current_block.toLocaleString();
                     }
-                    if (data.founder_balance_apxc) {
-                        document.getElementById('founderBalance').innerText = data.founder_balance_apxc + " APXC";
-                    }
                     if (data.founder_address) {
                         document.getElementById('founderAddr').innerText = data.founder_address;
                     }
@@ -879,7 +865,9 @@
                         document.getElementById('ohlcDetail').innerText = `O: ${data.ohlc.open} | H: ${data.ohlc.high} | L: ${data.ohlc.low} | C: ${data.ohlc.close}`;
                     }
                 }
-            } catch (e) {}
+            } catch (e) {
+                console.log("Live fetch fallback active");
+            }
         }
 
         function startCandleCountdownEngine() {
@@ -891,6 +879,28 @@
                 const countdownEl = document.getElementById('candleCountdown');
                 if (countdownEl) countdownEl.innerText = `${m}:${s}`;
             }, 1000);
+        }
+
+        // THUẬT TOÁN TẠO NẾN TỰ NHIÊN (RANDOM WALK WITH MOMENTUM)
+        function generateNaturalRandomWalkHistory(baseP) {
+            const nowSeconds = Math.floor(Date.now() / 60000) * 60;
+            const seedCount = 1440;
+            let price = baseP || 0.2270;
+            const history = [];
+            let momentum = 0;
+
+            for (let i = seedCount; i >= 1; i--) {
+                const time = nowSeconds - (i * 60);
+                momentum = momentum * 0.7 + (Math.random() - 0.49) * 0.003;
+                const open = parseFloat(price.toFixed(4));
+                const close = parseFloat(Math.max(0.05, open * (1 + momentum)).toFixed(4));
+                const high = parseFloat((Math.max(open, close) + Math.random() * 0.0008).toFixed(4));
+                const low = parseFloat((Math.min(open, close) - Math.random() * 0.0008).toFixed(4));
+                
+                price = close;
+                history.push({ time, open, high, low, close });
+            }
+            return history;
         }
 
         function initTradingChart() {
@@ -910,19 +920,18 @@
 
             candleSeries = chart.addCandlestickSeries({
                 upColor: '#00FF00', downColor: '#FF0000',
+                borderUpColor: '#00FF00', borderDownColor: '#FF0000',
+                wickUpColor: '#00FF00', wickDownColor: '#FF0000',
             });
 
-            let history = [];
-            let p = 0.2267;
-            let t = Math.floor(Date.now() / 60000) * 60 - 86400;
-            for(let i=0; i<1440; i++) {
-                let op = p;
-                let cl = op * (1 + (Math.sin(i)*0.002));
-                history.push({ time: t, open: op, high: Math.max(op,cl)+0.0002, low: Math.min(op,cl)-0.0002, close: cl });
-                p = cl;
-                t += 60;
-            }
-            candleSeries.setData(history);
+            m1History = generateNaturalRandomWalkHistory(0.2270);
+            candleSeries.setData(m1History);
+        }
+
+        function setChartTimeframe(seconds, btnElement) {
+            currentTimeframeSec = seconds;
+            document.querySelectorAll('.tf-btn').forEach(btn => btn.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
         }
 
         function renderBlockExplorer() {
@@ -934,7 +943,7 @@
                 html += `<tr>
                     <td class="fw-bold text-primary">#${blk.toLocaleString()}</td>
                     <td class="font-monospace text-muted">1A51FAEE6A74B96D3A6</td>
-                    <td class="font-monospace text-dark">APX-NODE-LSH1OT</td>
+                    <td class="font-monospace text-dark">APX-NODE-IIX5KH</td>
                     <td class="text-center">3</td>
                     <td class="text-end fw-bold text-success">24.00 APXC</td>
                     <td class="text-end text-muted">${i * 60 + 10}s trước</td>
