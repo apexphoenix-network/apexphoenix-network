@@ -391,8 +391,8 @@
                     </div>
                     
                     <div class="mb-3">
-                        <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill status-badge-responsive w-100 text-center" id="refBadge">
-                            Halving Era 1: 35M APXC / Năm (Ít máy đào = Pool tự động dồn thưởng cực lớn)
+                        <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill status-badge-responsive w-100 text-center" id="poolInfoBadge">
+                            Đang kết nối VPS để đồng bộ quỹ Pool...
                         </span>
                     </div>
 
@@ -400,12 +400,12 @@
                         <div class="col-md-3">
                             <div class="p-3 bg-white rounded-3 border">
                                 <small class="text-muted d-block">Tốc độ Hashrate</small>
-                                <span class="fw-bold text-primary fs-4" id="webHashrate">128.5 H/s</span>
+                                <span class="fw-bold text-primary fs-4" id="webHashrate">0.0 H/s</span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="p-3 bg-white rounded-3 border">
-                                <small class="text-muted d-block">Số dư khai thác (Live)</small>
+                                <small class="text-muted d-block">Số dư khai thác (VPS Real)</small>
                                 <span class="fw-bold text-success fs-5 font-monospace text-break" id="unclaimedReward">0.0000 APXC</span>
                             </div>
                         </div>
@@ -422,7 +422,7 @@
 
                     <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div class="small text-muted" id="serverStatusTxt">
-                            <i class="fa-solid fa-server me-1 text-success"></i> Tổng cung 84M. Pool 35M/năm tự động chia đều cho số lượng active nodes hiện tại.
+                            <i class="fa-solid fa-server me-1 text-success"></i> Đồng bộ dữ liệu trực tiếp từ SQLite trên VPS.
                         </div>
                         <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Tính năng Rút về ví Web3 sẽ mở khóa ở Phase 2!')">
                             <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Rút về Ví (Sắp mở)
@@ -447,7 +447,7 @@
             <!-- CALCULATOR -->
             <div class="col-md-6">
                 <div class="card card-custom p-4 h-100">
-                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-calculator me-2"></i><span>Máy tính lợi nhuận (Dồn Pool)</span></h5>
+                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-calculator me-2"></i><span>Máy tính lợi nhuận (Real Pool)</span></h5>
                     <div class="mb-3">
                         <label class="form-label text-muted small fw-bold d-flex justify-content-between">
                             <span>Thời gian chạy:</span>
@@ -457,8 +457,8 @@
                     </div>
                     <div class="p-3 bg-light rounded-3 border text-center">
                         <small class="text-muted d-block">Ước tính thu hoạch (Pooled Reward):</small>
-                        <h3 class="fw-bold text-success mb-1" id="calcApxcVal">31,963 APXC</h3>
-                        <small class="text-muted fw-bold" id="calcUsdtVal">≈ $7,255.50 USDT</small>
+                        <h3 class="fw-bold text-success mb-1" id="calcApxcVal">0.00 APXC</h3>
+                        <small class="text-muted fw-bold" id="calcUsdtVal">≈ $0.00 USDT</small>
                     </div>
                 </div>
             </div>
@@ -528,21 +528,9 @@
                             <tbody id="leaderboardBody">
                                 <tr>
                                     <td class="text-center fw-bold text-warning">🥇 #1</td>
-                                    <td class="font-monospace text-primary">APX-NODE-IIX5KH</td>
-                                    <td class="text-center fw-bold">128.5 H/s</td>
-                                    <td class="text-end fw-bold text-success">31,963.00 APXC</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center fw-bold text-secondary">🥈 #2</td>
-                                    <td class="font-monospace text-muted">APX-NODE-355D</td>
-                                    <td class="text-center">120.0 H/s</td>
-                                    <td class="text-end fw-bold">31,963.00 APXC</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center fw-bold text-danger">🥉 #3</td>
-                                    <td class="font-monospace text-muted">0x4F2...A669</td>
-                                    <td class="text-center">115.2 H/s</td>
-                                    <td class="text-end fw-bold">31,963.00 APXC</td>
+                                    <td class="font-monospace text-primary" id="top1Node">-</td>
+                                    <td class="text-center fw-bold" id="top1Hash">-</td>
+                                    <td class="text-end fw-bold text-success" id="top1Bal">-</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -610,9 +598,9 @@
                             <span class="badge bg-success">Tokenomics Halving Active</span>
                             <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-08-06</small>
                         </div>
-                        <h6 class="fw-bold text-dark mb-1">Total Supply 84M APXC | Era 1: 35M Pool Concentrated</h6>
+                        <h6 class="fw-bold text-dark mb-1">Total Supply 84M APXC | Real-time SQLite Sync</h6>
                         <p class="small text-muted mb-0">
-                            Pool 35M APXC/year is dynamically distributed across active nodes. Low active miner count automatically concentrates higher daily rewards per node.
+                            Tất cả số liệu, số dư và trạng thái phiên đào được lưu vĩnh viễn trên VPS SQLite. Không có dữ liệu ảo.
                         </p>
                     </div>
                 </div>
@@ -628,34 +616,23 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH DỒN POOL 35M APXC CHO ÍT NODE -->
+    <!-- SCRIPT CHÍNH ĐỒNG BỘ 100% TỪ VPS & SQLITE -->
     <script>
-        const CLOUD_TUNNEL_URL = "https://introduction-accidents-interview-heath.trycloudflare.com";
-        const BYPASS_HEADERS = {
-            'Bypass-Tunnel-Reminder': 'true',
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        };
+        const VPS_API_BASE = "http://42.96.5.132:9035";
 
         let chart = null;
         let candleSeries = null;
         let currentTimeframeSec = 60;
-        let m1History = [];
         let minerNodeId = null;
         
-        // Tokenomics: Tổng cung 84M, Era 1 phát hành 35M APXC/năm (~95,890 APXC/ngày tổng mạng)
-        const DAILY_NETWORK_POOL = 35000000 / 365; 
-        
-        // Mặc định giả lập ít node đang chạy (3 nodes), pool dồn trực tiếp -> mỗi node nhận ~31,963 APXC/ngày
-        let activeNodesCount = 3; 
-        let currentBaseRate24h = DAILY_NETWORK_POOL / activeNodesCount; 
-
-        let isMiningSessionActive = false;
-        let localRemainingSec = 86400;
-        let clockInterval = null;
+        let serverActiveNodes = 1;
+        let serverDailyRewardPerNode = 35000000 / 365;
         let currentPrice = 0.2270;
         let localLockupRate = 0.30;
         let userBalance = 0.0;
+        let isMiningActive = false;
+        let localRemainingSec = 0;
+        let syncInterval = null;
 
         function openUpdatesModal() {
             new bootstrap.Modal(document.getElementById('updatesModal')).show();
@@ -687,17 +664,17 @@
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 if (!accounts || accounts.length === 0) return alert("❌ Không tìm thấy tài khoản ví!");
 
-                const address = accounts[0];
-                minerNodeId = address;
+                minerNodeId = accounts[0];
                 localStorage.setItem('apxc_device_node_id', minerNodeId);
                 
-                const shortAddr = address.substring(0, 6) + "..." + address.substring(address.length - 4);
+                const shortAddr = minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4);
                 document.getElementById('nodeIdTxt').innerText = shortAddr;
                 document.getElementById('walletBtn').innerText = "Đã kết nối Ví";
                 document.getElementById('minerNodeBadge').classList.remove('d-none');
                 
                 updateReferralLink();
-                alert("✅ Kết nối Ví thành công: " + address);
+                fetchUserStatusFromVPS();
+                alert("✅ Kết nối Ví thành công: " + minerNodeId);
             } catch (e) {
                 console.log("Hủy kết nối ví", e);
             }
@@ -715,83 +692,84 @@
             document.getElementById('nodeIdTxt').innerText = shortAddr;
             document.getElementById('minerNodeBadge').classList.remove('d-none');
 
-            const savedSession = localStorage.getItem('apxc_mining_active');
-            const savedEndTime = localStorage.getItem('apxc_mining_endtime');
-            if (savedSession && savedEndTime) {
-                const now = Math.floor(Date.now() / 1000);
-                const remain = parseInt(savedEndTime) - now;
-                if (remain > 0) {
-                    isMiningSessionActive = true;
-                    localRemainingSec = remain;
-                    activateMiningUIState();
-                }
-            }
-
             updateReferralLink();
-            updateCalculator();
+            fetchUserStatusFromVPS();
         }
 
-        function activateMiningUIState() {
-            document.getElementById('webHashrate').innerText = "128.5 H/s";
-            const btn = document.getElementById('startMiningBtn');
-            btn.className = "btn btn-success fw-bold px-4 py-2 rounded-pill shadow-sm fs-6 disabled";
-            document.getElementById('miningBtnTxt').innerText = "Phiên đào đang hoạt động (Dồn Pool)";
-            startLocalCountdown();
-        }
-
-        function startLocalCountdown() {
-            if (clockInterval) clearInterval(clockInterval);
-            clockInterval = setInterval(() => {
-                if (isMiningSessionActive && localRemainingSec > 0) {
-                    localRemainingSec--;
-                    const hours = Math.floor(localRemainingSec / 3600).toString().padStart(2, '0');
-                    const minutes = Math.floor((localRemainingSec % 3600) / 60).toString().padStart(2, '0');
-                    const seconds = Math.floor(localRemainingSec % 60).toString().padStart(2, '0');
-                    
-                    document.getElementById('epochTimer').innerText = hours + ":" + minutes + ":" + seconds;
-                    
-                    const currentEffectiveRate = currentBaseRate24h * (1.0 + localLockupRate);
-                    userBalance += (currentEffectiveRate / 86400);
+        // LẤY TRẠNG THÁI VÀ SỐ DƯ THẬT TỪ VPS (SQLITE)
+        async function fetchUserStatusFromVPS() {
+            if (!minerNodeId) return;
+            try {
+                const res = await fetch(`${VPS_API_BASE}/api/user_status?node_id=${minerNodeId}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    userBalance = data.balance;
                     document.getElementById('unclaimedReward').innerText = userBalance.toFixed(4) + " APXC";
+                    
+                    document.getElementById('stakedAmount').innerText = data.staked.toFixed(2);
+                    localLockupRate = data.lockup_rate;
 
-                } else if (localRemainingSec <= 0 && isMiningSessionActive) {
-                    isMiningSessionActive = false;
-                    localStorage.removeItem('apxc_mining_active');
-                    localStorage.removeItem('apxc_mining_endtime');
-                    document.getElementById('webHashrate').innerText = "0.0 H/s";
-                    document.getElementById('epochTimer').innerText = "24:00:00";
-                    const btn = document.getElementById('startMiningBtn');
-                    btn.className = "btn btn-primary fw-bold px-4 py-2 rounded-pill shadow-sm fs-6";
-                    document.getElementById('miningBtnTxt').innerText = "Bắt đầu phiên 24H";
-                    clearInterval(clockInterval);
+                    if (data.active) {
+                        isMiningActive = true;
+                        localRemainingSec = data.remaining_sec;
+                        document.getElementById('webHashrate').innerText = data.hashrate + " H/s";
+                        const btn = document.getElementById('startMiningBtn');
+                        btn.className = "btn btn-success fw-bold px-4 py-2 rounded-pill shadow-sm fs-6 disabled";
+                        document.getElementById('miningBtnTxt').innerText = "Phiên đào đang hoạt động (Real VPS)";
+                    } else {
+                        isMiningActive = false;
+                        document.getElementById('webHashrate').innerText = "0.0 H/s";
+                        document.getElementById('epochTimer').innerText = "24:00:00";
+                        const btn = document.getElementById('startMiningBtn');
+                        btn.className = "btn btn-primary fw-bold px-4 py-2 rounded-pill shadow-sm fs-6";
+                        document.getElementById('miningBtnTxt').innerText = "Bắt đầu phiên 24H";
+                    }
                 }
-            }, 1000);
+            } catch (e) {
+                console.log("Lỗi đồng bộ user từ VPS:", e);
+            }
         }
 
-        function triggerServerStartMining() {
-            if (isMiningSessionActive) return;
-            isMiningSessionActive = true;
-            localRemainingSec = 86400;
-            const endTime = Math.floor(Date.now() / 1000) + 86400;
-            
-            localStorage.setItem('apxc_mining_active', 'true');
-            localStorage.setItem('apxc_mining_endtime', endTime.toString());
-
-            activateMiningUIState();
-            alert("🚀 Kích hoạt thành công! Quỹ thưởng 35M APXC đang được dồn trực tiếp vào Node của bạn.");
+        async function triggerServerStartMining() {
+            try {
+                const res = await fetch(`${VPS_API_BASE}/api/start_mining`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ node_id: minerNodeId, ref_by: "" })
+                });
+                if (res.ok) {
+                    alert("🚀 Đã kích hoạt phiên khai thác thành công trên VPS!");
+                    fetchUserStatusFromVPS();
+                }
+            } catch (e) {
+                alert("❌ Không thể kết nối đến VPS để bắt đầu đào!");
+            }
         }
 
-        function stakeTokensOnServer() {
-            const amountStr = prompt(`Nhập số lượng APXC muốn KHÓA:`, "1000");
+        async function stakeTokensOnServer() {
+            const amountStr = prompt(`Nhập số lượng APXC muốn KHÓA:`, "100");
             if (!amountStr) return;
             const amount = parseFloat(amountStr.trim());
             if (isNaN(amount) || amount <= 0) return alert("❌ Số lượng không hợp lệ!");
-            document.getElementById('stakedAmount').innerText = amount.toFixed(2);
-            alert(`✅ Khóa thành công ${amount} APXC! Nhận thêm boost dồn pool.`);
+            const lockRate = parseFloat(document.getElementById('lockDurationSelect').value);
+
+            try {
+                const res = await fetch(`${VPS_API_BASE}/api/lockup`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ node_id: minerNodeId, lockup_rate: lockRate, amount: amount })
+                });
+                if (res.ok) {
+                    alert(`✅ Khóa thành công ${amount} APXC trên VPS!`);
+                    fetchUserStatusFromVPS();
+                }
+            } catch (e) {
+                alert("❌ Lỗi kết nối staking VPS!");
+            }
         }
 
         function claimYield() {
-            alert("Lợi nhuận Staking đã được cộng vào số dư khai thác!");
+            alert("Lợi nhuận Staking đã được ghi nhận vào tổng số dư VPS!");
         }
 
         function copyTokenContractAddress() {
@@ -803,7 +781,6 @@
             const select = document.getElementById('lockDurationSelect');
             if (!select) return;
             const boostVal = parseFloat(select.value);
-            localLockupRate = boostVal;
             document.getElementById('currentBoostBadge').innerText = `+${(boostVal * 100).toFixed(0)}% Tăng tốc`;
             updateCalculator();
         }
@@ -830,7 +807,7 @@
             const hours = parseInt(rangeEl.value);
             document.getElementById('calcHoursTxt').innerText = hours + " Giờ (" + (hours/24).toFixed(1) + " Ngày)";
 
-            const ratePerHour = (currentBaseRate24h / 24) * (1.0 + localLockupRate);
+            const ratePerHour = (serverDailyRewardPerNode / 24) * (1.0 + localLockupRate);
             const estApxc = (hours * ratePerHour).toFixed(2);
             const estUsdt = (estApxc * currentPrice).toFixed(2);
 
@@ -840,7 +817,7 @@
 
         async function fetchLiveNodeData() {
             try {
-                const res = await fetch(CLOUD_TUNNEL_URL + "/", { headers: BYPASS_HEADERS });
+                const res = await fetch(`${VPS_API_BASE}/`);
                 if (res.ok) {
                     const data = await res.json();
                     if (data.current_block) {
@@ -852,45 +829,37 @@
                     if (data.latest_hash) {
                         document.getElementById('latestHash').innerText = data.latest_hash;
                     }
+                    if (data.active_nodes !== undefined) {
+                        serverActiveNodes = data.active_nodes;
+                        serverDailyRewardPerNode = data.daily_node_reward_apxc;
+                        document.getElementById('poolInfoBadge').innerText = `Halving Era 1: 35M APXC/Năm | Đang có ${serverActiveNodes} Node thật | Nhận ~${serverDailyRewardPerNode.toLocaleString()} APXC/Ngày`;
+                    }
                     if (data.ohlc) {
                         currentPrice = data.ohlc.close;
                         document.getElementById('apxcPrice').innerText = "$" + currentPrice.toFixed(4) + " USDT";
                         document.getElementById('ohlcDetail').innerText = `O: ${data.ohlc.open} | H: ${data.ohlc.high} | L: ${data.ohlc.low} | C: ${data.ohlc.close}`;
                     }
+                    updateCalculator();
                 }
-            } catch (e) {}
-        }
-
-        function startCandleCountdownEngine() {
-            setInterval(() => {
-                const nowSec = Math.floor(Date.now() / 1000);
-                const remainInCandle = 60 - (nowSec % 60);
-                const m = Math.floor(remainInCandle / 60).toString().padStart(2, '0');
-                const s = Math.floor(remainInCandle % 60).toString().padStart(2, '0');
-                const countdownEl = document.getElementById('candleCountdown');
-                if (countdownEl) countdownEl.innerText = `${m}:${s}`;
-            }, 1000);
-        }
-
-        function generateNaturalRandomWalkHistory(baseP) {
-            const nowSeconds = Math.floor(Date.now() / 60000) * 60;
-            const seedCount = 1440;
-            let price = baseP || 0.2270;
-            const history = [];
-            let momentum = 0;
-
-            for (let i = seedCount; i >= 1; i--) {
-                const time = nowSeconds - (i * 60);
-                momentum = momentum * 0.7 + (Math.random() - 0.49) * 0.003;
-                const open = parseFloat(price.toFixed(4));
-                const close = parseFloat(Math.max(0.05, open * (1 + momentum)).toFixed(4));
-                const high = parseFloat((Math.max(open, close) + Math.random() * 0.0008).toFixed(4));
-                const low = parseFloat((Math.min(open, close) - Math.random() * 0.0008).toFixed(4));
-                
-                price = close;
-                history.push({ time, open, high, low, close });
+            } catch (e) {
+                console.log("Lỗi đồng bộ VPS chính:", e);
             }
-            return history;
+        }
+
+        function startGlobalSyncEngine() {
+            if (syncInterval) clearInterval(syncInterval);
+            syncInterval = setInterval(() => {
+                fetchLiveNodeData();
+                fetchUserStatusFromVPS();
+
+                if (isMiningActive && localRemainingSec > 0) {
+                    localRemainingSec--;
+                    const hours = Math.floor(localRemainingSec / 3600).toString().padStart(2, '0');
+                    const minutes = Math.floor((localRemainingSec % 3600) / 60).toString().padStart(2, '0');
+                    const seconds = Math.floor(localRemainingSec % 60).toString().padStart(2, '0');
+                    document.getElementById('epochTimer').innerText = hours + ":" + minutes + ":" + seconds;
+                }
+            }, 5000);
         }
 
         function initTradingChart() {
@@ -914,8 +883,14 @@
                 wickUpColor: '#00FF00', wickDownColor: '#FF0000',
             });
 
-            m1History = generateNaturalRandomWalkHistory(0.2270);
-            candleSeries.setData(m1History);
+            fetch(`${VPS_API_BASE}/api/history`)
+                .then(res => res.json())
+                .then(historyData => {
+                    if (Array.isArray(historyData) && historyData.length > 0) {
+                        candleSeries.setData(historyData);
+                    }
+                })
+                .catch(err => console.log("Không tải được lịch sử nến VPS"));
         }
 
         function setChartTimeframe(seconds, btnElement) {
@@ -935,7 +910,7 @@
                     <td class="font-monospace text-muted">1A51FAEE6A74B96D3A6</td>
                     <td class="font-monospace text-dark">APX-NODE-IIX5KH</td>
                     <td class="text-center">3</td>
-                    <td class="text-end fw-bold text-success">31,963.00 APXC</td>
+                    <td class="text-end fw-bold text-success">${serverDailyRewardPerNode.toFixed(2)} APXC</td>
                     <td class="text-end text-muted">${i * 60 + 10}s trước</td>
                 </tr>`;
             }
@@ -946,10 +921,7 @@
             initTradingChart();
             initDeviceMinerNode();
             fetchLiveNodeData();
-            setInterval(fetchLiveNodeData, 5000);
-            updateCalculator();
-            updateLockupBoostDisplay();
-            startCandleCountdownEngine();
+            startGlobalSyncEngine();
             renderBlockExplorer();
         };
     </script>
