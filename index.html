@@ -340,7 +340,7 @@
 
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
-                    <div class="text-secondary mb-2"><i class="fa-solid fa-chart-line text-success me-2"></i><span>Giá trực tiếp APXC (Bull/Bear)</span></div>
+                    <div class="text-secondary mb-2"><i class="fa-solid fa-chart-line text-success me-2"></i><span>Giá trực tiếp APXC (5 Số Thập Phân)</span></div>
                     <div class="stat-val text-success" id="apxcPrice">$0.22700 USDT</div>
                     <small class="text-muted mt-2" id="ohlcDetail">O: 0.22670 | H: 0.22700 | L: 0.22760 | C: 0.22700</small>
                 </div>
@@ -392,7 +392,7 @@
                     
                     <div class="mb-3">
                         <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill status-badge-responsive w-100 text-center" id="poolInfoBadge">
-                            Đang kết nối VPS HTTPS để đồng bộ quỹ Pool...
+                            Đang kết nối VPS trực tiếp...
                         </span>
                     </div>
 
@@ -422,7 +422,7 @@
 
                     <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div class="small text-muted" id="serverStatusTxt">
-                            <i class="fa-solid fa-server me-1 text-success"></i> Đồng bộ dữ liệu trực tiếp từ SQLite trên VPS.
+                            <i class="fa-solid fa-server me-1 text-success"></i> Dữ liệu đồng bộ trực tiếp từ SQLite VPS.
                         </div>
                         <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Tính năng Rút về ví Web3 sẽ mở khóa ở Phase 2!')">
                             <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Rút về Ví (Sắp mở)
@@ -600,7 +600,7 @@
                         </div>
                         <h6 class="fw-bold text-dark mb-1">Total Supply 84M APXC | Real-time SQLite Sync</h6>
                         <p class="small text-muted mb-0">
-                            Tất cả số liệu, số dư và trạng thái phiên đào được lưu vĩnh viễn trên VPS SQLite qua HTTPS Tunnel.
+                            Tất cả số liệu, số dư và trạng thái phiên đào được lưu vĩnh viễn trên VPS SQLite.
                         </p>
                     </div>
                 </div>
@@ -616,13 +616,9 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH DÙNG CLOUDFLARE TUNNEL (HTTPS) & 5 SỐ THẬP PHÂN -->
+    <!-- SCRIPT CHÍNH GỌI TRỰC TIẾP IP VPS & 5 SỐ THẬP PHÂN -->
     <script>
-        const VPS_API_BASE = "https://introduction-accidents-interview-heath.trycloudflare.com";
-        const BYPASS_HEADERS = {
-            'Bypass-Tunnel-Reminder': 'true',
-            'Accept': 'application/json'
-        };
+        const VPS_API_BASE = "http://42.96.5.132:9035";
 
         let chart = null;
         let candleSeries = null;
@@ -703,7 +699,7 @@
         async function fetchUserStatusFromVPS() {
             if (!minerNodeId) return;
             try {
-                const res = await fetch(`${VPS_API_BASE}/api/user_status?node_id=${minerNodeId}`, { headers: BYPASS_HEADERS });
+                const res = await fetch(`${VPS_API_BASE}/api/user_status?node_id=${minerNodeId}`);
                 if (res.ok) {
                     const data = await res.json();
                     userBalance = data.balance;
@@ -737,7 +733,7 @@
             try {
                 const res = await fetch(`${VPS_API_BASE}/api/start_mining`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', ...BYPASS_HEADERS },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ node_id: minerNodeId, ref_by: "" })
                 });
                 if (res.ok) {
@@ -759,7 +755,7 @@
             try {
                 const res = await fetch(`${VPS_API_BASE}/api/lockup`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', ...BYPASS_HEADERS },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ node_id: minerNodeId, lockup_rate: lockRate, amount: amount })
                 });
                 if (res.ok) {
@@ -820,7 +816,7 @@
 
         async function fetchLiveNodeData() {
             try {
-                const res = await fetch(`${VPS_API_BASE}/`, { headers: BYPASS_HEADERS });
+                const res = await fetch(`${VPS_API_BASE}/`);
                 if (res.ok) {
                     const data = await res.json();
                     if (data.current_block) {
@@ -880,7 +876,6 @@
                 timeScale: { borderColor: '#334155', timeVisible: true },
             });
 
-            // Cấu hình hiển thị 5 số thập phân cho biểu đồ nến
             candleSeries = chart.addCandlestickSeries({
                 upColor: '#00FF00', downColor: '#FF0000',
                 borderUpColor: '#00FF00', borderDownColor: '#FF0000',
@@ -892,7 +887,7 @@
                 },
             });
 
-            fetch(`${VPS_API_BASE}/api/history`, { headers: BYPASS_HEADERS })
+            fetch(`${VPS_API_BASE}/api/history`)
                 .then(res => res.json())
                 .then(historyData => {
                     if (Array.isArray(historyData) && historyData.length > 0) {
