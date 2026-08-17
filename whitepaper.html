@@ -91,22 +91,6 @@
             color: #ffffff;
             box-shadow: 0 10px 25px rgba(255, 200, 0, 0.15);
         }
-        .timeline-box {
-            border-left: 3px solid var(--sky-primary);
-            padding-left: 20px;
-            margin-bottom: 25px;
-            position: relative;
-        }
-        .timeline-box::before {
-            content: '';
-            position: absolute;
-            left: -8px;
-            top: 5px;
-            width: 13px;
-            height: 13px;
-            border-radius: 50%;
-            background: var(--sky-primary);
-        }
         .highlight-box {
             background: #f8fafc;
             border-left: 4px solid var(--gold-primary);
@@ -118,7 +102,7 @@
 </head>
 <body>
 
-    <!-- NAVBAR WITH MATCHING LOGO -->
+    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-sky sticky-top py-2">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4 d-flex align-items-center" href="./index.html">
@@ -131,15 +115,15 @@
         </div>
     </nav>
 
-    <!-- HEADER WITH HERO LOGO -->
+    <!-- HEADER -->
     <header class="wp-header text-center">
         <div class="container">
             <div class="mb-3">
                 <img src="apex-coin-logo.png" alt="APEX Phoenix Logo" class="apex-logo-wp">
             </div>
-            <span class="status-badge mb-3 d-inline-block">OFFICIAL WHITEPAPER V24.14 — 1-YEAR HALVING PROTOCOL</span>
+            <span class="status-badge mb-3 d-inline-block">DECENTRALIZED PROTOCOL PAPER V24.14 — 1-YEAR HALVING STANDARD</span>
             <div class="apex-title-gold">APEX PHOENIX NETWORK</div>
-            <p class="text-light lead fw-semibold mt-2">The Next-Generation Decentralized Light-Node Cloud Mining & Automated Yield Protocol</p>
+            <p class="text-light lead fw-semibold mt-2">A Pure Peer-to-Peer, Autonomous Light-Node Mining Protocol Governed by Mathematical Consensus</p>
         </div>
     </header>
 
@@ -148,33 +132,33 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
 
-                <!-- 1. EXECUTIVE SUMMARY & BRAND IDENTITY -->
+                <!-- 1. ABSTRACT & PHILOSOPHY -->
                 <div class="paper-card">
-                    <h3 class="section-title"><i class="fa-solid fa-feather-pointed text-warning me-2"></i>1. Vision & Brand Philosophy</h3>
+                    <h3 class="section-title"><i class="fa-solid fa-feather-pointed text-warning me-2"></i>1. Abstract & Core Philosophy</h3>
                     <p>
-                        Amid the paradigm shift in the cryptocurrency market from energy-intensive algorithms (Proof-of-Work) toward user-centric decentralized models, <strong>Apex Phoenix Network (APXC)</strong> emerges as a symbol of technological rebirth and breakthrough innovation.
+                        Apex Phoenix Network (APXC) is engineered as an autonomous, permissionless digital currency protocol. Adopting the foundational principles established by Bitcoin, APXC rejects centralized promises, speculative timelines, or institutional interference. The network operates purely on immutable code, cryptographic consensus, and open participation.
                     </p>
                     
                     <div class="highlight-box">
-                        <h6 class="fw-bold text-dark mb-1"><i class="fa-solid fa-crown text-warning me-2"></i>Nomenclature Meaning: APEX PHOENIX</h6>
+                        <h6 class="fw-bold text-dark mb-1"><i class="fa-solid fa-crown text-warning me-2"></i>Sovereign Protocol Principles</h6>
                         <ul class="mb-0 small text-muted">
-                            <li><strong>APEX (The Pinnacle):</strong> Symbolizes the ambition to achieve a dominant position in Web3 Light-Node infrastructure, offering unprecedented mining speed and stability.</li>
-                            <li><strong>PHOENIX (The Immortal Bird):</strong> A legendary emblem of eternal vitality and the ability to rise triumphant from ashes. APXC embodies the spirit of breaking through traditional financial barriers.</li>
+                            <li><strong>No Central Authority:</strong> There are no pre-determined commercial roadmaps, mandatory exchange listings, or corporate entities directing adoption. The network evolves organically through community consensus.</li>
+                            <li><strong>Mathematical Scarcity:</strong> Value is derived entirely from transparent emission curves, predictable halving schedules, and decentralized verification rather than outside guarantees.</li>
                         </ul>
                     </div>
 
-                    <!-- GENESIS BLOCK BIRTH CERTIFICATE -->
+                    <!-- GENESIS BLOCK -->
                     <div class="birth-certificate-box my-4">
                         <div class="d-flex justify-content-between align-items-center mb-3 border-bottom border-secondary pb-2">
-                            <h5 class="fw-bold text-warning mb-0"><i class="fa-solid fa-certificate me-2"></i>GENESIS BLOCK BIRTH CERTIFICATE</h5>
+                            <h5 class="fw-bold text-warning mb-0"><i class="fa-solid fa-certificate me-2"></i>GENESIS BLOCK PARAMETERS</h5>
                             <span class="badge bg-warning text-dark fw-bold">BLOCK #0</span>
                         </div>
                         <p class="small text-light mb-3">
-                            Serving as the official birth certificate of the network, the Genesis Block marks the exact timestamp when the decentralized network was activated and initial supply was minted under immutable consensus rules.
+                            The immutable origin point of the protocol, anchoring the genesis timestamp and initial emission rules into permanent ledger history.
                         </p>
                         <div class="row g-2 font-monospace small">
-                            <div class="col-sm-4 text-warning">Official Birthday:</div>
-                            <div class="col-sm-8 text-white fw-bold">2026-07-22 00:00:00 UTC (Genesis Epoch)</div>
+                            <div class="col-sm-4 text-warning">Genesis Timestamp:</div>
+                            <div class="col-sm-8 text-white fw-bold">2026-07-22 00:00:00 UTC</div>
                             
                             <div class="col-sm-4 text-warning">Genesis Message:</div>
                             <div class="col-sm-8 text-info text-break">Apex Phoenix Network - Sky Blue V24.14 1-Year Halving Protocol Initialized</div>
@@ -182,75 +166,75 @@
                             <div class="col-sm-4 text-warning">Genesis Hash:</div>
                             <div class="col-sm-8 text-info text-break">0x1A51FAEE355DC38C8ABA6691A1C4020510982B01B87F43A6</div>
 
-                            <div class="col-sm-4 text-warning">Halving Interval:</div>
-                            <div class="col-sm-8 text-white">365 Days (1 Year Cycle / -50% Base Emission)</div>
+                            <div class="col-sm-4 text-warning">Emission Interval:</div>
+                            <div class="col-sm-8 text-white">365-Day Cyclical Halving Mechanism</div>
 
-                            <div class="col-sm-4 text-warning">Genesis Seed Node:</div>
-                            <div class="col-sm-8 text-white">VPS Node Engine (42.96.5.132:9035)</div>
+                            <div class="col-sm-4 text-warning">Reference Node:</div>
+                            <div class="col-sm-8 text-white">Open Decentralized Light Node Network</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 2. ARCHITECTURE & PROOF-OF-TIME -->
+                <!-- 2. NETWORK ARCHITECTURE -->
                 <div class="paper-card">
-                    <h3 class="section-title"><i class="fa-solid fa-microchip text-primary me-2"></i>2. Technical Architecture & Mining Consensus</h3>
+                    <h3 class="section-title"><i class="fa-solid fa-microchip text-primary me-2"></i>2. Decentralized Light-Node Architecture</h3>
                     <p>
-                        Apex Phoenix Network utilizes a <strong>Browser Light Node Protocol</strong> paired with <strong>Proof-of-Time & Stake Multiplier</strong>. Users participate seamlessly without requiring expensive hardware or incurring excessive power overheads:
+                        To ensure sustainable participation without reliance on heavy proprietary hardware, APXC utilizes a lightweight consensus validation model:
                     </p>
                     
                     <ul class="list-group list-group-flush mb-4">
-                        <li class="list-group-item bg-transparent"><i class="fa-solid fa-check-circle text-success me-2"></i><strong>24-Hour Epoch Sessions:</strong> Each mining session spans exactly 24 hours. The protocol calculates yield based on active participation duration (Proof-of-Time).</li>
-                        <li class="list-group-item bg-transparent"><i class="fa-solid fa-check-circle text-success me-2"></i><strong>VPS Cloud Database Sync:</strong> User balances, hashrate metrics, and epoch states are 100% secured on the Linux/Windows Cloud VPS Engine via real-time SQLite persistence.</li>
-                        <li class="list-group-item bg-transparent"><i class="fa-solid fa-check-circle text-success me-2"></i><strong>Staking Multiplier Boost:</strong> Flexible token lockup options increase mining speeds from +10% to +150%, incentivizing long-term holding and offsetting annual Halving drops.</li>
+                        <li class="list-group-item bg-transparent"><i class="fa-solid fa-check-circle text-success me-2"></i><strong>Epoch Participation:</strong> Time-weighted participation ensures fair distribution over continuous validation cycles without inflationary abuse.</li>
+                        <li class="list-group-item bg-transparent"><i class="fa-solid fa-check-circle text-success me-2"></i><strong>Distributed State Consistency:</strong> Node states, balances, and block validations rely on distributed database consensus models, ensuring censorship-resistant operations.</li>
+                        <li class="list-group-item bg-transparent"><i class="fa-solid fa-check-circle text-success me-2"></i><strong>Voluntary Staking Mechanics:</strong> Protocol participants may optionally lock units to secure network weight organically, mirroring classical time-lock principles.</li>
                     </ul>
                 </div>
 
-                <!-- 3. TOKENOMICS & 1-YEAR HALVING SCHEDULE -->
+                <!-- 3. TOKENOMICS & HALVING SCHEDULE -->
                 <div class="paper-card">
-                    <h3 class="section-title"><i class="fa-solid fa-chart-pie text-warning me-2"></i>3. Tokenomics Standard (84,000,000 APXC) & Annual Halving</h3>
-                    <p>The total supply of APXC is permanently hard-capped at <strong>84,000,000 APXC</strong> (4x Bitcoin's total supply). To enforce anti-inflationary scarcity, APXC executes an <strong>Annual 50% Halving Mechanism (365-Day Interval)</strong>.</p>
+                    <h3 class="section-title"><i class="fa-solid fa-chart-pie text-warning me-2"></i>3. Supply Economics & Halving Schedule (84,000,000 APXC)</h3>
+                    <p>The maximum supply of APXC is strictly bounded at <strong>84,000,000 units</strong>. No mechanism exists within the protocol logic to mint additional supply beyond this hard cap. Emission decreases deterministically via a 50% reduction every 365 days.</p>
 
                     <!-- HALVING TABLE -->
-                    <h5 class="fw-bold text-primary mt-4 mb-3"><i class="fa-solid fa-scissors me-2"></i>1-Year Halving Schedule Table</h5>
+                    <h5 class="fw-bold text-primary mt-4 mb-3"><i class="fa-solid fa-scissors me-2"></i>Deterministic Halving Matrix</h5>
                     <div class="table-responsive my-3">
                         <table class="table table-hover table-bordered align-middle text-center">
                             <thead class="table-dark">
                                 <tr>
-                                    <th>Halving Phase</th>
-                                    <th>Period (365 Days/Cycle)</th>
-                                    <th>Base Rate (APXC/24h)</th>
-                                    <th>Cumulative Supply Mined</th>
-                                    <th>Status</th>
+                                    <th>Phase</th>
+                                    <th>Cycle Window (365 Days)</th>
+                                    <th>Base Emission Rate</th>
+                                    <th>Aggregated Circulating Supply</th>
+                                    <th>Protocol State</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="table-success">
-                                    <td class="fw-bold text-start">Era 1 (Genesis Launch)</td>
-                                    <td>July 22, 2026 - July 22, 2027</td>
-                                    <td class="fw-bold text-primary">10.0 APXC</td>
+                                    <td class="fw-bold text-start">Era 1 (Genesis)</td>
+                                    <td>Year 1 (2026 - 2027)</td>
+                                    <td class="fw-bold text-primary">10.0 APXC / 24h</td>
                                     <td>35,700,000 APXC (50.0%)</td>
-                                    <td><span class="badge bg-success">ACTIVE ERA</span></td>
+                                    <td><span class="badge bg-success">ACTIVE</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-bold text-start">1st Halving (-50%)</td>
-                                    <td>July 22, 2027 - July 22, 2028</td>
-                                    <td class="fw-bold text-warning">5.0 APXC</td>
+                                    <td class="fw-bold text-start">1st Halving</td>
+                                    <td>Year 2 (2027 - 2028)</td>
+                                    <td class="fw-bold text-warning">5.0 APXC / 24h</td>
                                     <td>53,550,000 APXC (75.0%)</td>
-                                    <td><span class="badge bg-secondary">UPCOMING</span></td>
+                                    <td><span class="badge bg-secondary">PENDING BLOCK TIME</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-bold text-start">2nd Halving (-50%)</td>
-                                    <td>July 22, 2028 - July 22, 2029</td>
-                                    <td class="fw-bold text-danger">2.5 APXC</td>
+                                    <td class="fw-bold text-start">2nd Halving</td>
+                                    <td>Year 3 (2028 - 2029)</td>
+                                    <td class="fw-bold text-danger">2.5 APXC / 24h</td>
                                     <td>62,475,000 APXC (87.5%)</td>
-                                    <td><span class="badge bg-secondary">UPCOMING</span></td>
+                                    <td><span class="badge bg-secondary">PENDING BLOCK TIME</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-bold text-start">3rd Halving (-50%)</td>
-                                    <td>July 22, 2029 - July 22, 2030</td>
-                                    <td class="fw-bold">1.25 APXC</td>
+                                    <td class="fw-bold text-start">3rd Halving</td>
+                                    <td>Year 4 (2029 - 2030)</td>
+                                    <td class="fw-bold">1.25 APXC / 24h</td>
                                     <td>66,937,500 APXC (93.7%)</td>
-                                    <td><span class="badge bg-secondary">UPCOMING</span></td>
+                                    <td><span class="badge bg-secondary">PENDING BLOCK TIME</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -260,77 +244,61 @@
                         <table class="table table-hover table-bordered align-middle text-center">
                             <thead class="table-dark">
                                 <tr>
-                                    <th>Allocation Pool</th>
-                                    <th>Percentage</th>
-                                    <th>Amount (APXC)</th>
-                                    <th>Vesting & Distribution</th>
+                                    <th>Allocation Category</th>
+                                    <th>Proportion</th>
+                                    <th>Total Units (APXC)</th>
+                                    <th>Operational Rule</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="fw-bold text-primary text-start"><i class="fa-solid fa-users me-2"></i>Community Miner Pool</td>
+                                    <td class="fw-bold text-primary text-start"><i class="fa-solid fa-users me-2"></i>Network Participants</td>
                                     <td class="fw-bold text-success">85%</td>
                                     <td>71,400,000</td>
-                                    <td class="text-start">Distributed via 24H Light Node Mining subject to 1-Year Halving steps.</td>
+                                    <td class="text-start">Released strictly through decentralized mining emission over time.</td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-bold text-info text-start"><i class="fa-solid fa-code me-2"></i>Ecosystem & Liquidity</td>
+                                    <td class="fw-bold text-info text-start"><i class="fa-solid fa-code me-2"></i>Ecosystem Pool</td>
                                     <td class="fw-bold text-info">10%</td>
                                     <td>8,400,000</td>
-                                    <td class="text-start">Reserved for DEX liquidity provisioning (PancakeSwap) & CEX listings.</td>
+                                    <td class="text-start">Maintained for network infrastructure and organic pairing needs.</td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-bold text-warning text-start"><i class="fa-solid fa-gem me-2"></i>Founder Reserve</td>
+                                    <td class="fw-bold text-warning text-start"><i class="fa-solid fa-gem me-2"></i>Core Genesis Reserve</td>
                                     <td class="fw-bold text-warning">5%</td>
                                     <td>4,200,000</td>
-                                    <td class="text-start">Advisory & founder allocation, vested linearly per block.</td>
+                                    <td class="text-start">Initial bootstrapping allocation embedded at block zero.</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-                <!-- 4. ROADMAP -->
+                <!-- 4. COMMUNITY GOVERNANCE & ORGANIC EVOLUTION -->
                 <div class="paper-card">
-                    <h3 class="section-title"><i class="fa-solid fa-route text-success me-2"></i>4. Strategic Protocol Roadmap (2026 - 2028)</h3>
-
-                    <div class="timeline-box">
-                        <span class="badge bg-secondary mb-1">Q1 2026 — COMPLETED</span>
-                        <h6 class="fw-bold text-dark">Algorithm Research & Tokenomics Architecture</h6>
-                        <p class="text-muted small mb-0">Finalized the mathematical framework for 24H Epoch Mining, designed the Sky Blue V24.14 interface, and configured server infrastructure.</p>
-                    </div>
-
-                    <div class="timeline-box">
-                        <span class="badge bg-secondary mb-1">Q2 2026 — COMPLETED</span>
-                        <h6 class="fw-bold text-dark">Flame Phoenix V24.14 Upgrade & Staking Vault</h6>
-                        <p class="text-muted small mb-0">Integrated Light Node protocol, mobile Progressive Web App (PWA) installation support, and Staking Multiplier mechanics.</p>
-                    </div>
-
-                    <div class="timeline-box" style="border-left-color: #10b981;">
-                        <span class="badge bg-success mb-1">Q3 2026 — CURRENT PHASE (JULY 22, 2026)</span>
-                        <h6 class="fw-bold text-success">Project Official Launch & Era 1 Halving Engine Activation</h6>
-                        <p class="text-muted small mb-0">Activated Genesis Block #0 on July 22, 2026, with Era 1 base rate (10 APXC/24h). Cloud VPS Engine (IP 42.96.5.132) and SQLite persistence live.</p>
-                    </div>
-
-                    <div class="timeline-box" style="border-left-color: #f59e0b;">
-                        <span class="badge bg-warning text-dark mb-1">Q3 2027 — UPCOMING MILESTONE (JULY 22, 2027)</span>
-                        <h6 class="fw-bold text-dark">1st Official APXC Annual Halving Event (-50%)</h6>
-                        <p class="text-muted small mb-0">Base mining rate automatically drops to 5.0 APXC/24h. Mainnet Token Swap, DEX/CEX Market Making, and Gas Fee Sharing transition phase.</p>
+                    <h3 class="section-title"><i class="fa-solid fa-route text-success me-2"></i>4. Community Governance & Organic Evolution</h3>
+                    <p>Unlike corporate-managed projects dictated by commercial roadmaps, Apex Phoenix Network leaves its trajectory entirely in the hands of its users, node operators, and community developers.</p>
+                    
+                    <div class="highlight-box">
+                        <h6 class="fw-bold text-dark mb-1">Organic Development Model</h6>
+                        <p class="small text-muted mb-0">
+                            There is no central foundation dictating utility or market integration. Any upgrades, integrations, or ecosystem expansions are proposed, vetted, and adopted organically by independent actors running the protocol code. The network exists as a public digital artifact, sustained solely by those who choose to execute its software.
+                        </p>
                     </div>
                 </div>
 
-                <!-- 5. SMART CONTRACT & SECURITY -->
+                <!-- 5. SMART CONTRACT SPECIFICATIONS -->
                 <div class="paper-card">
-                    <h3 class="section-title"><i class="fa-solid fa-shield-halved text-danger me-2"></i>5. Smart Contract Specifications & Security</h3>
-                    <p>The APXC token contract is deployed on the Binance Smart Chain (BSC) adhering to the BEP-20 token standard, ensuring minimal transaction costs and instant finality.</p>
+                    <h3 class="section-title"><i class="fa-solid fa-shield-halved text-danger me-2"></i>5. Smart Contract Specifications</h3>
+                    <p>The cryptographic interface for APXC operates on an immutable token contract standard, assuring transparent execution rules.</p>
                     <div class="p-3 bg-light rounded-3 border font-monospace small">
                         <div class="row g-2">
-                            <div class="col-sm-4 text-muted">Network:</div>
-                            <div class="col-sm-8 fw-bold text-dark">Binance Smart Chain (BEP-20)</div>
+                            <div class="col-sm-4 text-muted">Execution Standard:</div>
+                            <div class="col-sm-8 fw-bold text-dark">BEP-20 Compatible Ledger</div>
                             <div class="col-sm-4 text-muted">Contract Address:</div>
                             <div class="col-sm-8 fw-bold text-warning text-break">0x89234F2B99E23108B7F43A60355DC38C8ABA6691</div>
-                            <div class="col-sm-4 text-muted">Total Supply:</div>
-                            <div class="col-sm-8 fw-bold text-success">84,000,000 APXC (Hard-Capped)</div>
+                            <div class="col-sm-4 text-muted">Hard Cap Supply:</div>
+                            <div class="col-sm-8 fw-bold text-success">84,000,000 APXC (Immutable)</div>
                         </div>
                     </div>
                 </div>
@@ -341,7 +309,7 @@
 
     <!-- FOOTER -->
     <footer class="text-center py-4 text-muted border-top bg-white">
-        <small>© 2026 Apex Phoenix Network. All Protocol Rules Reserved.</small>
+        <small>© 2026 Apex Phoenix Network. Open Source & Autonomous.</small>
     </footer>
 
 </body>
