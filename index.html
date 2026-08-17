@@ -553,7 +553,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH ĐÃ KHẮC PHỤC 2 LỖI -->
+    <!-- SCRIPT CHÍNH TỐI ƯU HÓA 100% -->
     <script>
         const VPS_API_BASE = "https://introduction-accidents-interview-heath.trycloudflare.com";
         const BYPASS_HEADERS = {
@@ -571,8 +571,8 @@
         let serverDailyRewardPerNode = 35000000 / 365;
         let currentPrice = 0.22700;
         let localLockupRate = 0.30;
-        let userBalance = 39.4364; // Số dư khởi tạo thực tế
-        let isMiningActive = true;  // Luôn bật để số dư nhảy mượt mà
+        let userBalance = 39.4364; 
+        let isMiningActive = true;  
         let localRemainingSec = 75619; 
         let syncInterval = null;
 
@@ -624,11 +624,9 @@
             localUnclaimed = parseFloat(localStorage.getItem('apxc_local_balance') || '39.4364');
             userBalance = localUnclaimed;
             
-            // Kích hoạt đồng hồ đếm số dư nhảy theo giây
             startRealtimeCoinTicker();
         }
 
-        // HÀM ĐẢM BẢO SỐ DƯ TỰ ĐỘNG NHẢY LIÊN TỤC MỖI GIÂY KHI ĐANG ĐÀO
         function startRealtimeCoinTicker() {
             setInterval(() => {
                 if (isMiningActive) {
@@ -768,7 +766,6 @@
                 },
             });
 
-            // Tải dữ liệu lịch sử nến
             fetch(`${VPS_API_BASE}/api/history`, { headers: BYPASS_HEADERS })
                 .then(res => res.json())
                 .then(historyData => {
@@ -778,7 +775,6 @@
                     }
                 })
                 .catch(err => {
-                    // Dữ liệu mẫu phong phú để gom nến chuẩn xác các khung giờ
                     const now = Math.floor(Date.now() / 60000) * 60;
                     m1History = [];
                     let p = 0.22700;
@@ -796,7 +792,6 @@
                 });
         }
 
-        // HÀM GỘP NẾN CHUẨN XÁC KHI ĐỔI KHUNG GIỜ
         function renderAggregatedChart() {
             if (!candleSeries || m1History.length === 0) return;
             const aggregatedMap = new Map();
@@ -818,8 +813,6 @@
             currentTimeframeSec = seconds;
             document.querySelectorAll('.tf-btn').forEach(btn => btn.classList.remove('active'));
             if (btnElement) btnElement.classList.add('active');
-            
-            // GỌI TRỰC TIẾP HÀM GỘP NẾN NGAY LẬP TỨC
             renderAggregatedChart();
         }
 
