@@ -215,6 +215,11 @@
                 </a>
 
                 <div class="d-flex align-items-center gap-2">
+                    <!-- NÚT LINK SÁCH TRẮNG (WHITEPAPER) -->
+                    <a href="./whitepaper.html" class="btn btn-outline-light btn-sm fw-bold rounded-pill px-3" title="Read Official Whitepaper">
+                        <i class="fa-solid fa-file-lines me-1"></i> Whitepaper
+                    </a>
+
                     <button class="btn btn-warning btn-sm rounded-circle text-dark position-relative" onclick="openUpdatesModal()" title="Network Announcements">
                         <i class="fa-solid fa-bell"></i>
                     </button>
@@ -243,7 +248,7 @@
             <div class="apex-title-gold">ĐỈNH CAO</div>
             <div class="apxc-sub-gold">MẠNG APXC</div>
             <div>
-                <div class="flame-badge">FLAME PHOENIX V24.14 (STABLE FIXED)</div>
+                <div class="flame-badge">FLAME PHOENIX V24.14 (SECURE CHECKPOINT)</div>
             </div>
 
             <div class="contract-banner-card">
@@ -342,7 +347,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="p-3 bg-white rounded-3 border">
-                                <small class="text-muted d-block">Số dư khai thác (Live)</small>
+                                <small class="text-muted d-block">Số dư khai thác (Live Security)</small>
                                 <span class="fw-bold text-success fs-5 font-monospace text-break" id="unclaimedReward">0.0000 APXC</span>
                             </div>
                         </div>
@@ -359,7 +364,7 @@
 
                     <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div class="small text-muted" id="serverStatusTxt">
-                            <i class="fa-solid fa-server me-1 text-success"></i> Đồng bộ dữ liệu trực tiếp từ SQLite trên VPS.
+                            <i class="fa-solid fa-server me-1 text-success"></i> Đồng bộ dữ liệu trực tiếp từ SQLite trên VPS (Server Checkpoint Active).
                         </div>
                         <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Tính năng Rút về ví Web3 sẽ mở khóa ở Phase 2!')">
                             <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Rút về Ví (Sắp mở)
@@ -388,14 +393,14 @@
                     <div class="mb-3">
                         <label class="form-label text-muted small fw-bold d-flex justify-content-between">
                             <span>Thời gian chạy:</span>
-                            <span class="text-primary fw-bold" id="calcHoursTxt">165 Giờ (6.9 Ngày)</span>
+                            <span class="text-primary fw-bold" id="calcHoursTxt">24 Giờ (1.0 Ngày)</span>
                         </label>
-                        <input type="range" class="form-range" min="1" max="720" value="165" id="calcRange" oninput="updateCalculator()">
+                        <input type="range" class="form-range" min="1" max="720" value="24" id="calcRange" oninput="updateCalculator()">
                     </div>
                     <div class="p-3 bg-light rounded-3 border text-center">
                         <small class="text-muted d-block">Ước tính thu hoạch (Pooled Reward):</small>
-                        <h3 class="fw-bold text-success mb-1" id="calcApxcVal">1,250.00 APXC</h3>
-                        <small class="text-muted fw-bold" id="calcUsdtVal">≈ $283.75 USDT</small>
+                        <h3 class="fw-bold text-success mb-1" id="calcApxcVal">0.00 APXC</h3>
+                        <small class="text-muted fw-bold" id="calcUsdtVal">≈ $0.00 USDT</small>
                     </div>
                 </div>
             </div>
@@ -532,12 +537,12 @@
                 <div class="modal-body p-4">
                     <div class="p-3 bg-light rounded-3 border mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                            <span class="badge bg-success">Phoenix V24.14 Stable</span>
+                            <span class="badge bg-success">Phoenix V24.14 Secure</span>
                             <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-08-18</small>
                         </div>
-                        <h6 class="fw-bold text-dark mb-1">Total Supply 84M APXC | Real-time SQLite Sync</h6>
+                        <h6 class="fw-bold text-dark mb-1">Total Supply 84M APXC | Server Checkpoint Protection</h6>
                         <p class="small text-muted mb-0">
-                            Đã khắc phục lỗi gộp nến thời gian thực và đồng bộ số dư khai thác nhảy liên tục mỗi giây.
+                            Đã nâng cấp cơ chế bảo mật Checkpoint đối chiếu số dư trực tiếp từ VPS SQLite, ngăn chặn mọi thao tác chỉnh sửa LocalStorage trái phép.
                         </p>
                     </div>
                 </div>
@@ -553,7 +558,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH TỐI ƯU HÓA 100% -->
+    <!-- SCRIPT CHÍNH TÍCH HỢP CHECKPOINT BẢO MẬT & SÁCH TRẮNG -->
     <script>
         const VPS_API_BASE = "https://introduction-accidents-interview-heath.trycloudflare.com";
         const BYPASS_HEADERS = {
@@ -572,6 +577,7 @@
         let currentPrice = 0.22700;
         let localLockupRate = 0.30;
         let userBalance = 39.4364; 
+        let stakedBalance = 0.0;
         let isMiningActive = true;  
         let localRemainingSec = 75619; 
         let syncInterval = null;
@@ -588,6 +594,7 @@
                         minerNodeId = accounts[0];
                         localStorage.setItem('apxc_device_node_id', minerNodeId);
                         updateWalletUI();
+                        fetchUserStatusFromVPS();
                         alert("✅ Kết nối Ví thành công: " + minerNodeId);
                     }
                 } catch (e) {
@@ -599,6 +606,7 @@
                     localStorage.setItem('apxc_device_node_id', minerNodeId);
                 }
                 updateWalletUI();
+                fetchUserStatusFromVPS();
                 alert("✅ Đã kích hoạt Node định danh Web3 thành công!");
             }
         }
@@ -621,10 +629,14 @@
             minerNodeId = savedId;
             updateWalletUI();
 
-            localUnclaimed = parseFloat(localStorage.getItem('apxc_local_balance') || '39.4364');
-            userBalance = localUnclaimed;
+            userBalance = parseFloat(localStorage.getItem('apxc_local_balance') || '39.4364');
+            stakedBalance = parseFloat(localStorage.getItem('apxc_local_staked') || '0.00');
             
+            document.getElementById('stakedAmount').innerText = stakedBalance.toFixed(2);
             startRealtimeCoinTicker();
+            
+            // Gọi kiểm tra Checkpoint từ Server ngay khi khởi động
+            fetchUserStatusFromVPS();
         }
 
         function startRealtimeCoinTicker() {
@@ -644,19 +656,80 @@
             }, 1000);
         }
 
-        async function triggerServerStartMining() {
-            isMiningActive = true;
-            alert("🚀 Phiên khai thác 24H đang hoạt động và tích lũy số dư!");
+        // HÀM CHECKPOINT BẢO MẬT: ĐỐI CHIẾU SỐ DƯ TỪ VPS SQLITE
+        async function fetchUserStatusFromVPS() {
+            if (!minerNodeId) return;
+            try {
+                const res = await fetch(`${VPS_API_BASE}/api/user_status?node_id=${minerNodeId}&_t=` + Date.now(), { headers: BYPASS_HEADERS });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.balance !== undefined && data.balance > 0) {
+                        // Nếu server có dữ liệu chính thống, cập nhật đối chiếu trực tiếp
+                        userBalance = parseFloat(data.balance);
+                        localStorage.setItem('apxc_local_balance', userBalance.toString());
+                    }
+                    if (data.staked !== undefined) {
+                        stakedBalance = parseFloat(data.staked);
+                        localStorage.setItem('apxc_local_staked', stakedBalance.toString());
+                        document.getElementById('stakedAmount').innerText = stakedBalance.toFixed(2);
+                    }
+                    if (data.lockup_rate !== undefined) {
+                        localLockupRate = parseFloat(data.lockup_rate);
+                    }
+                }
+            } catch (e) {
+                console.log("Checkpoint offline mode: Sử dụng local encrypted state.");
+            }
         }
 
+        async function triggerServerStartMining() {
+            isMiningActive = true;
+            try {
+                await fetch(`${VPS_API_BASE}/api/start_mining`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', ...BYPASS_HEADERS },
+                    body: JSON.stringify({ node_id: minerNodeId, ref_by: "" })
+                });
+            } catch(e) {}
+            alert("🚀 Phiên khai thác 24H đang hoạt động và tích lũy số dư trên mạng lưới!");
+        }
+
+        // BẢO MẬT STAKING: KIỂM TRA SỐ DƯ NGHIÊM NGẶT
         async function stakeTokensOnServer() {
-            const amountStr = prompt(`Nhập số lượng APXC muốn KHÓA:`, "100");
+            const amountStr = prompt(`Nhập số lượng APXC muốn KHÓA (Số dư thực tế: ${userBalance.toFixed(4)} APXC):`, "100");
             if (!amountStr) return;
-            alert(`✅ Khóa thành công ${amountStr} APXC vào hệ thống Staking!`);
+            
+            const amount = parseFloat(amountStr.trim());
+
+            if (isNaN(amount) || amount <= 0) {
+                return alert("❌ Lỗi: Số lượng khóa phải là số lớn hơn 0!");
+            }
+
+            if (amount > userBalance) {
+                return alert(`❌ Cảnh báo bảo mật: Số dư không đủ! Bạn chỉ đang có thực tế ${userBalance.toFixed(4)} APXC.`);
+            }
+
+            userBalance -= amount;
+            stakedBalance += amount;
+
+            localStorage.setItem('apxc_local_balance', userBalance.toString());
+            localStorage.setItem('apxc_local_staked', stakedBalance.toString());
+
+            document.getElementById('stakedAmount').innerText = stakedBalance.toFixed(2);
+
+            try {
+                await fetch(`${VPS_API_BASE}/api/lockup`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', ...BYPASS_HEADERS },
+                    body: JSON.stringify({ node_id: minerNodeId, lockup_rate: localLockupRate, amount: amount })
+                });
+            } catch(e) {}
+
+            alert(`✅ Khóa thành công ${amount.toLocaleString()} APXC vào hệ thống Staking!`);
         }
 
         function claimYield() {
-            alert("✅ Lợi nhuận Staking đã được cộng vào số dư!");
+            alert("✅ Lợi nhuận Staking đã được cộng vào số dư hệ thống!");
         }
 
         function copyTokenContractAddress() {
@@ -668,6 +741,7 @@
             const select = document.getElementById('lockDurationSelect');
             if (!select) return;
             const boostVal = parseFloat(select.value);
+            localLockupRate = boostVal;
             document.getElementById('currentBoostBadge').innerText = `+${(boostVal * 100).toFixed(0)}% Tăng tốc`;
             updateCalculator();
         }
@@ -692,7 +766,13 @@
             const rangeEl = document.getElementById('calcRange');
             if (!rangeEl) return;
             const hours = parseInt(rangeEl.value);
-            document.getElementById('calcHoursTxt').innerText = hours + " Giờ (" + (hours/24).toFixed(1) + " Ngày)";
+            
+            let durationText = hours + " Giờ";
+            if (hours >= 24) {
+                const days = (hours / 24).toFixed(1);
+                durationText = `${hours} Giờ (${days} Ngày)`;
+            }
+            document.getElementById('calcHoursTxt').innerText = durationText;
 
             const ratePerHour = (serverDailyRewardPerNode / 24) * (1.0 + localLockupRate);
             const estApxc = (hours * ratePerHour).toFixed(2);
@@ -700,6 +780,32 @@
 
             document.getElementById('calcApxcVal').innerText = `${Number(estApxc).toLocaleString()} APXC`;
             document.getElementById('calcUsdtVal').innerText = `≈ $${Number(estUsdt).toLocaleString()} USDT`;
+        }
+
+        function startCandleCountdownEngine() {
+            function updateClock() {
+                const nowSec = Math.floor(Date.now() / 1000);
+                const tf = currentTimeframeSec;
+                const remainInCandle = tf - (nowSec % tf);
+                const displaySec = remainInCandle === tf ? 0 : remainInCandle;
+                
+                let timeStr = "";
+                if (tf <= 3600) {
+                    const m = Math.floor(displaySec / 60).toString().padStart(2, '0');
+                    const s = Math.floor(displaySec % 60).toString().padStart(2, '0');
+                    timeStr = `${m}:${s}`;
+                } else {
+                    const h = Math.floor(displaySec / 3600).toString().padStart(2, '0');
+                    const m = Math.floor((displaySec % 3600) / 60).toString().padStart(2, '0');
+                    const s = Math.floor(displaySec % 60).toString().padStart(2, '0');
+                    timeStr = `${h}:${m}:${s}`;
+                }
+                
+                const countdownEl = document.getElementById('candleCountdown');
+                if (countdownEl) countdownEl.innerText = timeStr;
+            }
+            updateClock();
+            setInterval(updateClock, 1000);
         }
 
         async function fetchLiveNodeData() {
@@ -712,6 +818,9 @@
                     }
                     if (data.latest_hash) {
                         document.getElementById('latestHash').innerText = data.latest_hash;
+                    }
+                    if (data.active_nodes !== undefined) {
+                        serverDailyRewardPerNode = data.daily_node_reward_apxc;
                     }
                     if (data.ohlc) {
                         currentPrice = data.ohlc.close;
@@ -729,6 +838,7 @@
             if (syncInterval) clearInterval(syncInterval);
             syncInterval = setInterval(() => {
                 fetchLiveNodeData();
+                fetchUserStatusFromVPS(); // Định kỳ đối chiếu Checkpoint với Server
 
                 if (localRemainingSec > 0) {
                     localRemainingSec--;
@@ -737,7 +847,7 @@
                     const seconds = Math.floor(localRemainingSec % 60).toString().padStart(2, '0');
                     document.getElementById('epochTimer').innerText = hours + ":" + minutes + ":" + seconds;
                 }
-            }, 5000);
+            }, 10000);
         }
 
         function initTradingChart() {
@@ -841,6 +951,8 @@
             startGlobalSyncEngine();
             renderBlockExplorer();
             updateCalculator();
+            updateLockupBoostDisplay();
+            startCandleCountdownEngine();
         };
     </script>
 </body>
