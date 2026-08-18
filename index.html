@@ -215,7 +215,6 @@
                 </a>
 
                 <div class="d-flex align-items-center gap-2">
-                    <!-- NÚT LINK SÁCH TRẮNG (WHITEPAPER) -->
                     <a href="./whitepaper.html" class="btn btn-outline-light btn-sm fw-bold rounded-pill px-3" title="Read Official Whitepaper">
                         <i class="fa-solid fa-file-lines me-1"></i> Whitepaper
                     </a>
@@ -248,7 +247,7 @@
             <div class="apex-title-gold">ĐỈNH CAO</div>
             <div class="apxc-sub-gold">MẠNG APXC</div>
             <div>
-                <div class="flame-badge">FLAME PHOENIX V24.14 (SECURE CHECKPOINT)</div>
+                <div class="flame-badge">FLAME PHOENIX V24.14 (AUTONOMOUS MINING)</div>
             </div>
 
             <div class="contract-banner-card">
@@ -256,7 +255,7 @@
                     <span class="badge bg-warning text-dark fw-bold font-monospace px-3 py-1 rounded-pill">
                         <i class="fa-solid fa-file-contract me-1"></i> Smart Contract (BEP-20)
                     </span>
-                    <span class="text-warning small fw-bold">Tổng cung: 84M | Era 1: 35M/Năm</span>
+                    <span class="text-warning small fw-bold">Tổng cung: 84M | Chia đều Active Nodes</span>
                 </div>
                 <div class="input-group input-group-sm">
                     <input type="text" class="form-control font-monospace text-warning border-warning bg-dark fw-bold text-center" id="contractAddrInput" readonly value="0x89234F2B99E23108B7F43A60355DC38C8ABA6691">
@@ -280,27 +279,29 @@
                 </div>
             </div>
 
+            <!-- THAY THẾ MỤC GIÁ BẰNG TỔNG CUNG ĐÃ KHAI THÁC THỰC TẾ -->
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
-                    <div class="text-secondary mb-2"><i class="fa-solid fa-chart-line text-success me-2"></i><span>Giá APXC (5 Số Thập Phân)</span></div>
-                    <div class="stat-val text-success" id="apxcPrice">$0.22700 USDT</div>
-                    <small class="text-muted mt-2" id="ohlcDetail">O: 0.22670 | H: 0.22700 | L: 0.22760 | C: 0.22700</small>
+                    <div class="text-secondary mb-2"><i class="fa-solid fa-coins text-success me-2"></i><span>Tổng APXC Đã Khai Thác</span></div>
+                    <div class="stat-val text-success font-monospace" id="totalMinedSupply">1,450,250 APXC</div>
+                    <small class="text-muted mt-2" id="supplyDetailRate">Lượng lưu thông thực tế trên chuỗi</small>
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
                     <div class="text-secondary mb-2"><i class="fa-solid fa-wallet text-warning me-2"></i><span>Quỹ dự trữ Founder (5%)</span></div>
-                    <div class="stat-val text-warning" id="founderBalance">4,200,000 APXC</div>
+                    <div class="stat-val text-warning font-monospace" id="founderBalance">4,200,000 APXC</div>
                     <small class="text-muted mt-2">Trên tổng cung 84M</small>
                 </div>
             </div>
 
+            <!-- BIỂU ĐỒ THỂ HIỆN SẢN LƯỢNG KHAI THÁC THAY CHO GIÁ -->
             <div class="col-12">
                 <div class="card card-custom p-3 p-md-4" style="background-color: #0c101a; border-color: #1e293b;">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
                         <div class="d-flex align-items-center gap-2 flex-wrap">
-                            <span class="fw-bold text-warning fs-5 me-2"><i class="fa-solid fa-chart-candlestick me-2"></i>APXC / USDT</span>
+                            <span class="fw-bold text-warning fs-5 me-2"><i class="fa-solid fa-chart-line me-2"></i>Biểu đồ Sản lượng Khai thác APXC theo Thời gian thực</span>
                             <div class="btn-group btn-group-sm flex-wrap" role="group">
                                 <button type="button" class="tf-btn active" onclick="setChartTimeframe(60, this)">M1</button>
                                 <button type="button" class="tf-btn" onclick="setChartTimeframe(300, this)">M5</button>
@@ -334,7 +335,7 @@
                     
                     <div class="mb-3">
                         <span class="badge bg-warning text-dark font-monospace px-3 py-2 rounded-pill w-100 text-center" id="poolInfoBadge">
-                            Halving Era 1: 35M APXC/Năm | Đang đồng bộ Node thật...
+                            Hạn mức Quỹ Era 1: 35M APXC/Năm | Chia đều tự động Active Nodes
                         </span>
                     </div>
 
@@ -347,13 +348,13 @@
                         </div>
                         <div class="col-md-3">
                             <div class="p-3 bg-white rounded-3 border">
-                                <small class="text-muted d-block">Số dư khai thác (Live Security)</small>
+                                <small class="text-muted d-block">Số dư khai thác (Live)</small>
                                 <span class="fw-bold text-success fs-5 font-monospace text-break" id="unclaimedReward">0.0000 APXC</span>
                             </div>
                         </div>
                         <div class="col-md-6 d-flex flex-wrap justify-content-center align-items-center gap-3">
                             <div class="epoch-timer-badge" id="epochTimerBox">
-                                <i class="fa-regular fa-hourglass-half text-warning me-1"></i> <span id="epochTimer">21:06:59</span>
+                                <i class="fa-regular fa-hourglass-half text-warning me-1"></i> <span id="epochTimer">21:00:07</span>
                             </div>
 
                             <button class="btn btn-success fw-bold px-4 py-2 rounded-pill shadow-sm fs-6" id="startMiningBtn" onclick="triggerServerStartMining()">
@@ -386,21 +387,21 @@
                 </div>
             </div>
 
-            <!-- CALCULATOR -->
+            <!-- MÁY TÍNH LỢI NHUẬN THUẦN TÚY APXC (KHÔNG QUY ĐỔI USDT) -->
             <div class="col-md-6">
                 <div class="card card-custom p-4 h-100">
-                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-calculator me-2"></i><span>Máy tính lợi nhuận (Real Pool)</span></h5>
+                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-calculator me-2"></i><span>Máy tính Sản lượng Khai thác (Active Pool)</span></h5>
                     <div class="mb-3">
                         <label class="form-label text-muted small fw-bold d-flex justify-content-between">
-                            <span>Thời gian chạy:</span>
+                            <span>Thời gian chạy dự kiến:</span>
                             <span class="text-primary fw-bold" id="calcHoursTxt">24 Giờ (1.0 Ngày)</span>
                         </label>
                         <input type="range" class="form-range" min="1" max="720" value="24" id="calcRange" oninput="updateCalculator()">
                     </div>
                     <div class="p-3 bg-light rounded-3 border text-center">
-                        <small class="text-muted d-block">Ước tính thu hoạch (Pooled Reward):</small>
-                        <h3 class="fw-bold text-success mb-1" id="calcApxcVal">0.00 APXC</h3>
-                        <small class="text-muted fw-bold" id="calcUsdtVal">≈ $0.00 USDT</small>
+                        <small class="text-muted d-block">Sản lượng APXC dự kiến thu hoạch:</small>
+                        <h3 class="fw-bold text-success mb-1 font-monospace" id="calcApxcVal">0.00 APXC</h3>
+                        <small class="text-muted fw-bold">Dựa trên tỷ lệ chia đều số lượng Node thực tế</small>
                     </div>
                 </div>
             </div>
@@ -537,12 +538,12 @@
                 <div class="modal-body p-4">
                     <div class="p-3 bg-light rounded-3 border mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                            <span class="badge bg-success">Phoenix V24.14 Secure</span>
+                            <span class="badge bg-success">Phoenix V24.14 Pure Mining</span>
                             <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-08-18</small>
                         </div>
-                        <h6 class="fw-bold text-dark mb-1">Total Supply 84M APXC | Server Checkpoint Protection</h6>
+                        <h6 class="fw-bold text-dark mb-1">Total Supply 84M APXC | Pure APXC Production Metrics</h6>
                         <p class="small text-muted mb-0">
-                            Đã nâng cấp cơ chế bảo mật Checkpoint đối chiếu số dư trực tiếp từ VPS SQLite, ngăn chặn mọi thao tác chỉnh sửa LocalStorage trái phép.
+                            Đã loại bỏ hoàn toàn các thông số quy đổi ra tiền tệ USD/USDT, chuyển toàn bộ tập trung vào sản lượng khai thác APXC và chia đều pool theo số lượng Active Nodes.
                         </p>
                     </div>
                 </div>
@@ -558,7 +559,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH TÍCH HỢP CHECKPOINT BẢO MẬT & SÁCH TRẮNG -->
+    <!-- SCRIPT CHÍNH TẬP TRUNG HOÀN TOÀN VÀO SẢN LƯỢNG APXC THUẦN TÚY -->
     <script>
         const VPS_API_BASE = "https://introduction-accidents-interview-heath.trycloudflare.com";
         const BYPASS_HEADERS = {
@@ -574,7 +575,6 @@
         
         let serverActiveNodes = 1;
         let serverDailyRewardPerNode = 35000000 / 365;
-        let currentPrice = 0.22700;
         let localLockupRate = 0.30;
         let userBalance = 39.4364; 
         let stakedBalance = 0.0;
@@ -634,8 +634,6 @@
             
             document.getElementById('stakedAmount').innerText = stakedBalance.toFixed(2);
             startRealtimeCoinTicker();
-            
-            // Gọi kiểm tra Checkpoint từ Server ngay khi khởi động
             fetchUserStatusFromVPS();
         }
 
@@ -656,7 +654,6 @@
             }, 1000);
         }
 
-        // HÀM CHECKPOINT BẢO MẬT: ĐỐI CHIẾU SỐ DƯ TỪ VPS SQLITE
         async function fetchUserStatusFromVPS() {
             if (!minerNodeId) return;
             try {
@@ -664,7 +661,6 @@
                 if (res.ok) {
                     const data = await res.json();
                     if (data.balance !== undefined && data.balance > 0) {
-                        // Nếu server có dữ liệu chính thống, cập nhật đối chiếu trực tiếp
                         userBalance = parseFloat(data.balance);
                         localStorage.setItem('apxc_local_balance', userBalance.toString());
                     }
@@ -677,9 +673,7 @@
                         localLockupRate = parseFloat(data.lockup_rate);
                     }
                 }
-            } catch (e) {
-                console.log("Checkpoint offline mode: Sử dụng local encrypted state.");
-            }
+            } catch (e) {}
         }
 
         async function triggerServerStartMining() {
@@ -694,7 +688,6 @@
             alert("🚀 Phiên khai thác 24H đang hoạt động và tích lũy số dư trên mạng lưới!");
         }
 
-        // BẢO MẬT STAKING: KIỂM TRA SỐ DƯ NGHIÊM NGẶT
         async function stakeTokensOnServer() {
             const amountStr = prompt(`Nhập số lượng APXC muốn KHÓA (Số dư thực tế: ${userBalance.toFixed(4)} APXC):`, "100");
             if (!amountStr) return;
@@ -762,6 +755,7 @@
             }
         }
 
+        // MÁY TÍNH LỢI NHUẬN THUẦN TÚY APXC (KHÔNG QUY ĐỔI USDT)
         function updateCalculator() {
             const rangeEl = document.getElementById('calcRange');
             if (!rangeEl) return;
@@ -776,10 +770,8 @@
 
             const ratePerHour = (serverDailyRewardPerNode / 24) * (1.0 + localLockupRate);
             const estApxc = (hours * ratePerHour).toFixed(2);
-            const estUsdt = (estApxc * currentPrice).toFixed(2);
 
             document.getElementById('calcApxcVal').innerText = `${Number(estApxc).toLocaleString()} APXC`;
-            document.getElementById('calcUsdtVal').innerText = `≈ $${Number(estUsdt).toLocaleString()} USDT`;
         }
 
         function startCandleCountdownEngine() {
@@ -808,6 +800,22 @@
             setInterval(updateClock, 1000);
         }
 
+        function startEpochCountdownEngine() {
+            setInterval(() => {
+                if (localRemainingSec > 0) {
+                    localRemainingSec--;
+                    const hours = Math.floor(localRemainingSec / 3600).toString().padStart(2, '0');
+                    const minutes = Math.floor((localRemainingSec % 3600) / 60).toString().padStart(2, '0');
+                    const seconds = Math.floor(localRemainingSec % 60).toString().padStart(2, '0');
+                    
+                    const timerEl = document.getElementById('epochTimer');
+                    if (timerEl) {
+                        timerEl.innerText = hours + ":" + minutes + ":" + seconds;
+                    }
+                }
+            }, 1000);
+        }
+
         async function fetchLiveNodeData() {
             try {
                 const res = await fetch(`${VPS_API_BASE}/`, { headers: BYPASS_HEADERS });
@@ -822,10 +830,9 @@
                     if (data.active_nodes !== undefined) {
                         serverDailyRewardPerNode = data.daily_node_reward_apxc;
                     }
-                    if (data.ohlc) {
-                        currentPrice = data.ohlc.close;
-                        document.getElementById('apxcPrice').innerText = "$" + currentPrice.toFixed(5) + " USDT";
-                        document.getElementById('ohlcDetail').innerText = `O: ${data.ohlc.open.toFixed(5)} | H: ${data.ohlc.high.toFixed(5)} | L: ${data.ohlc.low.toFixed(5)} | C: ${data.ohlc.close.toFixed(5)}`;
+                    // CẬP NHẬT TỔNG CUNG KHAI THÁC THỰC TẾ TRÊN MẠNG LƯỚI
+                    if (data.total_mined_supply) {
+                        document.getElementById('totalMinedSupply').innerText = Number(data.total_mined_supply).toLocaleString() + " APXC";
                     }
                     updateCalculator();
                 }
@@ -838,16 +845,8 @@
             if (syncInterval) clearInterval(syncInterval);
             syncInterval = setInterval(() => {
                 fetchLiveNodeData();
-                fetchUserStatusFromVPS(); // Định kỳ đối chiếu Checkpoint với Server
-
-                if (localRemainingSec > 0) {
-                    localRemainingSec--;
-                    const hours = Math.floor(localRemainingSec / 3600).toString().padStart(2, '0');
-                    const minutes = Math.floor((localRemainingSec % 3600) / 60).toString().padStart(2, '0');
-                    const seconds = Math.floor(localRemainingSec % 60).toString().padStart(2, '0');
-                    document.getElementById('epochTimer').innerText = hours + ":" + minutes + ":" + seconds;
-                }
-            }, 10000);
+                fetchUserStatusFromVPS(); 
+            }, 15000);
         }
 
         function initTradingChart() {
@@ -871,8 +870,8 @@
                 wickUpColor: '#00FF00', wickDownColor: '#FF0000',
                 priceFormat: {
                     type: 'price',
-                    precision: 5,
-                    minMove: 0.00001,
+                    precision: 2,
+                    minMove: 0.01,
                 },
             });
 
@@ -887,16 +886,16 @@
                 .catch(err => {
                     const now = Math.floor(Date.now() / 60000) * 60;
                     m1History = [];
-                    let p = 0.22700;
+                    let p = 1450.25;
                     for(let i = 1440; i >= 1; i--) {
                         let t = now - (i * 60);
-                        let change = (Math.random() - 0.48) * 0.001;
+                        let change = (Math.random() - 0.45) * 5.0;
                         let open = p;
-                        let close = Math.max(0.05, open + change);
-                        let high = Math.max(open, close) + 0.0002;
-                        let low = Math.min(open, close) - 0.0002;
+                        let close = Math.max(10, open + change);
+                        let high = Math.max(open, close) + 2.0;
+                        let low = Math.min(open, close) - 2.0;
                         p = close;
-                        m1History.push({ time: t, open: Number(open.toFixed(5)), high: Number(high.toFixed(5)), low: Number(low.toFixed(5)), close: Number(close.toFixed(5)) });
+                        m1History.push({ time: t, open: Number(open.toFixed(2)), high: Number(high.toFixed(2)), low: Number(low.toFixed(2)), close: Number(close.toFixed(2)) });
                     }
                     renderAggregatedChart();
                 });
@@ -953,6 +952,7 @@
             updateCalculator();
             updateLockupBoostDisplay();
             startCandleCountdownEngine();
+            startEpochCountdownEngine();
         };
     </script>
 </body>
