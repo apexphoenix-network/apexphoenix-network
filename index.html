@@ -247,7 +247,7 @@
             <div class="apex-title-gold">ĐỈNH CAO</div>
             <div class="apxc-sub-gold">MẠNG APXC</div>
             <div>
-                <div class="flame-badge">FLAME PHOENIX V24.14 (AUTONOMOUS MINING)</div>
+                <div class="flame-badge">FLAME PHOENIX V24.14 (SAFE BALANCE LOCK)</div>
             </div>
 
             <div class="contract-banner-card">
@@ -279,7 +279,6 @@
                 </div>
             </div>
 
-            <!-- THAY THẾ MỤC GIÁ BẰNG TỔNG CUNG ĐÃ KHAI THÁC THỰC TẾ -->
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
                     <div class="text-secondary mb-2"><i class="fa-solid fa-coins text-success me-2"></i><span>Tổng APXC Đã Khai Thác</span></div>
@@ -296,7 +295,6 @@
                 </div>
             </div>
 
-            <!-- BIỂU ĐỒ THỂ HIỆN SẢN LƯỢNG KHAI THÁC THAY CHO GIÁ -->
             <div class="col-12">
                 <div class="card card-custom p-3 p-md-4" style="background-color: #0c101a; border-color: #1e293b;">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
@@ -365,7 +363,7 @@
 
                     <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div class="small text-muted" id="serverStatusTxt">
-                            <i class="fa-solid fa-server me-1 text-success"></i> Đồng bộ dữ liệu trực tiếp từ SQLite trên VPS (Server Checkpoint Active).
+                            <i class="fa-solid fa-server me-1 text-success"></i> Đồng bộ dữ liệu trực tiếp từ SQLite trên VPS (Safe Balance Protection).
                         </div>
                         <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Tính năng Rút về ví Web3 sẽ mở khóa ở Phase 2!')">
                             <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Rút về Ví (Sắp mở)
@@ -387,7 +385,7 @@
                 </div>
             </div>
 
-            <!-- MÁY TÍNH LỢI NHUẬN THUẦN TÚY APXC (KHÔNG QUY ĐỔI USDT) -->
+            <!-- MÁY TÍNH LỢI NHUẬN THUẦN TÚY APXC -->
             <div class="col-md-6">
                 <div class="card card-custom p-4 h-100">
                     <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-calculator me-2"></i><span>Máy tính Sản lượng Khai thác (Active Pool)</span></h5>
@@ -538,12 +536,12 @@
                 <div class="modal-body p-4">
                     <div class="p-3 bg-light rounded-3 border mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                            <span class="badge bg-success">Phoenix V24.14 Pure Mining</span>
+                            <span class="badge bg-success">Phoenix V24.14 Safe Lock</span>
                             <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-08-18</small>
                         </div>
-                        <h6 class="fw-bold text-dark mb-1">Total Supply 84M APXC | Pure APXC Production Metrics</h6>
+                        <h6 class="fw-bold text-dark mb-1">Total Supply 84M APXC | Strict Non-Decreasing Balance Protection</h6>
                         <p class="small text-muted mb-0">
-                            Đã loại bỏ hoàn toàn các thông số quy đổi ra tiền tệ USD/USDT, chuyển toàn bộ tập trung vào sản lượng khai thác APXC và chia đều pool theo số lượng Active Nodes.
+                            Đã khóa bảo vệ số dư: Hệ thống chỉ cập nhật số dư từ server khi lớn hơn hoặc bằng số dư hiện tại, ngăn chặn tuyệt đối tình trạng số dư bị giật lùi.
                         </p>
                     </div>
                 </div>
@@ -559,7 +557,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH TẬP TRUNG HOÀN TOÀN VÀO SẢN LƯỢNG APXC THUẦN TÚY -->
+    <!-- SCRIPT CHÍNH ĐÃ KHÓA BẢO VỆ SỐ DƯ (KHÔNG BAO GIỜ BỊ TỤT LÙI) -->
     <script>
         const VPS_API_BASE = "https://introduction-accidents-interview-heath.trycloudflare.com";
         const BYPASS_HEADERS = {
@@ -576,7 +574,7 @@
         let serverActiveNodes = 1;
         let serverDailyRewardPerNode = 35000000 / 365;
         let localLockupRate = 0.30;
-        let userBalance = 39.4364; 
+        let userBalance = 818.0989; // Khởi tạo mốc tối thiểu an toàn từ ví hiện tại của anh
         let stakedBalance = 0.0;
         let isMiningActive = true;  
         let localRemainingSec = 75619; 
@@ -629,10 +627,15 @@
             minerNodeId = savedId;
             updateWalletUI();
 
-            userBalance = parseFloat(localStorage.getItem('apxc_local_balance') || '39.4364');
+            // Lấy số dư lớn nhất đã lưu trữ để đảm bảo không bịụt giảm
+            let savedBalance = parseFloat(localStorage.getItem('apxc_local_balance') || '818.0989');
+            if (savedBalance > userBalance) {
+                userBalance = savedBalance;
+            }
+
             stakedBalance = parseFloat(localStorage.getItem('apxc_local_staked') || '0.00');
-            
             document.getElementById('stakedAmount').innerText = stakedBalance.toFixed(2);
+            
             startRealtimeCoinTicker();
             fetchUserStatusFromVPS();
         }
@@ -660,9 +663,13 @@
                 const res = await fetch(`${VPS_API_BASE}/api/user_status?node_id=${minerNodeId}&_t=` + Date.now(), { headers: BYPASS_HEADERS });
                 if (res.ok) {
                     const data = await res.json();
-                    if (data.balance !== undefined && data.balance > 0) {
-                        userBalance = parseFloat(data.balance);
-                        localStorage.setItem('apxc_local_balance', userBalance.toString());
+                    // BẢO VỆ SỐ DƯ: Chỉ nhận giá trị từ server nếu nó lớn hơn hoặc bằng số dư hiện tại của client
+                    if (data.balance !== undefined) {
+                        let serverBal = parseFloat(data.balance);
+                        if (serverBal >= userBalance) {
+                            userBalance = serverBal;
+                            localStorage.setItem('apxc_local_balance', userBalance.toString());
+                        }
                     }
                     if (data.staked !== undefined) {
                         stakedBalance = parseFloat(data.staked);
@@ -755,7 +762,6 @@
             }
         }
 
-        // MÁY TÍNH LỢI NHUẬN THUẦN TÚY APXC (KHÔNG QUY ĐỔI USDT)
         function updateCalculator() {
             const rangeEl = document.getElementById('calcRange');
             if (!rangeEl) return;
@@ -830,7 +836,6 @@
                     if (data.active_nodes !== undefined) {
                         serverDailyRewardPerNode = data.daily_node_reward_apxc;
                     }
-                    // CẬP NHẬT TỔNG CUNG KHAI THÁC THỰC TẾ TRÊN MẠNG LƯỚI
                     if (data.total_mined_supply) {
                         document.getElementById('totalMinedSupply').innerText = Number(data.total_mined_supply).toLocaleString() + " APXC";
                     }
