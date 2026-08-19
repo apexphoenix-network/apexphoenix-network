@@ -246,7 +246,7 @@
             <div class="apex-title-gold">ĐỈNH CAO</div>
             <div class="apxc-sub-gold">MẠNG APXC</div>
             <div>
-                <div class="flame-badge">FLAME PHOENIX V24.14 (STRICT SHIELD GUARD)</div>
+                <div class="flame-badge">FLAME PHOENIX V24.14 (SECURE SHIELD GUARD)</div>
             </div>
 
             <div class="contract-banner-card">
@@ -524,12 +524,12 @@
                 <div class="modal-body p-4">
                     <div class="p-3 bg-light rounded-3 border mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                            <span class="badge bg-success">Phoenix V24.14 Strict Guard Shield</span>
+                            <span class="badge bg-success">Phoenix V24.14 Strict Shield Guard</span>
                             <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-08-18</small>
                         </div>
                         <h6 class="fw-bold text-dark mb-1">Strict Wallet Pre-Check Fix</h6>
                         <p class="small text-muted mb-0">
-                            Đã vá lỗi bảo mật: Kiểm tra nghiêm ngặt trạng thái ví trước khi kích hoạt bất kỳ tiến trình nào trên giao thức.
+                            Đã vá lỗi hiển thị trạng thái nút ví: Mặc định luôn ở chế độ chưa kết nối cho đến khi xác thực thành công.
                         </p>
                     </div>
                 </div>
@@ -545,7 +545,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH ĐÃ VÁ LỖI BẢO MẬT KIỂM TRA TRẠNG THÁI VÍ -->
+    <!-- SCRIPT CHÍNH ĐÃ KHÓA TRẠNG THÁI MẶC ĐỊNH CHƯA KẾT NỐI -->
     <script>
         const VPS_API_BASE = "https://introduction-accidents-interview-heath.trycloudflare.com";
         const BYPASS_HEADERS = {
@@ -616,21 +616,11 @@
             fetchUserStatusFromVPS();
         }
 
-        async function initDeviceMinerNode() {
-            let savedId = localStorage.getItem('apxc_device_node_id');
-            if (savedId) {
-                minerNodeId = savedId;
-                updateWalletUI();
-            } else if (window.ethereum) {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-                    if (accounts && accounts.length > 0) {
-                        minerNodeId = accounts[0];
-                        localStorage.setItem('apxc_device_node_id', minerNodeId);
-                        updateWalletUI();
-                    }
-                } catch(e) {}
-            }
+        function initDeviceMinerNode() {
+            // LUÔN ĐẶT TRẠNG THÁI MẶC ĐỊNH LÀ CHƯA KẾT NỐI KHI TẢI TRANG
+            document.getElementById('walletBtn').innerText = "Connect Web3 Wallet";
+            document.getElementById('walletBtnTxt').innerText = "Connect Web3 Wallet";
+            document.getElementById('minerNodeBadge').classList.add('d-none');
 
             startRealtimeTickers();
             startReal24HCountdownEngine();
@@ -706,7 +696,6 @@
             } catch (e) {}
         }
 
-        // BẮT BUỘC KIỂM TRA VÍ ĐẦU TIÊN - CHƯA KẾT NỐI SẼ CHẶN NGAY LẬP TỨC
         async function triggerServerStartMining() {
             if (!minerNodeId) {
                 alert("❌ Lỗi bảo mật: Vui lòng kết nối Ví Web3 cá nhân trước khi bắt đầu khai thác!");
@@ -846,7 +835,7 @@
                     updateCalculator();
                 }
             } catch (e) {
-                document.getElementById('currentBlock').innerText = "#1,452,149";
+                document.getElementById('currentBlock').innerText = "#1,453,057";
             }
         }
 
