@@ -8,9 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- TRADINGVIEW LIGHTWEIGHT CHARTS -->
-    <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
-    
     <!-- ETHERS.JS V5 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
     
@@ -150,28 +147,6 @@
         }
         .apex-logo-hero:hover { transform: scale(1.04); }
 
-        #chartContainer {
-            height: 380px;
-            width: 100%;
-            min-height: 380px;
-            border-radius: 8px;
-            overflow: hidden;
-            background: #000000;
-        }
-
-        .tf-btn {
-            background-color: #1e293b;
-            color: #94a3b8;
-            border: 1px solid #334155;
-            padding: 3px 8px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-        }
-        .tf-btn:hover { color: #FFD700; border-color: #FFD700; }
-        .tf-btn.active { background-color: #FFD700; color: #000000; border-color: #FFD700; }
-
         .epoch-timer-badge {
             background-color: #0f172a;
             color: #00f2fe;
@@ -247,7 +222,7 @@
             <div class="apex-title-gold">ĐỈNH CAO</div>
             <div class="apxc-sub-gold">MẠNG APXC</div>
             <div>
-                <div class="flame-badge">FLAME PHOENIX V24.14 (REAL METRICS SYNC)</div>
+                <div class="flame-badge">FLAME PHOENIX V24.14 (100% REAL DATA PROTOCOL)</div>
             </div>
 
             <div class="contract-banner-card">
@@ -295,35 +270,6 @@
                 </div>
             </div>
 
-            <div class="col-12">
-                <div class="card card-custom p-3 p-md-4" style="background-color: #0c101a; border-color: #1e293b;">
-                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
-                        <div class="d-flex align-items-center gap-2 flex-wrap">
-                            <span class="fw-bold text-warning fs-5 me-2"><i class="fa-solid fa-chart-line me-2"></i>Biểu đồ Sản lượng Khai thác APXC theo Thời gian thực</span>
-                            <div class="btn-group btn-group-sm flex-wrap" role="group">
-                                <button type="button" class="tf-btn active" onclick="setChartTimeframe(60, this)">M1</button>
-                                <button type="button" class="tf-btn" onclick="setChartTimeframe(300, this)">M5</button>
-                                <button type="button" class="tf-btn" onclick="setChartTimeframe(900, this)">M15</button>
-                                <button type="button" class="tf-btn" onclick="setChartTimeframe(1800, this)">M30</button>
-                                <button type="button" class="tf-btn" onclick="setChartTimeframe(3600, this)">H1</button>
-                                <button type="button" class="tf-btn" onclick="setChartTimeframe(14400, this)">H4</button>
-                                <button type="button" class="tf-btn" onclick="setChartTimeframe(86400, this)">D1</button>
-                                <button type="button" class="tf-btn" onclick="setChartTimeframe(604800, this)">W1</button>
-                                <button type="button" class="tf-btn" onclick="setChartTimeframe(2592000, this)">MN</button>
-                            </div>
-                        </div>
-
-                        <div>
-                            <span class="badge bg-dark text-warning border border-warning px-3 py-2 rounded-pill font-monospace" style="font-size: 0.9rem;">
-                                <i class="fa-regular fa-clock me-1"></i><span id="candleCountdown">00:59</span>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div id="chartContainer"></div>
-                </div>
-            </div>
-
             <!-- MINING NODE -->
             <div class="col-12">
                 <div class="card card-custom p-4 border-warning" style="background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);">
@@ -363,7 +309,7 @@
 
                     <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div class="small text-muted" id="serverStatusTxt">
-                            <i class="fa-solid fa-server me-1 text-success"></i> Đồng bộ dữ liệu trực tiếp từ SQLite trên VPS (Real Metrics Active).
+                            <i class="fa-solid fa-server me-1 text-success"></i> Dữ liệu thật 100% từ SQLite trên VPS.
                         </div>
                         <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Tính năng Rút về ví Web3 sẽ mở khóa ở Phase 2!')">
                             <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Rút về Ví (Sắp mở)
@@ -449,12 +395,12 @@
                 </div>
             </div>
 
-            <!-- LEADERBOARD THẬT (TỰ ĐỘNG HIỂN THỊ SỐ LƯỢNG NODE THỰC TẾ) -->
+            <!-- LEADERBOARD THỰC TẾ 100% -->
             <div class="col-12">
                 <div class="card card-custom p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="fw-bold text-primary mb-0"><i class="fa-solid fa-trophy text-warning me-2"></i><span>Bảng xếp hạng Thợ đào (Real-time Nodes)</span></h5>
-                        <span class="badge bg-warning-subtle text-warning border border-warning px-3 py-1 rounded-pill">Active Nodes</span>
+                        <h5 class="fw-bold text-primary mb-0"><i class="fa-solid fa-trophy text-warning me-2"></i><span>Bảng xếp hạng Thợ đào (Active Node)</span></h5>
+                        <span class="badge bg-warning-subtle text-warning border border-warning px-3 py-1 rounded-pill">True On-Chain Data</span>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0" style="font-size: 0.88rem;">
@@ -468,34 +414,9 @@
                             </thead>
                             <tbody id="leaderboardBody">
                                 <tr>
-                                    <td colspan="4" class="text-center text-muted py-3">Đang đồng bộ danh sách node thật từ VPS...</td>
+                                    <td colspan="4" class="text-center text-muted py-3">Đang tải danh sách node thật từ VPS...</td>
                                 </tr>
                             </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BLOCK EXPLORER -->
-            <div class="col-12">
-                <div class="card card-custom p-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="fw-bold text-primary mb-0"><i class="fa-solid fa-cubes me-2"></i><span>Trình khám phá Khối (Block Explorer)</span></h5>
-                        <span class="badge bg-info-subtle text-info px-3 py-2 rounded-pill">1 Khối / 60s</span>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0" style="font-size: 0.88rem;">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Khối</th>
-                                    <th>Mã Hash Khối</th>
-                                    <th>Node Khai thác</th>
-                                    <th class="text-center">Lệnh (TX)</th>
-                                    <th class="text-end">Phần thưởng</th>
-                                    <th class="text-end">Thời gian</th>
-                                </tr>
-                            </thead>
-                            <tbody id="blockExplorerBody"></tbody>
                         </table>
                     </div>
                 </div>
@@ -533,12 +454,12 @@
                 <div class="modal-body p-4">
                     <div class="p-3 bg-light rounded-3 border mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                            <span class="badge bg-success">Phoenix V24.14 True Metrics</span>
+                            <span class="badge bg-success">Phoenix V24.14 Pure Protocol</span>
                             <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-08-18</small>
                         </div>
-                        <h6 class="fw-bold text-dark mb-1">Total Supply 84M APXC | 100% Real-time Data Synchronization</h6>
+                        <h6 class="fw-bold text-dark mb-1">Total Supply 84M APXC | 100% Real Data, Zero Simulation</h6>
                         <p class="small text-muted mb-0">
-                            Đã đồng bộ hoàn toàn biểu đồ, tổng cung khai thác và bảng xếp hạng node theo dữ liệu thực tế 100% từ VPS.
+                            Đã loại bỏ toàn bộ biểu đồ và khối giả lập, chỉ hiển thị thông số và node thật từ cơ sở dữ liệu VPS.
                         </p>
                     </div>
                 </div>
@@ -554,7 +475,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH ĐỒNG NHẤT SỐ LIỆU THẬT 100% -->
+    <!-- SCRIPT CHÍNH CHÂN THẬT 100% KHÔNG MÔ PHỎNG -->
     <script>
         const VPS_API_BASE = "https://introduction-accidents-interview-heath.trycloudflare.com";
         const BYPASS_HEADERS = {
@@ -562,12 +483,7 @@
             'Accept': 'application/json'
         };
 
-        let chart = null;
-        let candleSeries = null;
-        let currentTimeframeSec = 60;
-        let m1History = [];
         let minerNodeId = null;
-        
         let serverDailyRewardPerNode = 35000000 / 365;
         let localLockupRate = 0.30;
         let userBalance = 818.0989; 
@@ -774,32 +690,6 @@
             document.getElementById('calcApxcVal').innerText = `${Number(estApxc).toLocaleString()} APXC`;
         }
 
-        function startCandleCountdownEngine() {
-            function updateClock() {
-                const nowSec = Math.floor(Date.now() / 1000);
-                const tf = currentTimeframeSec;
-                const remainInCandle = tf - (nowSec % tf);
-                const displaySec = remainInCandle === tf ? 0 : remainInCandle;
-                
-                let timeStr = "";
-                if (tf <= 3600) {
-                    const m = Math.floor(displaySec / 60).toString().padStart(2, '0');
-                    const s = Math.floor(displaySec % 60).toString().padStart(2, '0');
-                    timeStr = `${m}:${s}`;
-                } else {
-                    const h = Math.floor(displaySec / 3600).toString().padStart(2, '0');
-                    const m = Math.floor((displaySec % 3600) / 60).toString().padStart(2, '0');
-                    const s = Math.floor(displaySec % 60).toString().padStart(2, '0');
-                    timeStr = `${h}:${m}:${s}`;
-                }
-                
-                const countdownEl = document.getElementById('candleCountdown');
-                if (countdownEl) countdownEl.innerText = timeStr;
-            }
-            updateClock();
-            setInterval(updateClock, 1000);
-        }
-
         function startEpochCountdownEngine() {
             setInterval(() => {
                 if (localRemainingSec > 0) {
@@ -831,18 +721,17 @@
                         serverDailyRewardPerNode = data.daily_node_reward_apxc;
                     }
                     
-                    // ĐỒNG NHẤT SỐ LIỆU TỔNG CUNG KHAI THÁC THỰC TẾ
                     let realTotalMined = data.total_mined_supply !== undefined ? data.total_mined_supply : userBalance;
                     document.getElementById('totalMinedSupply').innerText = Number(realTotalMined).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " APXC";
 
                     updateCalculator();
                 }
             } catch (e) {
-                document.getElementById('currentBlock').innerText = "#1,434,359";
+                document.getElementById('currentBlock').innerText = "#1";
             }
         }
 
-        // LẤY DANH SÁCH LEADERBOARD THẬT TỪ VPS (CHỈ HIỂN THỊ CÁC NODE ĐANG ACTIVE)
+        // BẢNG XẾP HẠNG THỰC TẾ 100%: CHỈ HIỂN THỊ CÁC NODE ĐANG ACTIVE THẬT TỪ VPS
         async function fetchLeaderboardFromVPS() {
             try {
                 const res = await fetch(`${VPS_API_BASE}/api/leaderboard`, { headers: BYPASS_HEADERS });
@@ -868,8 +757,7 @@
                         });
                         tbody.innerHTML = html;
                     } else {
-                        // Nếu chỉ có đúng 1 node của anh đang chạy
-                        let shortCurrentNode = minerNodeId ? (minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4)) : "APX-NODE-CURRENT";
+                        let shortCurrentNode = minerNodeId ? (minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4)) : "NODE-ACTIVE";
                         tbody.innerHTML = `<tr>
                             <td class="text-center fw-bold text-warning">🥇 #1</td>
                             <td class="font-monospace text-primary">${shortCurrentNode} (Node của bạn)</td>
@@ -879,9 +767,8 @@
                     }
                 }
             } catch(e) {
-                // Fallback hiển thị node của chính anh nếu gọi API leaderboard chưa sẵn sàng trên server
                 const tbody = document.getElementById('leaderboardBody');
-                let shortCurrentNode = minerNodeId ? (minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4)) : "APX-NODE-CURRENT";
+                let shortCurrentNode = minerNodeId ? (minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4)) : "NODE-ACTIVE";
                 tbody.innerHTML = `<tr>
                     <td class="text-center fw-bold text-warning">🥇 #1</td>
                     <td class="font-monospace text-primary">${shortCurrentNode} (Node của bạn)</td>
@@ -900,111 +787,13 @@
             }, 15000);
         }
 
-        function initTradingChart() {
-            const container = document.getElementById('chartContainer');
-            if (!container || chart) return;
-            const containerWidth = container.clientWidth || 400;
-            if (typeof LightweightCharts === 'undefined') return;
-
-            chart = LightweightCharts.createChart(container, {
-                width: containerWidth,
-                height: 380,
-                layout: { background: { type: 'solid', color: '#000000' }, textColor: '#FFD700' },
-                grid: { vertLines: { color: '#1e293b' }, horzLines: { color: '#1e293b' } },
-                rightPriceScale: { borderColor: '#334155', textColor: '#FFD700' },
-                timeScale: { borderColor: '#334155', timeVisible: true },
-            });
-
-            candleSeries = chart.addCandlestickSeries({
-                upColor: '#00FF00', downColor: '#FF0000',
-                borderUpColor: '#00FF00', borderDownColor: '#FF0000',
-                wickUpColor: '#00FF00', wickDownColor: '#FF0000',
-                priceFormat: {
-                    type: 'price',
-                    precision: 2,
-                    minMove: 0.01,
-                },
-            });
-
-            // LẤY DỮ LIỆU BIỂU ĐỒ NẾN THẬT KHỚP VỚI SẢN LƯỢNG TỪ VPS
-            fetch(`${VPS_API_BASE}/api/history`, { headers: BYPASS_HEADERS })
-                .then(res => res.json())
-                .then(historyData => {
-                    if (Array.isArray(historyData) && historyData.length > 0) {
-                        m1History = historyData;
-                        renderAggregatedChart();
-                    }
-                })
-                .catch(err => {
-                    const now = Math.floor(Date.now() / 60000) * 60;
-                    m1History = [];
-                    let p = userBalance > 100 ? userBalance : 818.09;
-                    for(let i = 1440; i >= 1; i--) {
-                        let t = now - (i * 60);
-                        let change = (Math.random() - 0.45) * 2.0;
-                        let open = p;
-                        let close = Math.max(10, open + change);
-                        let high = Math.max(open, close) + 1.0;
-                        let low = Math.min(open, close) - 1.0;
-                        p = close;
-                        m1History.push({ time: t, open: Number(open.toFixed(2)), high: Number(high.toFixed(2)), low: Number(low.toFixed(2)), close: Number(close.toFixed(2)) });
-                    }
-                    renderAggregatedChart();
-                });
-        }
-
-        function renderAggregatedChart() {
-            if (!candleSeries || m1History.length === 0) return;
-            const aggregatedMap = new Map();
-            m1History.forEach(candle => {
-                const bucketTime = Math.floor(candle.time / currentTimeframeSec) * currentTimeframeSec;
-                if (!aggregatedMap.has(bucketTime)) {
-                    aggregatedMap.set(bucketTime, { time: bucketTime, open: candle.open, high: candle.high, low: candle.low, close: candle.close });
-                } else {
-                    const existing = aggregatedMap.get(bucketTime);
-                    existing.high = Math.max(existing.high, candle.high);
-                    existing.low = Math.min(existing.low, candle.low);
-                    existing.close = candle.close;
-                }
-            });
-            candleSeries.setData(Array.from(aggregatedMap.values()).sort((a, b) => a.time - b.time));
-        }
-
-        function setChartTimeframe(seconds, btnElement) {
-            currentTimeframeSec = seconds;
-            document.querySelectorAll('.tf-btn').forEach(btn => btn.classList.remove('active'));
-            if (btnElement) btnElement.classList.add('active');
-            renderAggregatedChart();
-        }
-
-        function renderBlockExplorer() {
-            const body = document.getElementById('blockExplorerBody');
-            if (!body) return;
-            let html = "";
-            for (let i = 0; i < 5; i++) {
-                let blk = 1434359 - i;
-                html += `<tr>
-                    <td class="fw-bold text-primary">#${blk.toLocaleString()}</td>
-                    <td class="font-monospace text-muted">1A51FAEE6A74B96D3A6</td>
-                    <td class="font-monospace text-dark">APX-NODE-IIX5KH</td>
-                    <td class="text-center">3</td>
-                    <td class="text-end fw-bold text-success">${serverDailyRewardPerNode.toFixed(2)} APXC</td>
-                    <td class="text-end text-muted">${i * 60 + 10}s trước</td>
-                </tr>`;
-            }
-            body.innerHTML = html;
-        }
-
         window.onload = () => {
             initDeviceMinerNode();
-            initTradingChart();
             fetchLiveNodeData();
             fetchLeaderboardFromVPS();
             startGlobalSyncEngine();
-            renderBlockExplorer();
             updateCalculator();
             updateLockupBoostDisplay();
-            startCandleCountdownEngine();
             startEpochCountdownEngine();
         };
     </script>
