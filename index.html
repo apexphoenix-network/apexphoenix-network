@@ -206,7 +206,7 @@
                     <i class="fa-solid fa-wallet me-1"></i> <span>Connect Web3 Wallet</span>
                 </button>
                 <span class="badge bg-success text-white fw-bold px-3 py-2 rounded-pill shadow-sm d-none w-100 text-truncate" id="minerNodeBadge" style="font-size: 0.85rem;">
-                    <i class="fa-solid fa-server me-1"></i> <span id="nodeIdTxt">Khởi tạo...</span>
+                    <i class="fa-solid fa-server me-1"></i> <span id="nodeIdTxt">Đang kết nối ví...</span>
                 </span>
             </div>
         </div>
@@ -222,7 +222,7 @@
             <div class="apex-title-gold">ĐỈNH CAO</div>
             <div class="apxc-sub-gold">MẠNG APXC</div>
             <div>
-                <div class="flame-badge">FLAME PHOENIX V24.14 (LIVE REALTIME SUPPLY)</div>
+                <div class="flame-badge">FLAME PHOENIX V24.14 (WEB3 COLD WALLET AUTH)</div>
             </div>
 
             <div class="contract-banner-card">
@@ -249,16 +249,15 @@
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
                     <div class="text-secondary mb-2"><i class="fa-solid fa-cube text-primary me-2"></i><span>Khối hiện tại</span></div>
-                    <div class="stat-val font-monospace" id="currentBlock">#1,452,149</div>
+                    <div class="stat-val font-monospace" id="currentBlock">#0</div>
                     <small class="text-muted mt-2">Đồng bộ từ VPS (Live)</small>
                 </div>
             </div>
 
-            <!-- TỔNG APXC ĐÃ KHAI THÁC - NHẬY SỐ LIVE REALTIME TỪNG GIÂY -->
             <div class="col-md-4">
                 <div class="card card-custom p-4 text-center h-100">
                     <div class="text-secondary mb-2"><i class="fa-solid fa-coins text-success me-2"></i><span>Tổng APXC Đã Khai Thác</span></div>
-                    <div class="stat-val text-success font-monospace" id="totalMinedSupply">1,452,149.00 APXC</div>
+                    <div class="stat-val text-success font-monospace" id="totalMinedSupply">0.00 APXC</div>
                     <small class="text-muted mt-2" id="supplyDetailRate">Lượng lưu thông thực tế trên chuỗi</small>
                 </div>
             </div>
@@ -310,7 +309,7 @@
 
                     <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div class="small text-muted" id="serverStatusTxt">
-                            <i class="fa-solid fa-server me-1 text-success"></i> Dữ liệu thật 100% từ SQLite trên VPS (Live Realtime Sync).
+                            <i class="fa-solid fa-server me-1 text-success"></i> Kết nối Web3 Wallet cá nhân thành công.
                         </div>
                         <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Tính năng Rút về ví Web3 sẽ mở khóa ở Phase 2!')">
                             <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Rút về Ví (Sắp mở)
@@ -455,12 +454,12 @@
                 <div class="modal-body p-4">
                     <div class="p-3 bg-light rounded-3 border mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                            <span class="badge bg-success">Phoenix V24.14 Live Realtime Supply</span>
+                            <span class="badge bg-success">Phoenix V24.14 Web3 Auto-Reconnect</span>
                             <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-08-18</small>
                         </div>
-                        <h6 class="fw-bold text-dark mb-1">Total Supply 84M APXC | Real-time Block Progression</h6>
+                        <h6 class="fw-bold text-dark mb-1">Strict Personal Web3 Wallet Authentication</h6>
                         <p class="small text-muted mb-0">
-                            Đã đồng bộ tổng cung khai thác tự động lũy tiến theo chiều cao khối và nhảy số Live realtime từng giây cùng hệ thống.
+                            Đã nâng cấp cơ chế xác thực ví cá nhân, tự động ghi nhớ và khôi phục kết nối ví trong lần truy cập tiếp theo.
                         </p>
                     </div>
                 </div>
@@ -476,7 +475,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH TÍCH HỢP NHẢY SỐ LIVE REALTIME TỔNG CUNG -->
+    <!-- SCRIPT CHÍNH TỰ ĐỘNG KHÔI PHỤC VÍ VÀ KẾT NỐI VÍ CÁ NHÂN -->
     <script>
         const VPS_API_BASE = "https://introduction-accidents-interview-heath.trycloudflare.com";
         const BYPASS_HEADERS = {
@@ -488,7 +487,7 @@
         let serverDailyRewardPerNode = 35000000 / 365;
         let localLockupRate = 0.30;
         let userBalance = 818.0989; 
-        let totalMinedSupply = 1452149.00; // Khởi tạo mốc theo chiều cao khối thực tế
+        let totalMinedSupply = 1452149.00; 
         let stakedBalance = 0.0;
         let isMiningActive = true;  
         let localRemainingSec = 75619; 
@@ -498,6 +497,7 @@
             new bootstrap.Modal(document.getElementById('updatesModal')).show();
         }
 
+        // KẾT NỐI VÍ CÁ NHÂN (METAMASK / WEB3 WALLET) & TỰ ĐỘNG KHÔI PHỤC
         async function connectWeb3Wallet() {
             if (window.ethereum) {
                 try {
@@ -507,19 +507,13 @@
                         localStorage.setItem('apxc_device_node_id', minerNodeId);
                         updateWalletUI();
                         fetchUserStatusFromVPS();
-                        alert("✅ Kết nối Ví thành công: " + minerNodeId);
+                        alert("✅ Kết nối Ví Web3 thành công: " + minerNodeId);
                     }
                 } catch (e) {
-                    console.log("Hủy kết nối ví");
+                    alert("❌ Người dùng đã hủy yêu cầu kết nối ví!");
                 }
             } else {
-                if (!minerNodeId) {
-                    minerNodeId = "0x75Cc" + Math.random().toString(16).substring(2, 10) + "DD7b";
-                    localStorage.setItem('apxc_device_node_id', minerNodeId);
-                }
-                updateWalletUI();
-                fetchUserStatusFromVPS();
-                alert("✅ Đã kích hoạt Node định danh Web3 thành công!");
+                alert("❌ Không tìm thấy ứng dụng ví Web3 (MetaMask/TrustWallet) trên trình duyệt này! Vui lòng mở trang web bên trong trình duyệt của ví cá nhân.");
             }
         }
 
@@ -527,19 +521,28 @@
             if (!minerNodeId) return;
             const shortAddr = minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4);
             document.getElementById('nodeIdTxt').innerText = shortAddr;
-            document.getElementById('walletBtn').innerText = "Đã kết nối Ví";
+            document.getElementById('walletBtn').innerText = "Đã kết nối Ví cá nhân";
             document.getElementById('minerNodeBadge').classList.remove('d-none');
             updateReferralLink();
         }
 
-        function initDeviceMinerNode() {
+        async function initDeviceMinerNode() {
+            // TỰ ĐỘNG KHÔI PHỤC ĐỊA CHỈ VÍ ĐÃ KẾT NỐI TRƯỚC ĐÓ
             let savedId = localStorage.getItem('apxc_device_node_id');
-            if (!savedId) {
-                savedId = "0x75Cc" + Math.random().toString(16).substring(2, 10) + "DD7b";
-                localStorage.setItem('apxc_device_node_id', savedId);
+            if (savedId) {
+                minerNodeId = savedId;
+                updateWalletUI();
+            } else if (window.ethereum) {
+                // Kiểm tra nếu ví đã cấp quyền trước đó thì tự động load luôn
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                    if (accounts && accounts.length > 0) {
+                        minerNodeId = accounts[0];
+                        localStorage.setItem('apxc_device_node_id', minerNodeId);
+                        updateWalletUI();
+                    }
+                } catch(e) {}
             }
-            minerNodeId = savedId;
-            updateWalletUI();
 
             let savedBalance = parseFloat(localStorage.getItem('apxc_local_balance') || '818.0989');
             if (savedBalance > userBalance) {
@@ -553,11 +556,9 @@
             fetchUserStatusFromVPS();
         }
 
-        // BỘ MÁY NHẢY SỐ LIVE REALTIME TỪNG GIÂY CHO CẢ SỐ DƯ CÁ NHÂN VÀ TỔNG CUNG KHAI THÁC
         function startRealtimeTickers() {
             setInterval(() => {
                 if (isMiningActive) {
-                    // 1. Tăng số dư cá nhân
                     const totalMultiplier = 1.0 + localLockupRate;
                     const apxcPerSecond = (serverDailyRewardPerNode / 86400) * totalMultiplier;
                     userBalance += apxcPerSecond;
@@ -568,7 +569,6 @@
                         rewardEl.innerText = userBalance.toFixed(4) + " APXC";
                     }
 
-                    // 2. Tăng tổng cung khai thác toàn mạng theo nhịp thời gian thực
                     const networkTotalPerSecond = serverDailyRewardPerNode / 86400;
                     totalMinedSupply += networkTotalPerSecond;
                     const supplyEl = document.getElementById('totalMinedSupply');
@@ -724,7 +724,6 @@
                     const data = await res.json();
                     if (data.current_block) {
                         document.getElementById('currentBlock').innerText = "#" + data.current_block.toLocaleString();
-                        // Đồng bộ tổng cung bám sát chiều cao khối hiện tại
                         totalMinedSupply = data.current_block * 1.0;
                     }
                     if (data.latest_hash) {
@@ -772,10 +771,10 @@
                         });
                         tbody.innerHTML = html;
                     } else {
-                        let shortCurrentNode = minerNodeId ? (minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4)) : "NODE-ACTIVE";
+                        let shortCurrentNode = minerNodeId ? (minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4)) : "WEB3-WALLET";
                         tbody.innerHTML = `<tr>
                             <td class="text-center fw-bold text-warning">🥇 #1</td>
-                            <td class="font-monospace text-primary">${shortCurrentNode} (Node của bạn)</td>
+                            <td class="font-monospace text-primary">${shortCurrentNode} (Ví của bạn)</td>
                             <td class="text-center fw-bold">14.5 H/s</td>
                             <td class="text-end fw-bold text-success">${userBalance.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} APXC</td>
                         </tr>`;
@@ -783,10 +782,10 @@
                 }
             } catch(e) {
                 const tbody = document.getElementById('leaderboardBody');
-                let shortCurrentNode = minerNodeId ? (minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4)) : "NODE-ACTIVE";
+                let shortCurrentNode = minerNodeId ? (minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4)) : "WEB3-WALLET";
                 tbody.innerHTML = `<tr>
                     <td class="text-center fw-bold text-warning">🥇 #1</td>
-                    <td class="font-monospace text-primary">${shortCurrentNode} (Node của bạn)</td>
+                    <td class="font-monospace text-primary">${shortCurrentNode} (Ví của bạn)</td>
                     <td class="text-center fw-bold">14.5 H/s</td>
                     <td class="text-end fw-bold text-success">${userBalance.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} APXC</td>
                 </tr>`;
