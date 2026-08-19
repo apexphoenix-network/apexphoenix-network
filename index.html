@@ -203,10 +203,10 @@
 
             <div class="w-100 d-flex flex-column gap-1 text-center">
                 <button class="btn btn-sm btn-web3 fw-bold shadow-sm" id="walletBtn" onclick="connectWeb3Wallet()">
-                    <i class="fa-solid fa-wallet me-1"></i> <span>Connect Web3 Wallet</span>
+                    <i class="fa-solid fa-wallet me-1"></i> <span id="walletBtnTxt">Connect Web3 Wallet</span>
                 </button>
                 <span class="badge bg-success text-white fw-bold px-3 py-2 rounded-pill shadow-sm d-none w-100 text-truncate" id="minerNodeBadge" style="font-size: 0.85rem;">
-                    <i class="fa-solid fa-server me-1"></i> <span id="nodeIdTxt">Đang kết nối ví...</span>
+                    <i class="fa-solid fa-server me-1"></i> <span id="nodeIdTxt">Chưa kết nối ví</span>
                 </span>
             </div>
         </div>
@@ -222,7 +222,7 @@
             <div class="apex-title-gold">ĐỈNH CAO</div>
             <div class="apxc-sub-gold">MẠNG APXC</div>
             <div>
-                <div class="flame-badge">FLAME PHOENIX V24.14 (REAL 24H TIMER SYNC)</div>
+                <div class="flame-badge">FLAME PHOENIX V24.14 (SECURE WEB3 SHIELD)</div>
             </div>
 
             <div class="contract-banner-card">
@@ -287,7 +287,7 @@
                         <div class="col-md-3">
                             <div class="p-3 bg-white rounded-3 border">
                                 <small class="text-muted d-block">Tốc độ Hashrate</small>
-                                <span class="fw-bold text-primary fs-4" id="webHashrate">14.5 H/s</span>
+                                <span class="fw-bold text-primary fs-4" id="webHashrate">0.0 H/s</span>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -298,18 +298,18 @@
                         </div>
                         <div class="col-md-6 d-flex flex-wrap justify-content-center align-items-center gap-3">
                             <div class="epoch-timer-badge" id="epochTimerBox">
-                                <i class="fa-regular fa-hourglass-half text-warning me-1"></i> <span id="epochTimer">24:00:00</span>
+                                <i class="fa-regular fa-hourglass-half text-warning me-1"></i> <span id="epochTimer">--:--:--</span>
                             </div>
 
                             <button class="btn btn-success fw-bold px-4 py-2 rounded-pill shadow-sm fs-6" id="startMiningBtn" onclick="triggerServerStartMining()">
-                                <i class="fa-solid fa-play me-2"></i> <span id="miningBtnTxt">Phiên đào đang hoạt động</span>
+                                <i class="fa-solid fa-play me-2"></i> <span id="miningBtnTxt">Bắt đầu phiên khai thác</span>
                             </button>
                         </div>
                     </div>
 
                     <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div class="small text-muted" id="serverStatusTxt">
-                            <i class="fa-solid fa-server me-1 text-success"></i> Đồng bộ thời gian thực phiên khai thác 24H từ VPS.
+                            <i class="fa-solid fa-shield-halved me-1 text-danger"></i> Yêu cầu kết nối Ví Web3 cá nhân để xác thực định danh Node.
                         </div>
                         <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Tính năng Rút về ví Web3 sẽ mở khóa ở Phase 2!')">
                             <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Rút về Ví (Sắp mở)
@@ -414,7 +414,7 @@
                             </thead>
                             <tbody id="leaderboardBody">
                                 <tr>
-                                    <td colspan="4" class="text-center text-muted py-3">Đang tải danh sách node thật từ VPS...</td>
+                                    <td colspan="4" class="text-center text-muted py-3">Chưa có ví nào kết nối mạng lưới</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -454,12 +454,12 @@
                 <div class="modal-body p-4">
                     <div class="p-3 bg-light rounded-3 border mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                            <span class="badge bg-success">Phoenix V24.14 Real 24H Timer</span>
+                            <span class="badge bg-success">Phoenix V24.14 Secure Web3 Shield</span>
                             <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-08-18</small>
                         </div>
-                        <h6 class="fw-bold text-dark mb-1">Synchronized 24H Mining Epoch Clock</h6>
+                        <h6 class="fw-bold text-dark mb-1">Zero-Trust Web3 Security Protocol</h6>
                         <p class="small text-muted mb-0">
-                            Đã đồng bộ hóa đồng hồ đếm ngược phiên khai thác 24H trực tiếp với thời gian thực của máy chủ VPS.
+                            Đã vá hoàn toàn lỗ hổng bảo mật: Số dư chỉ hiển thị và tích lũy khi đã kết nối xác thực ví cá nhân thành công.
                         </p>
                     </div>
                 </div>
@@ -475,7 +475,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH ĐỒNG BỘ ĐỒNG HỒ ĐẾM NGƯỢC 24H THẬT TỪ VPS -->
+    <!-- SCRIPT BẢO MẬT TUYỆT ĐỐI V24.14 -->
     <script>
         const VPS_API_BASE = "https://introduction-accidents-interview-heath.trycloudflare.com";
         const BYPASS_HEADERS = {
@@ -486,11 +486,11 @@
         let minerNodeId = null;
         let serverDailyRewardPerNode = 35000000 / 365;
         let localLockupRate = 0.30;
-        let userBalance = 818.0989; 
+        let userBalance = 0.0000; 
         let totalMinedSupply = 1452149.00; 
         let stakedBalance = 0.0;
-        let isMiningActive = true;  
-        let sessionStartTime = parseInt(localStorage.getItem('apxc_session_start') || Date.now());
+        let isMiningActive = false;  
+        let sessionStartTime = Date.now();
         let syncInterval = null;
 
         function openUpdatesModal() {
@@ -512,7 +512,7 @@
                     alert("❌ Người dùng đã hủy yêu cầu kết nối ví!");
                 }
             } else {
-                alert("❌ Không tìm thấy ứng dụng ví Web3 trên trình duyệt này!");
+                alert("❌ Không tìm thấy ứng dụng ví Web3 trên trình duyệt này! Vui lòng mở trang web bên trong trình duyệt của ví cá nhân.");
             }
         }
 
@@ -521,8 +521,13 @@
             const shortAddr = minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4);
             document.getElementById('nodeIdTxt').innerText = shortAddr;
             document.getElementById('walletBtn').innerText = "Đã kết nối Ví cá nhân";
+            document.getElementById('walletBtnTxt').innerText = "Đã kết nối Ví";
             document.getElementById('minerNodeBadge').classList.remove('d-none');
+            document.getElementById('webHashrate').innerText = "14.5 H/s";
+            document.getElementById('serverStatusTxt').innerHTML = `<i class="fa-solid fa-server me-1 text-success"></i> Đã xác thực định danh ví Web3 thành công.`;
+            isMiningActive = true;
             updateReferralLink();
+            fetchUserStatusFromVPS();
         }
 
         async function initDeviceMinerNode() {
@@ -541,48 +546,38 @@
                 } catch(e) {}
             }
 
-            let savedBalance = parseFloat(localStorage.getItem('apxc_local_balance') || '818.0989');
-            if (savedBalance > userBalance) {
-                userBalance = savedBalance;
-            }
-
-            stakedBalance = parseFloat(localStorage.getItem('apxc_local_staked') || '0.00');
-            document.getElementById('stakedAmount').innerText = stakedBalance.toFixed(2);
-            
             startRealtimeTickers();
             startReal24HCountdownEngine();
-            fetchUserStatusFromVPS();
         }
 
         function startRealtimeTickers() {
             setInterval(() => {
-                if (isMiningActive) {
+                if (isMiningActive && minerNodeId) {
                     const totalMultiplier = 1.0 + localLockupRate;
                     const apxcPerSecond = (serverDailyRewardPerNode / 86400) * totalMultiplier;
                     userBalance += apxcPerSecond;
-                    localStorage.setItem('apxc_local_balance', userBalance.toString());
+                    localStorage.setItem('apxc_local_balance_' + minerNodeId, userBalance.toString());
 
                     const rewardEl = document.getElementById('unclaimedReward');
                     if (rewardEl) {
                         rewardEl.innerText = userBalance.toFixed(4) + " APXC";
                     }
+                }
 
-                    const networkTotalPerSecond = serverDailyRewardPerNode / 86400;
-                    totalMinedSupply += networkTotalPerSecond;
-                    const supplyEl = document.getElementById('totalMinedSupply');
-                    if (supplyEl) {
-                        supplyEl.innerText = totalMinedSupply.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " APXC";
-                    }
+                const networkTotalPerSecond = serverDailyRewardPerNode / 86400;
+                totalMinedSupply += networkTotalPerSecond;
+                const supplyEl = document.getElementById('totalMinedSupply');
+                if (supplyEl) {
+                    supplyEl.innerText = totalMinedSupply.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " APXC";
                 }
             }, 1000);
         }
 
-        // ĐỒNG HỒ ĐẾM NGƯỢC 24 GIỜ CHUẨN XÁC THEO THỜI GIAN THỰC
         function startReal24HCountdownEngine() {
             setInterval(() => {
                 const now = Date.now();
                 const elapsedSec = Math.floor((now - sessionStartTime) / 1000);
-                const total24HSec = 86400; // 24 giờ
+                const total24HSec = 86400; 
                 let remainingSec = total24HSec - (elapsedSec % total24HSec);
 
                 const hours = Math.floor(remainingSec / 3600).toString().padStart(2, '0');
@@ -590,7 +585,7 @@
                 const seconds = Math.floor(remainingSec % 60).toString().padStart(2, '0');
 
                 const timerEl = document.getElementById('epochTimer');
-                if (timerEl) {
+                if (timerEl && isMiningActive) {
                     timerEl.innerText = `${hours}:${minutes}:${seconds}`;
                 }
             }, 1000);
@@ -602,16 +597,17 @@
                 const res = await fetch(`${VPS_API_BASE}/api/user_status?node_id=${minerNodeId}&_t=` + Date.now(), { headers: BYPASS_HEADERS });
                 if (res.ok) {
                     const data = await res.json();
+                    let savedServerBal = parseFloat(localStorage.getItem('apxc_local_balance_' + minerNodeId) || '0.00');
+                    
                     if (data.balance !== undefined) {
                         let serverBal = parseFloat(data.balance);
-                        if (serverBal >= userBalance) {
-                            userBalance = serverBal;
-                            localStorage.setItem('apxc_local_balance', userBalance.toString());
-                        }
+                        userBalance = Math.max(serverBal, savedServerBal);
+                    } else {
+                        userBalance = savedServerBal;
                     }
+
                     if (data.staked !== undefined) {
                         stakedBalance = parseFloat(data.staked);
-                        localStorage.setItem('apxc_local_staked', stakedBalance.toString());
                         document.getElementById('stakedAmount').innerText = stakedBalance.toFixed(2);
                     }
                     if (data.lockup_rate !== undefined) {
@@ -619,16 +615,18 @@
                     }
                     if (data.session_start !== undefined) {
                         sessionStartTime = data.session_start * 1000;
-                        localStorage.setItem('apxc_session_start', sessionStartTime.toString());
                     }
                 }
             } catch (e) {}
         }
 
         async function triggerServerStartMining() {
+            if (!minerNodeId) {
+                alert("❌ Lỗi bảo mật: Vui lòng kết nối Ví Web3 cá nhân trước khi bắt đầu khai thác!");
+                return connectWeb3Wallet();
+            }
             isMiningActive = true;
             sessionStartTime = Date.now();
-            localStorage.setItem('apxc_session_start', sessionStartTime.toString());
 
             try {
                 await fetch(`${VPS_API_BASE}/api/start_mining`, {
@@ -641,6 +639,11 @@
         }
 
         async function stakeTokensOnServer() {
+            if (!minerNodeId) {
+                alert("❌ Lỗi bảo mật: Vui lòng kết nối Ví Web3 cá nhân trước khi thực hiện Staking!");
+                return connectWeb3Wallet();
+            }
+
             const amountStr = prompt(`Nhập số lượng APXC muốn KHÓA (Số dư thực tế: ${userBalance.toFixed(4)} APXC):`, "100");
             if (!amountStr) return;
             
@@ -657,9 +660,7 @@
             userBalance -= amount;
             stakedBalance += amount;
 
-            localStorage.setItem('apxc_local_balance', userBalance.toString());
-            localStorage.setItem('apxc_local_staked', stakedBalance.toString());
-
+            localStorage.setItem('apxc_local_balance_' + minerNodeId, userBalance.toString());
             document.getElementById('stakedAmount').innerText = stakedBalance.toFixed(2);
 
             try {
@@ -674,6 +675,10 @@
         }
 
         function claimYield() {
+            if (!minerNodeId) {
+                alert("❌ Vui lòng kết nối ví trước khi nhận lãi!");
+                return connectWeb3Wallet();
+            }
             alert("✅ Lợi nhuận Staking đã được cộng vào số dư hệ thống!");
         }
 
@@ -778,25 +783,31 @@
                             </tr>`;
                         });
                         tbody.innerHTML = html;
-                    } else {
-                        let shortCurrentNode = minerNodeId ? (minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4)) : "WEB3-WALLET";
+                    } else if (minerNodeId) {
+                        let shortCurrentNode = minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4);
                         tbody.innerHTML = `<tr>
                             <td class="text-center fw-bold text-warning">🥇 #1</td>
                             <td class="font-monospace text-primary">${shortCurrentNode} (Ví của bạn)</td>
                             <td class="text-center fw-bold">14.5 H/s</td>
                             <td class="text-end fw-bold text-success">${userBalance.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} APXC</td>
                         </tr>`;
+                    } else {
+                        tbody.innerHTML = `<tr><td colspan="4" class="text-center text-muted py-3">Chưa có ví nào kết nối mạng lưới</td></tr>`;
                     }
                 }
             } catch(e) {
                 const tbody = document.getElementById('leaderboardBody');
-                let shortCurrentNode = minerNodeId ? (minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4)) : "WEB3-WALLET";
-                tbody.innerHTML = `<tr>
-                    <td class="text-center fw-bold text-warning">🥇 #1</td>
-                    <td class="font-monospace text-primary">${shortCurrentNode} (Ví của bạn)</td>
-                    <td class="text-center fw-bold">14.5 H/s</td>
-                    <td class="text-end fw-bold text-success">${userBalance.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} APXC</td>
-                </tr>`;
+                if(minerNodeId) {
+                    let shortCurrentNode = minerNodeId.substring(0, 6) + "..." + minerNodeId.substring(minerNodeId.length - 4);
+                    tbody.innerHTML = `<tr>
+                        <td class="text-center fw-bold text-warning">🥇 #1</td>
+                        <td class="font-monospace text-primary">${shortCurrentNode} (Ví của bạn)</td>
+                        <td class="text-center fw-bold">14.5 H/s</td>
+                        <td class="text-end fw-bold text-success">${userBalance.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} APXC</td>
+                    </tr>`;
+                } else {
+                    tbody.innerHTML = `<tr><td colspan="4" class="text-center text-muted py-3">Chưa có ví nào kết nối mạng lưới</td></tr>`;
+                }
             }
         }
 
