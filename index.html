@@ -222,7 +222,7 @@
             <div class="apex-title-gold">ĐỈNH CAO</div>
             <div class="apxc-sub-gold">MẠNG APXC</div>
             <div>
-                <div class="flame-badge">FLAME PHOENIX V24.14 (WEB3 COLD WALLET AUTH)</div>
+                <div class="flame-badge">FLAME PHOENIX V24.14 (REAL 24H TIMER SYNC)</div>
             </div>
 
             <div class="contract-banner-card">
@@ -298,7 +298,7 @@
                         </div>
                         <div class="col-md-6 d-flex flex-wrap justify-content-center align-items-center gap-3">
                             <div class="epoch-timer-badge" id="epochTimerBox">
-                                <i class="fa-regular fa-hourglass-half text-warning me-1"></i> <span id="epochTimer">21:00:07</span>
+                                <i class="fa-regular fa-hourglass-half text-warning me-1"></i> <span id="epochTimer">24:00:00</span>
                             </div>
 
                             <button class="btn btn-success fw-bold px-4 py-2 rounded-pill shadow-sm fs-6" id="startMiningBtn" onclick="triggerServerStartMining()">
@@ -309,7 +309,7 @@
 
                     <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div class="small text-muted" id="serverStatusTxt">
-                            <i class="fa-solid fa-server me-1 text-success"></i> Kết nối Web3 Wallet cá nhân thành công.
+                            <i class="fa-solid fa-server me-1 text-success"></i> Đồng bộ thời gian thực phiên khai thác 24H từ VPS.
                         </div>
                         <button class="btn btn-outline-warning text-dark fw-bold btn-sm rounded-pill px-3" onclick="alert('Tính năng Rút về ví Web3 sẽ mở khóa ở Phase 2!')">
                             <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Rút về Ví (Sắp mở)
@@ -454,12 +454,12 @@
                 <div class="modal-body p-4">
                     <div class="p-3 bg-light rounded-3 border mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                            <span class="badge bg-success">Phoenix V24.14 Web3 Auto-Reconnect</span>
+                            <span class="badge bg-success">Phoenix V24.14 Real 24H Timer</span>
                             <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-08-18</small>
                         </div>
-                        <h6 class="fw-bold text-dark mb-1">Strict Personal Web3 Wallet Authentication</h6>
+                        <h6 class="fw-bold text-dark mb-1">Synchronized 24H Mining Epoch Clock</h6>
                         <p class="small text-muted mb-0">
-                            Đã nâng cấp cơ chế xác thực ví cá nhân, tự động ghi nhớ và khôi phục kết nối ví trong lần truy cập tiếp theo.
+                            Đã đồng bộ hóa đồng hồ đếm ngược phiên khai thác 24H trực tiếp với thời gian thực của máy chủ VPS.
                         </p>
                     </div>
                 </div>
@@ -475,7 +475,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT CHÍNH TỰ ĐỘNG KHÔI PHỤC VÍ VÀ KẾT NỐI VÍ CÁ NHÂN -->
+    <!-- SCRIPT CHÍNH ĐỒNG BỘ ĐỒNG HỒ ĐẾM NGƯỢC 24H THẬT TỪ VPS -->
     <script>
         const VPS_API_BASE = "https://introduction-accidents-interview-heath.trycloudflare.com";
         const BYPASS_HEADERS = {
@@ -490,14 +490,13 @@
         let totalMinedSupply = 1452149.00; 
         let stakedBalance = 0.0;
         let isMiningActive = true;  
-        let localRemainingSec = 75619; 
+        let sessionStartTime = parseInt(localStorage.getItem('apxc_session_start') || Date.now());
         let syncInterval = null;
 
         function openUpdatesModal() {
             new bootstrap.Modal(document.getElementById('updatesModal')).show();
         }
 
-        // KẾT NỐI VÍ CÁ NHÂN (METAMASK / WEB3 WALLET) & TỰ ĐỘNG KHÔI PHỤC
         async function connectWeb3Wallet() {
             if (window.ethereum) {
                 try {
@@ -513,7 +512,7 @@
                     alert("❌ Người dùng đã hủy yêu cầu kết nối ví!");
                 }
             } else {
-                alert("❌ Không tìm thấy ứng dụng ví Web3 (MetaMask/TrustWallet) trên trình duyệt này! Vui lòng mở trang web bên trong trình duyệt của ví cá nhân.");
+                alert("❌ Không tìm thấy ứng dụng ví Web3 trên trình duyệt này!");
             }
         }
 
@@ -527,13 +526,11 @@
         }
 
         async function initDeviceMinerNode() {
-            // TỰ ĐỘNG KHÔI PHỤC ĐỊA CHỈ VÍ ĐÃ KẾT NỐI TRƯỚC ĐÓ
             let savedId = localStorage.getItem('apxc_device_node_id');
             if (savedId) {
                 minerNodeId = savedId;
                 updateWalletUI();
             } else if (window.ethereum) {
-                // Kiểm tra nếu ví đã cấp quyền trước đó thì tự động load luôn
                 try {
                     const accounts = await window.ethereum.request({ method: 'eth_accounts' });
                     if (accounts && accounts.length > 0) {
@@ -553,6 +550,7 @@
             document.getElementById('stakedAmount').innerText = stakedBalance.toFixed(2);
             
             startRealtimeTickers();
+            startReal24HCountdownEngine();
             fetchUserStatusFromVPS();
         }
 
@@ -579,6 +577,25 @@
             }, 1000);
         }
 
+        // ĐỒNG HỒ ĐẾM NGƯỢC 24 GIỜ CHUẨN XÁC THEO THỜI GIAN THỰC
+        function startReal24HCountdownEngine() {
+            setInterval(() => {
+                const now = Date.now();
+                const elapsedSec = Math.floor((now - sessionStartTime) / 1000);
+                const total24HSec = 86400; // 24 giờ
+                let remainingSec = total24HSec - (elapsedSec % total24HSec);
+
+                const hours = Math.floor(remainingSec / 3600).toString().padStart(2, '0');
+                const minutes = Math.floor((remainingSec % 3600) / 60).toString().padStart(2, '0');
+                const seconds = Math.floor(remainingSec % 60).toString().padStart(2, '0');
+
+                const timerEl = document.getElementById('epochTimer');
+                if (timerEl) {
+                    timerEl.innerText = `${hours}:${minutes}:${seconds}`;
+                }
+            }, 1000);
+        }
+
         async function fetchUserStatusFromVPS() {
             if (!minerNodeId) return;
             try {
@@ -600,12 +617,19 @@
                     if (data.lockup_rate !== undefined) {
                         localLockupRate = parseFloat(data.lockup_rate);
                     }
+                    if (data.session_start !== undefined) {
+                        sessionStartTime = data.session_start * 1000;
+                        localStorage.setItem('apxc_session_start', sessionStartTime.toString());
+                    }
                 }
             } catch (e) {}
         }
 
         async function triggerServerStartMining() {
             isMiningActive = true;
+            sessionStartTime = Date.now();
+            localStorage.setItem('apxc_session_start', sessionStartTime.toString());
+
             try {
                 await fetch(`${VPS_API_BASE}/api/start_mining`, {
                     method: 'POST',
@@ -613,7 +637,7 @@
                     body: JSON.stringify({ node_id: minerNodeId, ref_by: "" })
                 });
             } catch(e) {}
-            alert("🚀 Phiên khai thác 24H đang hoạt động và tích lũy số dư trên mạng lưới!");
+            alert("🚀 Phiên khai thác 24H mới đã được khởi tạo thành công trên mạng lưới!");
         }
 
         async function stakeTokensOnServer() {
@@ -699,22 +723,6 @@
             const estApxc = (hours * ratePerHour).toFixed(2);
 
             document.getElementById('calcApxcVal').innerText = `${Number(estApxc).toLocaleString()} APXC`;
-        }
-
-        function startEpochCountdownEngine() {
-            setInterval(() => {
-                if (localRemainingSec > 0) {
-                    localRemainingSec--;
-                    const hours = Math.floor(localRemainingSec / 3600).toString().padStart(2, '0');
-                    const minutes = Math.floor((localRemainingSec % 3600) / 60).toString().padStart(2, '0');
-                    const seconds = Math.floor(localRemainingSec % 60).toString().padStart(2, '0');
-                    
-                    const timerEl = document.getElementById('epochTimer');
-                    if (timerEl) {
-                        timerEl.innerText = hours + ":" + minutes + ":" + seconds;
-                    }
-                }
-            }, 1000);
         }
 
         async function fetchLiveNodeData() {
@@ -808,7 +816,6 @@
             startGlobalSyncEngine();
             updateCalculator();
             updateLockupBoostDisplay();
-            startEpochCountdownEngine();
         };
     </script>
 </body>
