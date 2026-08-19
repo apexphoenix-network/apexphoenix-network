@@ -246,7 +246,7 @@
             <div class="apex-title-gold">ĐỈNH CAO</div>
             <div class="apxc-sub-gold">MẠNG APXC</div>
             <div>
-                <div class="flame-badge">FLAME PHOENIX V24.14 (MULTI-WALLET SELECTOR)</div>
+                <div class="flame-badge">FLAME PHOENIX V24.14 (STRICT SHIELD GUARD)</div>
             </div>
 
             <div class="contract-banner-card">
@@ -465,7 +465,7 @@
         </div>
     </div>
 
-    <!-- MODAL CHỌN LOẠI VÍ (WALLET SELECTOR MODAL) -->
+    <!-- MODAL CHỌN LOẠI VÍ -->
     <div class="modal fade" id="walletSelectorModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-4 border-0 shadow-lg p-3">
@@ -477,8 +477,6 @@
                 </div>
                 <div class="modal-body py-4">
                     <div class="d-flex flex-column gap-3">
-                        
-                        <!-- METAMASK -->
                         <div class="wallet-option-item" onclick="connectSpecificWallet('metamask')">
                             <div class="d-flex align-items-center gap-3">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" alt="MetaMask">
@@ -486,8 +484,6 @@
                             </div>
                             <span class="badge bg-primary-subtle text-primary rounded-pill px-3">Phổ biến</span>
                         </div>
-
-                        <!-- TRUST WALLET -->
                         <div class="wallet-option-item" onclick="connectSpecificWallet('trust')">
                             <div class="d-flex align-items-center gap-3">
                                 <img src="https://trustwallet.com/assets/images/media/assets/trust_platform.svg" alt="Trust Wallet">
@@ -495,8 +491,6 @@
                             </div>
                             <span class="badge bg-success-subtle text-success rounded-pill px-3">Di động</span>
                         </div>
-
-                        <!-- OKX WALLET -->
                         <div class="wallet-option-item" onclick="connectSpecificWallet('okx')">
                             <div class="d-flex align-items-center gap-3">
                                 <img src="https://static.okx.com/cdn/assets/imgs/221/58249F5A48F3746D.png" alt="OKX Wallet">
@@ -504,8 +498,6 @@
                             </div>
                             <span class="badge bg-warning-subtle text-warning rounded-pill px-3">Hỗ trợ nhanh</span>
                         </div>
-
-                        <!-- BROWSER INJECTED / GENERAL WEB3 -->
                         <div class="wallet-option-item" onclick="connectSpecificWallet('injected')">
                             <div class="d-flex align-items-center gap-3">
                                 <i class="fa-solid fa-globe text-secondary fs-3 px-1"></i>
@@ -513,7 +505,6 @@
                             </div>
                             <span class="badge bg-secondary-subtle text-secondary rounded-pill px-3">Auto</span>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -533,12 +524,12 @@
                 <div class="modal-body p-4">
                     <div class="p-3 bg-light rounded-3 border mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                            <span class="badge bg-success">Phoenix V24.14 Multi-Wallet Modal</span>
+                            <span class="badge bg-success">Phoenix V24.14 Strict Guard Shield</span>
                             <small class="text-muted font-monospace"><i class="fa-regular fa-clock me-1"></i>2026-08-18</small>
                         </div>
-                        <h6 class="fw-bold text-dark mb-1">Interactive Wallet Selector Interface</h6>
+                        <h6 class="fw-bold text-dark mb-1">Strict Wallet Pre-Check Fix</h6>
                         <p class="small text-muted mb-0">
-                            Đã tích hợp bảng chọn trực quan các loại ví phổ biến (MetaMask, Trust Wallet, OKX) khi người dùng bấm kết nối.
+                            Đã vá lỗi bảo mật: Kiểm tra nghiêm ngặt trạng thái ví trước khi kích hoạt bất kỳ tiến trình nào trên giao thức.
                         </p>
                     </div>
                 </div>
@@ -554,7 +545,7 @@
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SCRIPT TÍCH HỢP BẢNG CHỌN VÍ TRỰC QUAN -->
+    <!-- SCRIPT CHÍNH ĐÃ VÁ LỖI BẢO MẬT KIỂM TRA TRẠNG THÁI VÍ -->
     <script>
         const VPS_API_BASE = "https://introduction-accidents-interview-heath.trycloudflare.com";
         const BYPASS_HEADERS = {
@@ -577,7 +568,6 @@
             new bootstrap.Modal(document.getElementById('updatesModal')).show();
         }
 
-        // MỞ BẢNG CHỌN VÍ
         function openWalletSelectorModal() {
             if (!walletModal) {
                 walletModal = new bootstrap.Modal(document.getElementById('walletSelectorModal'));
@@ -585,11 +575,9 @@
             walletModal.show();
         }
 
-        // KẾT NỐI TÙY CHỌN TỪNG LOẠI VÍ
         async function connectSpecificWallet(walletType) {
             if (walletModal) walletModal.hide();
 
-            // Nếu người dùng chọn Trust Wallet trên thiết bị di động nhưng không mở trong app Trust, tạo deep link điều hướng
             if (walletType === 'trust' && !window.ethereum) {
                 const currentUrl = window.location.href.replace(/^https?:\/\//, '');
                 window.location.href = `https://link.trustwallet.com/open_url?coin_id=60&url=https://${currentUrl}`;
@@ -610,7 +598,7 @@
                     alert("❌ Người dùng đã hủy yêu cầu kết nối ví!");
                 }
             } else {
-                alert(`❌ Không tìm thấy môi trường Web3 cho [${walletType.toUpperCase()}]. Vui lòng mở trang web này trực tiếp bên trong trình duyệt dApp của ứng dụng ví cá nhân!`);
+                alert(`❌ Không tìm thấy môi trường Web3 cho [${walletType.toUpperCase()}]. Vui lòng mở trang web này bên trong trình duyệt dApp của ví cá nhân!`);
             }
         }
 
@@ -718,11 +706,14 @@
             } catch (e) {}
         }
 
+        // BẮT BUỘC KIỂM TRA VÍ ĐẦU TIÊN - CHƯA KẾT NỐI SẼ CHẶN NGAY LẬP TỨC
         async function triggerServerStartMining() {
             if (!minerNodeId) {
                 alert("❌ Lỗi bảo mật: Vui lòng kết nối Ví Web3 cá nhân trước khi bắt đầu khai thác!");
-                return openWalletSelectorModal();
+                openWalletSelectorModal();
+                return;
             }
+
             isMiningActive = true;
             sessionStartTime = Date.now();
 
@@ -739,7 +730,8 @@
         async function stakeTokensOnServer() {
             if (!minerNodeId) {
                 alert("❌ Lỗi bảo mật: Vui lòng kết nối Ví Web3 cá nhân trước khi thực hiện Staking!");
-                return openWalletSelectorModal();
+                openWalletSelectorModal();
+                return;
             }
 
             const amountStr = prompt(`Nhập số lượng APXC muốn KHÓA (Số dư thực tế: ${userBalance.toFixed(4)} APXC):`, "100");
@@ -775,7 +767,8 @@
         function claimYield() {
             if (!minerNodeId) {
                 alert("❌ Vui lòng kết nối ví trước khi nhận lãi!");
-                return openWalletSelectorModal();
+                openWalletSelectorModal();
+                return;
             }
             alert("✅ Lợi nhuận Staking đã được cộng vào số dư hệ thống!");
         }
